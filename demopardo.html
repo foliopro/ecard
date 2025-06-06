@@ -164,7 +164,7 @@ body {
 
     
   
-    body { background: #f4f8ff; }
+    body { background: #5fea4d; }
     details summary {
       background: #007bff;
     }
@@ -226,9 +226,28 @@ https://i.ibb.co/nN6Q0qjQ/QR-Jorge-Pardo.png
         </div></div><div class="descargar">
         <button onclick="descargarVCF()">📥 Descargar Contacto</button>
       </div><div class="firma"><p>Desarrollado por <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
   <script>
+    // Abre la primera sección automáticamente
+    document.querySelector('details')?.setAttribute("open", "true");
 
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
 
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
 
     function descargarVCF() {
       const nombre = document.querySelector('h2')?.textContent || 'Contacto';
@@ -253,22 +272,19 @@ END:VCARD`;
       link.click();
     }
 
+    // Exclusividad de secciones tipo details
     document.querySelectorAll('details').forEach(d => {
       d.addEventListener('toggle', function () {
-      if (this.open) {
-        // Cierra los demás
-      document.querySelectorAll('details').forEach(o => {
-        if (o !== this) o.removeAttribute('open');
-        });
-
-        // Hace scroll al inicio de la sección abierta
-        setTimeout(() => {
-        this.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
-  });
-});
-
+        if (this.open) {
+          document.querySelectorAll('details').forEach(o => {
+            if (o !== this) o.removeAttribute('open');
+          });
+          setTimeout(() => {
+            this.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
+        }
+      });
+    });
   </script>
 </body>
 </html>
