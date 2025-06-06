@@ -1,1 +1,611 @@
-codigo
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+    .portada { width: 90%; display: block; margin: 0 auto 10px; border-radius: 8px; }
+    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+        
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+.galeria img, .galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(145deg, #0d6efd, #0a58ca);
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px; /* redondeado solo abajo */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  </style>
+</head>
+<body>
+  
+  <div style="text-align: center; margin-bottom: 15px;">
+  <h1>🚀 FolioPro Generator</h1>
+  <p style="font-size: 1.4rem; color: #555; margin-top: -10px;">
+    <em>Tu marca, tu historia, en un solo folio digital</em>
+  </p>
+</div>
+
+  <p></p>
+  <p>Pega aquí tu contenido etiquetado (#PORTADA, #LOGO, #TITULO, etc.) y luego haz clic en Generar.</p>
+  
+  <div style="text-align: center; margin: 15px 0; font-size: 1rem;">
+  <label for="colorBoton">🎨 Color de los botones de sección:</label>
+  <input type="color" id="colorBoton" value="#007bff" style="margin-right: 20px;">
+
+  <label for="colorFondo">🧾 Color de fondo de la tarjeta:</label>
+  <input type="color" id="colorFondo" value="#f4f8ff">
+  </div>
+
+  <textarea id="entradaDatos" style="font-size: 1.2rem;" placeholder="#PORTADA:\n...\n#LOGO:\n...\n#TITULO:\n...\n#DESCRIPCION:\n...\n#SECCIONES:\n&&...\n#MAPA:\n...\n#UBICACION:\n...\n#REDES:\n...\n#LINK_QR:\n..."></textarea>
+  
+  <button id="btnGenerar" onclick="generarTarjeta()">🎨 Generar Tarjeta</button>
+  <div id="vistaPrevia" style="margin-top:20px;"></div>
+  <pre id="codigoGenerado" style="margin-top:20px;"></pre>
+  <button id="btnCopiar" style="display:none;" onclick="copiarHTML()">📋 Copiar Código HTML</button>
+
+  <script>
+
+
+function aplicarFormato(linea) {
+  return linea
+    .replace(/^### (.*)/g, '<h2>$1</h2>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[(.*?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+}
+
+
+    function generarTarjeta() {
+      const texto = document.getElementById('entradaDatos').value || '';
+      if (!texto.trim()) return alert('Por favor, pega el contenido.');
+      const datos = {};
+
+      const colorBoton = document.getElementById('colorBoton').value;
+      const colorFondo = document.getElementById('colorFondo').value;
+      
+const lineas = texto.split('\n');
+let claveActual = '';
+datos['RAW'] = {}; // para depurar si deseas
+
+for (let linea of lineas) {
+  const match = linea.match(/^#(\w+):\s*(.*)$/);
+  if (match) {
+    claveActual = match[1];
+    datos[claveActual] = match[2] ? match[2].trim() : '';
+  } else if (claveActual) {
+    datos[claveActual] += '\n' + linea;
+  }
+}
+
+      let bodyHTML = '';
+
+      bodyHTML += `
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353" target="_blank" style="color:#007bff; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+`;
+
+    
+      if (datos.PORTADA) bodyHTML += `<img class="portada" src="${datos.PORTADA}" alt="Portada">`;
+      if (datos.LOGO) bodyHTML += `<img class="logo" src="${datos.LOGO}" alt="Logo">`;
+      if (datos.TITULO) bodyHTML += `<div class="titulo-flotante">${datos.TITULO}</div>`;
+      bodyHTML += `<div class="folio-footer">
+      <a href="https://wa.me/573117715353" target="_blank" title="Escríbenos a FolioPro">
+        🚀 By FolioPro
+      </a>
+      </div>`;
+
+      bodyHTML += `<div class="bloque"><h2>${datos.TITULO}</h2></div>`;
+      
+      if (datos.DESCRIPCION) bodyHTML += `<div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">${datos.DESCRIPCION}</p></div>`;
+      if (datos.QUIENES_SOMOS) bodyHTML += `<div class="bloque"><p style="text-align:center;">${datos.QUIENES_SOMOS}</p></div>`;
+
+ if (datos.SECCIONES) {
+ datos.SECCIONES.split(/^&&\s*/m).filter(s => s.trim()).forEach(s => {
+
+    const [titulo, ...cuerpo] = s.trim().split('\n');
+    const content = cuerpo.map(line => {
+      if (/https?:\/\/.+\.(jpg|jpeg|png|gif)/i.test(line)) {
+        return `<img src="${line}" style="width:90%;display:block;margin:10px auto;">`;
+      } else if (/https?:\/\/(www\.)?(youtube\.com|youtu\.be)/i.test(line)) {
+        const videoId = line.split('v=')[1]?.split('&')[0] || line.split('/').pop();
+        return `<iframe width="90%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe>`;
+      }
+      // 🟩 Aquí se aplica el formato enriquecido
+      return `<p>${aplicarFormato(line)}</p>`;
+    }).join('');
+    bodyHTML += `<details><summary>${titulo.trim()}</summary><div class="contenido">${content}</div></details>`;
+  });
+}
+
+
+if (datos.IMAGENES) {
+  const lineas = datos.IMAGENES.split('\n').map(l => l.trim()).filter(l => l);
+  const galeriaImgs = [];
+  let imagenPendiente = null;
+  let recogiendoDescripcion = false;
+  let descripcionActual = [];
+
+  for (let i = 0; i < lineas.length; i++) {
+    const linea = lineas[i];
+
+    if (/^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i.test(linea)) {
+      // Guardamos imagen y activamos modo descripción
+      if (imagenPendiente) {
+        // No tuvo desc anterior, agregar sin descripción
+        galeriaImgs.push(`<img src="${imagenPendiente}" alt="Imagen">`);
+      }
+      imagenPendiente = linea;
+      recogiendoDescripcion = false;
+      descripcionActual = [];
+    } else if (linea.startsWith('&desc:')) {
+      // Vamos a empezar a recoger descripción
+      recogiendoDescripcion = true;
+      descripcionActual = [];
+    } else if (recogiendoDescripcion && imagenPendiente) {
+      descripcionActual.push(linea);
+      // Si estamos en la última línea o lo que sigue es otra imagen, cerramos
+      const siguiente = lineas[i + 1] || '';
+      if (siguiente.startsWith('http') || i === lineas.length - 1) {
+        const descripcion = encodeURIComponent(descripcionActual.join('<br>'));
+        galeriaImgs.push(`<img src="${imagenPendiente}" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('${descripcion}')">`);
+        imagenPendiente = null;
+        recogiendoDescripcion = false;
+      }
+    }
+  }
+
+  // Si quedó una imagen sin descripción al final
+  if (imagenPendiente) {
+    galeriaImgs.push(`<img src="${imagenPendiente}" alt="Imagen">`);
+  }
+
+  if (galeriaImgs.length > 0) {
+    bodyHTML += `
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria">${galeriaImgs.join('')}</div>
+      </div>`;
+  }
+}
+
+
+
+// Galería de Videos
+if (datos.VIDEOS) {
+  const videos = datos.VIDEOS.split('\n').filter(line => line.trim());
+  if (videos.length > 0) {
+    const galeriaVids = videos.map(url => {
+      const videoId = url.includes('youtu')
+        ? (url.split('v=')[1]?.split('&')[0] || url.split('/').pop())
+        : null;
+      return videoId ? `<iframe width="300" height="180" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>` : '';
+    }).join('');
+    bodyHTML += `
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
+        <div class="galeria">${galeriaVids}</div>
+      </div>`;
+  } else {
+    bodyHTML += `
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">No hay videos disponibles.</p>
+      </div>`;
+  }
+}
+
+      
+      if (datos.MAPA) {
+        bodyHTML += `
+          <div class="bloque">
+            <div class="mapa" style="text-align:center;">
+              <iframe src="${datos.MAPA}" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>`;
+      }
+      
+if (datos.UBICACION) {
+  bodyHTML += `<div class="bloque"><div class="contacto ubicacion-line">`;
+
+  datos.UBICACION.split('\n').forEach(line => {
+    line = line.trim();
+    if (!line) return;
+
+    const emailMatch = line.match(/([\w.-]+@[\w.-]+\.\w+)/);
+    const phoneMatch = line.match(/(\+?\d[\d\s\-()]{7,})/);
+
+    if (emailMatch) {
+      const email = emailMatch[1];
+      bodyHTML += `<div><a href="mailto:${email}" style="color:#007bff;text-decoration:underline;">${line}</a></div>`;
+    } else if (phoneMatch) {
+      const numero = phoneMatch[1].replace(/[^\d+]/g, '');
+      bodyHTML += `<div><a href="tel:${numero}" style="color:#007bff;text-decoration:underline;">${line}</a></div>`;
+    } else {
+      bodyHTML += `<div>${line}</div>`;
+    }
+  });
+
+  bodyHTML += `</div></div>`;
+}
+
+
+  if (datos.REDES) {
+    const iconos = {
+      facebook: "https://i.ibb.co/6JJ5FZ1S/IFbook.png",
+      instagram: "https://i.ibb.co/chCqtLkw/IInstagram.png",
+      youtube: "https://i.ibb.co/VYxJpn7X/IYoutube.png",
+      whatsapp: "https://i.ibb.co/bgnHxP1y/IWapp.png",
+      twitter: "https://i.ibb.co/FqfRcjkg/ITwitter.png",
+      linkedin: "https://i.ibb.co/G33VkpGb/ILinkedin.png",
+      tiktok: "https://i.ibb.co/nsy5C1y9/ITiktok.png"
+    };
+
+    const redesArray = datos.REDES.split('\n').map(line => line.trim()).filter(line => line !== '');
+    const redesHTML = [];
+
+    for (let i = 0; i < redesArray.length - 1; i++) {
+      const nombre = redesArray[i].replace(':', '').toLowerCase();
+      const valor = redesArray[i + 1];
+      if (iconos[nombre] && valor) {
+        let url = valor;
+        if (nombre === 'whatsapp' && !valor.startsWith('http')) {
+          url = `https://wa.me/${valor}`;
+        }
+        redesHTML.push(`<a href="${url}" target="_blank"><img src="${iconos[nombre]}" alt="${nombre}" title="${nombre.charAt(0).toUpperCase() + nombre.slice(1)}"></a>`);
+        i++; // Saltamos la siguiente línea que ya fue usada
+      }
+    }
+
+    if (redesHTML.length > 0) {
+      bodyHTML += `<div class="redes-line">${redesHTML.join('')}</div>`;
+    }
+  }
+
+
+      if (datos.LINK_QR) {
+        bodyHTML += `<div class="bloque"><div class="qr" style="text-align:center;">
+          <h3>Escanea para acceder</h3>
+          <img src="${datos.LINK_QR}" alt="Código QR" style="width: 150px; height: auto; border-radius: 12px;">
+        </div></div>`;
+      }
+
+      bodyHTML += `<div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div>`;
+      bodyHTML += `<div class="firma"><p>Desarrollado por <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>`;
+
+      document.getElementById('vistaPrevia').innerHTML = bodyHTML;
+      document.body.style.background = colorFondo;
+      document.querySelectorAll('details summary').forEach(s => {
+      s.style.background = colorBoton;
+      });
+
+	document.querySelectorAll('h2').forEach(h => {
+  	h.style.color = colorBoton;
+	});
+
+
+// *** NUEVA LÍNEA PARA ABRIR LA PRIMERA SECCIÓN ***
+document.querySelector('#vistaPrevia details').open = true;
+
+const fullHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+<meta property="og:title" content="${datos.TITULO || 'Mi Portafolio Digital'}">
+<meta property="og:description" content="${datos.DESCRIPCION || 'Conoce mi perfil profesional con FolioPro'}">
+<meta property="og:image" content="${datos.LOGO || datos.PORTADA || 'https://foliopro.github.io/default-image.jpg'}">
+<meta property="og:url" content="https://foliopro.github.io/ecard/ejemplo.html">
+<meta property="og:type" content="website">
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+  <style>
+    ${document.querySelector('style').textContent}
+    body { background: ${colorFondo}; }
+    details summary {
+      background: ${colorBoton};
+    }
+  </style>
+</head>
+<body>
+  ${bodyHTML}
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Abre la primera sección automáticamente
+    document.querySelector('details')?.setAttribute("open", "true");
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\\+?\\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = \`BEGIN:VCARD
+VERSION:3.0
+FN:\${nombre}
+ORG:\${descripcion}
+TEL:\${tel}
+EMAIL:\${email}
+END:VCARD\`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const primerDetails = document.querySelector('details');
+  if (primerDetails) {
+    primerDetails.setAttribute("open", "true");
+    setTimeout(() => { scrollHabilitado = true; }, 500); // esperar medio segundo
+  }
+});
+
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', function () {
+    if (this.open && scrollHabilitado) {
+      document.querySelectorAll('details').forEach(o => {
+        if (o !== this) o.removeAttribute('open');
+      });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+
+
+  <\/script>
+</body>
+</html>`;
+
+
+
+      const pre = document.getElementById('codigoGenerado');
+      pre.textContent = fullHTML;
+      pre.style.display = 'block';
+      document.getElementById('btnCopiar').style.display = 'inline-block';
+      document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', function () {
+        if (this.open) document.querySelectorAll('details').forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      }));
+    }
+
+    function copiarHTML() {
+      const codigo = document.getElementById('codigoGenerado');
+      navigator.clipboard.writeText(codigo.textContent)
+        .then(() => alert('✅ Código copiado'))
+        .catch(() => alert('❌ Error al copiar'));
+    }
+
+function descargarVCF() {
+  const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+  const descripcion = document.querySelector('.descripcion')?.textContent || '';
+  const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+  const tel = telMatch ? telMatch[0] : '';
+  const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  const email = emailMatch ? emailMatch[0] : '';
+
+  const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+  const blob = new Blob([vcf], { type: 'text/vcard' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'contacto.vcf';
+  link.click();
+}
+
+  </script>
+
+
+<div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999; display:none;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+    <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+  </div>
+</div>
+
+<script>
+  function mostrarDescripcion(texto) {
+    const modal = document.getElementById('modalImagen');
+    const descBox = document.getElementById('descripcionImagen');
+    descBox.innerHTML = decodeURIComponent(texto);
+    modal.style.display = 'block';
+  }
+
+  function cerrarDescripcion() {
+    document.getElementById('modalImagen').style.display = 'none';
+  }
+</script>
+
+
+</body>
+</html>
