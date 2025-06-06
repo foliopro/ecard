@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarjeta</title>
+  <title>FolioPro - Mi Portafolio Digital</title>
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
   <style>
     
@@ -164,7 +164,7 @@ body {
 
     
   
-    body { background: #5fea4d; }
+    body { background: #7ee77e; }
     details summary {
       background: #007bff;
     }
@@ -274,17 +274,19 @@ END:VCARD`;
 
     // Exclusividad de secciones tipo details
     document.querySelectorAll('details').forEach(d => {
-      d.addEventListener('toggle', function () {
-        if (this.open) {
-          document.querySelectorAll('details').forEach(o => {
-            if (o !== this) o.removeAttribute('open');
-          });
-          setTimeout(() => {
-            this.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 100);
-        }
+  d.addEventListener('toggle', function (e) {
+    if (this.open && e.isTrusted) {  // Solo si el usuario lo abrió manualmente
+      document.querySelectorAll('details').forEach(o => {
+        if (o !== this) o.removeAttribute('open');
       });
-    });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+
   </script>
 </body>
 </html>
