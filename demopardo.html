@@ -164,7 +164,7 @@ body {
 
     
   
-    body { background: #7ee77e; }
+    body { background: #61f586; }
     details summary {
       background: #007bff;
     }
@@ -273,9 +273,20 @@ END:VCARD`;
     }
 
     // Exclusividad de secciones tipo details
-    document.querySelectorAll('details').forEach(d => {
-  d.addEventListener('toggle', function (e) {
-    if (this.open && e.isTrusted) {  // Solo si el usuario lo abrió manualmente
+
+    let scrollHabilitado = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const primerDetails = document.querySelector('details');
+  if (primerDetails) {
+    primerDetails.setAttribute("open", "true");
+    setTimeout(() => { scrollHabilitado = true; }, 500); // esperar medio segundo
+  }
+});
+
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', function () {
+    if (this.open && scrollHabilitado) {
       document.querySelectorAll('details').forEach(o => {
         if (o !== this) o.removeAttribute('open');
       });
@@ -285,6 +296,7 @@ END:VCARD`;
     }
   });
 });
+
 
 
   </script>
