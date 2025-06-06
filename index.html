@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acceso a FolioPro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .contenedor {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #222;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h2>Acceso</h2>
+    <form id="formAcceso">
+      <label for="inputLicencia">Número de Licencia</label>
+      <input type="text" id="inputLicencia" placeholder="Ej: 10125062" required>
+
+      <label for="inputToken">Contraseña de acceso</label>
+      <input type="password" id="inputToken" placeholder="Ej: 6780" required>
+
+      <button type="submit">Ingresar</button>
+      <p id="mensajeError" class="error"></p>
+    </form>
+  </div>
+
+  <script>
+    const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-dErTOoM6hp4v3mGprNd4vO_YwI8jeb8CdG6LxrMmu-7nfbIDstMVu1g34-mn_0BMrOA_Vfo8fGlN/pub?gid=1833644192&single=true&output=csv";
+
+    const form = document.getElementById('formAcceso');
+    const msg = document.getElementById('mensajeError');
+    const maxIntentos = 3;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const licencia = document.getElementById('inputLicencia').value.trim();
+      const token = document.getElementById('inputToken').value.trim();
+
+      const bloqueado = localStorage.getItem('bloqueadoHasta');
+      if (bloqueado && new Date() < new Date(bloqueado)) {
+        const restante = Math.ceil((new Date(bloqueado) - new Date()) / 60000);
+        msg.textContent = `Has superado los intentos. Intenta en ${restante} min.`;
+        return;
+      }
+
+      const respuesta = await fetch(urlCSV);
+      const texto = await respuesta.text();
+      const lineas = texto.trim().split('\n');
+      const encabezados = lineas[0].split(',');
+
+      const registros = lineas.slice(1).map(l => {
+        const campos = l.split(',');
+        return Object.fromEntries(encabezados.map((h, i) => [h.trim(), campos[i]?.trim() || ""]));
+      });
+
+      const usuario = registros.find(u => u.NIT === licencia && u.LICENCIA === token);
+
+      if (!usuario) {
+        let intentos = Number(localStorage.getItem('intentos')) || 0;
+        intentos++;
+        if (intentos >= maxIntentos) {
+          const desbloqueo = new Date(Date.now() + 60 * 60 * 1000); // 1 hora
+          localStorage.setItem('bloqueadoHasta', desbloqueo);
+          msg.textContent = "Demasiados intentos. Intenta en 1 hora.";
+        } else {
+          localStorage.setItem('intentos', intentos);
+          msg.textContent = `Credenciales inválidas. Te quedan ${maxIntentos - intentos} intentos.`;
+        }
+        return;
+      }
+
+      localStorage.removeItem('intentos');
+      localStorage.removeItem('bloqueadoHasta');
+
+      const hoy = new Date();
+      const vencimiento = new Date(usuario.A);
+      if (vencimiento < hoy) {
+        msg.innerHTML = `⛔ Licencia vencida.<br><a href="https://wa.me/573117715353?text=Hola,+mi+licencia+ha+vencido+y+necesito+renovarla" target="_blank">Renovar vía WhatsApp</a>`;
+        return;
+      }
+
+      // Guardar en localStorage
+      for (const clave of ['NOMBRE','NIT','NWHATSAPP','NOMUSUARIO','FECHA','CODIGO','ESTADO','VECES','LICENCIA','A','B','C','D','TIPOUSUARIO']) {
+        localStorage.setItem(clave, usuario[clave] || '');
+      }
+
+      const hora = new Date().getHours();
+      const saludo = hora < 12 ? "Buenos días" : hora < 18 ? "Buenas tardes" : "Buenas noches";
+      const nombre = usuario.NOMBRE || 'Usuario';
+      msg.style.color = "green";
+      msg.textContent = `${saludo}, ${nombre}. Bienvenido a FolioPro`;
+
+      setTimeout(() => {
+        window.location.href = "builder.html";
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
