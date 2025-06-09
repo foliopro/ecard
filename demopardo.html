@@ -175,10 +175,41 @@ body {
 
     
   
-    body { background: #c6f448; }
+    body { background: #4ff85a; }
     details summary {
-      background: #007bff;
+      background: #6a2a78;
     }
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+}
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+
   </style>
 </head>
 <body>
@@ -215,7 +246,7 @@ Bienvenid@s
       <div class="bloque">
         <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
         <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
-        <div class="galeria"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/d3dbc1fb-4720-4a07-953f-f6f69e733786-medium.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('Viaje%20a%20las%20Bahamas.%3Cbr%3EViaje%20de%20noche%3Cbr%3EValor%20%242.000.000%3D')"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/c43235ee-9dee-433f-9fcc-5a82cebe26d4-medium.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('Meditacion%20en%20el%20mediterraneo%3Cbr%3EEs%20algo%20increible%3Cbr%3EValor%20%24550.000%3D')"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/2c0d9bcd-7574-4c97-9c6d-ad597baba862-medium.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('Viaje%20al%20Ecuador%3Cbr%3E%24%20500.000%3D')"></div>
+        <div class="galeria"><img src="https://i.ibb.co/zMYS0w5/GAL0103.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('Meditacion%20grupal00%3D')"><img src="https://i.ibb.co/351DQHdv/GAL0102.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('Jorge%20Pardo')"><img src="https://i.ibb.co/Ldwxytsf/GAL0101.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('Coaching%20personal%20y%20grupal')"><img src="https://i.ibb.co/PvFqyd6q/gal03.jpg" alt="Imagen"><img src="https://i.ibb.co/qTH0cGL/gal01.jpg" alt="Imagen"></div>
       </div>
       <div class="bloque">
         <h3 style="text-align:center;">🎥 Galería de Videos</h3>
