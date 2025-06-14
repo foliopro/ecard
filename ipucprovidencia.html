@@ -1,1 +1,365 @@
-escribir codigo aqui
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+<meta property="og:title" content="
+IPUC PROVIENCIA ARMENIA
+">
+<meta property="og:description" content="
+Entrenador en Gerencia de Vida
+">
+<meta property="og:image" content="
+https://i.ibb.co/BHfrR4bS/logo.png
+">
+<meta property="og:url" content="https://foliopro.github.io/ecard/ejemplo.html">
+<meta property="og:type" content="website">
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+  <style>
+    
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+    .portada { width: 90%; display: block; margin: 0 auto 10px; border-radius: 8px; }
+    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+        
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+.galeria img, .galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(145deg, #0d6efd, #0a58ca);
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px; /* redondeado solo abajo */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  
+    body { background: #f4f8ff; }
+    details summary {
+      background: #643771;
+    }
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: #643771
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+}
+
+.titulo-flotante,
+h2 {
+  color: rgb(100, 55, 113);
+}
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+
+  </style>
+</head>
+<body>
+  function abrirSubmenu
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353" target="_blank" style="color:#007bff; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+<img class="portada" src="
+https://i.ibb.co/x87tnV00/Portada.png
+" alt="Portada"><img class="logo" src="
+https://i.ibb.co/BHfrR4bS/logo.png
+" alt="Logo"><div class="titulo-flotante">
+IPUC PROVIENCIA ARMENIA
+</div><div class="folio-footer">
+      <a href="https://wa.me/573117715353" target="_blank" title="Escríbenos a FolioPro">
+        🚀 By FolioPro
+      </a>
+      </div><div class="bloque"><h2>
+IPUC PROVIENCIA ARMENIA
+</h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">
+Entrenador en Gerencia de Vida
+</p></div><div class="bloque"><p style="text-align:center;">
+Aunque todo parezca normal, muchos viven con cargas invisibles: problemas en casa, soledad, ansiedad o un vacío que nada llena. Este documento te ofrece apoyo real y caminos posibles. No estás solo. Aquí puedes encontrar soluciones, orientación… y algo más grande que tal vez aún no has descubierto.
+<br>Bienvenido
+
+</p></div><details><summary>ESTUDIOS REALIZADOS</summary><div class="contenido"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/2503886e-e8e6-4e34-ad87-8a32762e387f-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">FORMACION PROFESIONAL:</p></p><p>Universidad de Manizales</p><p>- Contaduría Pública</p><p>Universidad Santiago de Cali</p><p>- Especialización en Revisoría Fiscal y Auditoría</p><p>Universidad Cooperativa Internacional - UNICINTER</p><p>- Diplomado en Administración</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/8bfa8270-2485-4f24-ad61-a9fab232a3fe-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Future Achievement International - Sistema OPTIMIZARE</p><p>- Coach LMC - Management Life Coach</p><p>- Entrenador en Gerencia de Vida</p><p>Interntational Coaching Leadership - ICL</p><p>- Certificación Internacional en Coaching y Liderazgo</p><p>- Líder Facilitador Profesional en Coaching - LFPC</p><p>Instituto Internacional de Liderazgo - INILID</p><p>- Formación Profesional en Coaching Ejecutivo y de Equipos</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/433eaf04-74c2-4d7c-88ab-ded151b8dce8-medium.jpg" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>EXPERIENCIA PROFESIONAL</summary><div class="contenido"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/b926887a-43eb-4c0f-a278-9409837e3dad-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p><span style="font-style:italic;">Actividad ProfesionalActividad Profesional</span></p><p>- Asesoría, Consultoría, Auditoría y Revisoría Fiscal</p><p>- Entrenador y Docente en Escuelas Certificadoras de Coaching</p><p>- Coach en Programas de Coaching Personal, Ejecutivo y Equipos</p><p>- Capacitador en Programas de Desarrollo Personal y Profesional</p><p>- Mentor Coach en Programas de Liderazgo y Emprendimiento</p><p>- Diseño y Estructuración de Programas de entrenamiento individual y colectivo</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/bbb03e27-d38e-4711-97e9-81527bab9dbd-medium.jpg" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>PARTICIPACIÓN EN PROYECTOS</summary><div class="contenido"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/f17792d5-7dd3-4d3e-b9fd-82ba7847848c-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p><span style="font-style:italic;">Programa HABILEX</span></p><p>- Instituto Internacional de Liderazgo INILID</p><p>- Entrenador Coach y Mentor en el programa: Habilidades y Excelencia para el Desarrollo Personal y Empresarial</p><p><span style="font-style:italic;">Organización Kultura Solidaria</span></p><p>- Consultor, capacitador y coach en programas de entrenamiento y formación en empresas del sector solidario</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/646e8594-418a-4185-9e0b-ba7a7fce5a7b-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p><span style="font-style:italic;">Future Achievement International - Convenio INILID</span></p><p>- Programas de coaching personal y desarrollo de liderazgo - Sistema OPTIMIZARE</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/0eb2afb2-947b-4c22-9644-d251be38add3-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Asociación Colombiana de Agencias de Viajes y Turismo - ANATO</p><p>- Coach y docente en el Diplomado Internacional E-Coach Commerce para Agencias de Viajes</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/d5a2ccb2-1e7d-4b81-af19-20df86427108-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>International Coaching Leadership - ICL</p><p>- Director Académico y Docente Formador en los programas de Certificación Internacional de Coaching y Liderazgo con ICL Colombia, Ecuador y Estados Unidos</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/08430e81-f470-46f6-a8b1-752f400050a1-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">Participación en otros Proyectos:</p></p><p>== Participación en Otros Proyectos:</p><p>Ministerio de Defensa Nacional - Fuerza Aérea Colombiana FAC</p><p>- Coach en Jornadas de Coaching, Liderazgo Militar y Congreso de Valores</p><p>Success Path - Networking Training - Universidad Morinda</p><p>- Formación Equipos de Alto Desempeño Ecuador, Perú, Brasil, Chile, México y EEUU</p><p>Organización Integral Coaching</p><p>- Docente y Entrenador en Programas Organizacionales, Coaching Ejecutivo y Equipos</p><p>Escuela LIVING en Convenio Universidad Nacional Sede Manizales</p><p>- Docente Entrenador Módulos de Competencias de Coaching Personal y Equipos</p><p>Escuela de Liderazgo "Impactando Vidas" - Annie Calderón</p><p>- Docente y mentor en la creación y desarrollo programas de liderazgo y desarrollo personal</p><p>Asociación Internacional de Coaching - ASOCOACHING</p><p>- Miembro Fundador - Integrante Junta Directiva y Comités Regionales</p><iframe width="90%" height="315" src="https://www.youtube.com/embed/kcQv2MdNgSg" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe></div></details><details><summary>ESTRUCTURA MISIONAL</summary><div class="contenido"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/2c0d9bcd-7574-4c97-9c6d-ad597baba862-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">Misión</p></p><p>- Ayudar a Generar Consciencia</p><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">Visión</p></p><p>- Un Mundo Mejor</p><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">Valores</p></p><p>- Honestidad</p><p>- Respeto</p><p>- Excelencia</p><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">Principios</p></p><p>- Amor sin Limites</p><p>- Gratitud Permanente</p><p>- Felicidad Constante</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/262e901b-b1de-4f74-8fbe-a007a92aab79-medium.jpg" style="width:90%;display:block;margin:10px auto;"><iframe width="90%" height="315" src="https://www.youtube.com/embed/Fqna96OQcOs" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe></div></details><details><summary>RESPALDO INSTITUCIONAL</summary><div class="contenido"><p>Los programas cuentan con el respaldo del Instituto Internacional de Liderazgo - INILD, entidad especializada en el desarrollo y ejecución de programas de formación y capacitación, orientada al desarrollo personal y la gestión empresarial desde la óptica del liderazgo y el coaching.</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/aa41a3de-dc0d-4ec2-9db2-51bf1053fed4-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>De igual forma, en el diseño y estructuración de Programas de Entrenamiento individual y colectivo, se cuenta con el respaldo institucional de la Escuela de Coaching:</p><p>International Coaching Leadership - ICL</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/d4a0c3a7-e8c1-4163-b846-3294d372233f-medium.jpg" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>OFERTA DE PROGRAMAS</summary><div class="contenido"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/ce5eb7d8-9613-44d1-a3cd-8410be8e8438-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Oferta de Programas</p><p>Con el tiempo he ido construyendo una serie de programas especializados en diferentes temáticas de Liderazgo, Coaching, Desarrollo Personal y Trabajo en Equipos de Alto Desempeño.</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/6dd572c6-1dec-4d64-9845-933234960ae7-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Programas de Asesoría y Consultoría Empresarial.</p><p>Creación de estructuras para el manejo de las Finanzas Personales y el desarrollo de la Inteligencia Financiera, bajo la metodología de Coaching.</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/c43235ee-9dee-433f-9fcc-5a82cebe26d4-medium.jpg" style="width:90%;display:block;margin:10px auto;"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/ec47c5ac-adac-4cb4-ac43-c930484aa909-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Desarrollo de Habilidades y Competencias Personales y Profesionales</p><p>Proceso de acompañamiento especializado para potencializar las habilidades y competencias de liderazgo necesarias para el desarrollo personal y el ejercicio profesional.</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/ec47c5ac-adac-4cb4-ac43-c930484aa909-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Liderazgo para el Emprendimiento</p><p>Programa de mentoría y acompañamiento a través del cual se fortalecen habilidades y competencias de liderazgo para el emprendimiento individual o colectivo.</p><p>Se busca promover un liderazgo transformador y efectivo que empodere a los participantes en su rol de emprendedores.</p><p>Desarrollo del Perfil Profesional, Estructura Misional y Love Mark</p><p>Aplicaciones de herramientas tecnológicas para el emprendimiento.</p><iframe width="90%" height="315" src="https://www.youtube.com/embed/1NhuC6LHNgE" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/d3dbc1fb-4720-4a07-953f-f6f69e733786-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Técnicas, ejercicios y propuestas para el buen manejo y control del estrés.</p><p>Desarrollo de habilidades en Inteligencia Emocional, Inteligencia Relacional y Comunicación.</p><p>Prácticas y ejercicios de respiración, relajación, meditación, visualización y mindfulness.</p><iframe width="90%" height="315" src="https://www.youtube.com/embed/_ajg2TCbab8" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe><p>Desarrollo de Habilidades, Estrategias de Liderazgo y Trabajo en Equipo</p><p>Acompañamiento individual o grupal con herramientas de coaching y mentoring, donde los participantes diseñan sus hojas de ruta de aprendizajes y prácticas para desempeñarse hábilmente en su actividad personal y ejercicio profesional.</p><p>Estrategias para gestionar mejores estilos de liderazgo y comunicación.</p><p>Gestión de un liderazgo de INFLUENCIA, INSPIRACIÓN y COHERENCIA bajo el concepto de la Molécula de Liderazgo.</p><p>Incremento de la capacidad de trabajo en equipo y la creación de pensamiento colectivo.</p><p>Descubra los Rasgos de los Grandes Líderes</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/5c5f008a-8c76-4c05-946b-d3c8058be024-medium.jpg" style="width:90%;display:block;margin:10px auto;"><iframe width="90%" height="315" src="https://www.youtube.com/embed/QUmhy0ZixKQ" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe><p>Modelo de Calidad y Excelencia para la gestión de Proyectos de Vida</p><p>Implementación de un modelo de calidad y excelencia para el desarrollo personal y profesional fundamentado en la construcción del proyecto de vida.</p><p>Motivadores e indicadores de éxito personal y profesional.</p><p>Diagnóstico patrones de conducta, estilos de personalidad y desempeño profesional.</p><p>Implementación de rutinas, anclas y programaciones desde la Neurolinguistica.</p><p>Estructura línea de vida, diseño estructura misional, identificación de propósito y construcción de futuro.</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/e7a32ba7-69ca-4362-b010-47feec9978ec-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>Outdoor Training - Team Building</p><p>Comunicación y Trabajo en Equipo</p><p>Se desarrolla mediante el acompañamiento personal de Mentores Coaches Certificados, quienes en conjunto con los participantes diseñan las hojas de rutas de aprendizaje y desarrollo de habilidades.</p><p>Creación de acuerdos efectivos y visión conjunta.</p><p>Patrones de conducta - Modelos DISC Comunicación y Liderazgo.</p><p>Comunicación asertiva, creación de nuevos hábitos y programaciones con PNL.</p><p>Mejoramiento del desempeño.</p><p>Resultados Vrs Interferencias.</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/ada53e8c-e741-4497-b563-4ab261306106-medium.jpg" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>TEST MODELOS DISC</summary><div class="contenido"><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/4e7983fe-d331-443c-8a86-19bf928b082e-medium.jpg" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>+ INFORMACIÓN</summary><div class="contenido"><p>Le invito a conocer más sobre mis programas y la forma en la que puede participar</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/64ae5ca2-6676-41d5-a033-ba39d6b5d0fe-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>¡Estás invitado a un delicioso</p><p>Café de la Región!</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/9a5d6910-55a7-41da-aa75-efabe5ff1736-medium.jpg" style="width:90%;display:block;margin:10px auto;"><p>¡Aquí en el Eje Cafetero de Colombia, donde todo se conversa con un delicioso Café de la Región!</p><img src="https://tarjetasweb2-6838.kxcdn.com/archivos/dcfbed16-8f99-42b3-a576-39a5f584d60d-medium.jpg" style="width:90%;display:block;margin:10px auto;"></div></details>
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria"><img src="https://i.ibb.co/zMYS0w5/GAL0103.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%26desc%3A')"><img src="https://i.ibb.co/351DQHdv/GAL0102.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%26desc%3A')"><img src="https://i.ibb.co/Ldwxytsf/GAL0101.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%26desc%3A')"><img src="https://i.ibb.co/PvFqyd6q/gal03.jpg" alt="Imagen"><img src="https://i.ibb.co/qTH0cGL/gal01.jpg" alt="Imagen"></div>
+      </div>
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
+        <div class="galeria"><iframe width="300" height="180" src="https://www.youtube.com/embed/1NhuC6LHNgE" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/_ajg2TCbab8" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/QUmhy0ZixKQ" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+          <div class="bloque">
+            <div class="mapa" style="text-align:center;">
+              <iframe src="
+https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d508940.0546962484!2d-75.51918789704222!3d4.753661538809265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e38f5ade6653bc1%3A0xc2c6ca4ab95d8808!2sArmenia%2C%20Quind%C3%ADo!5e0!3m2!1ses-419!2sco!4v1748525654510!5m2!1ses-419!2sco
+
+https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.2401081561134!2d-75.66291502592848!3d4.550767942940982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e38f4fb4bc167c7%3A0xdb5624470f32e893!2sCl.%2010%20Nte.%20%2315-30%2C%20Armenia%2C%20Quind%C3%ADo!5e0!3m2!1ses-419!2sco!4v1749923277871!5m2!1ses-419!2sco
+" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Calle 10 Norte Providencia, No 15-30</div><div><a href="mailto:ipucproviencia@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: ipucproviencia@gmail.com</a></div><div><a href="tel:+573117715353" style="color:#007bff;text-decoration:underline;">📲 Celular: +573117715353</a></div></div></div><div class="redes-line"><a href="https://www.facebook.com/search/top?q=ipucprovidencia&locale=es_LA" target="_blank"><img src="https://i.ibb.co/6JJ5FZ1S/IFbook.png" alt="facebook" title="Facebook"></a></div><div class="bloque"><div class="qr" style="text-align:center;">
+          <h3>Escanea para acceder</h3>
+          <img src="
+https://i.ibb.co/nM2YHmqK/QR-Ipuc-Proviencia.png
+
+
+" alt="Código QR" style="width: 150px; height: auto; border-radius: 12px;">
+        </div></div><div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div><div class="firma"><p>Desarrollado por <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Abre la primera sección automáticamente
+    document.querySelector('details')?.setAttribute("open", "true");
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const primerDetails = document.querySelector('details');
+  if (primerDetails) {
+    primerDetails.setAttribute("open", "true");
+    setTimeout(() => { scrollHabilitado = true; }, 500); // esperar medio segundo
+  }
+});
+
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', function () {
+    if (this.open && scrollHabilitado) {
+      document.querySelectorAll('details').forEach(o => {
+        if (o !== this) o.removeAttribute('open');
+      });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+
+
+  </script>
+</body>
+</html>
