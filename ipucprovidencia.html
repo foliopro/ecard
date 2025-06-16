@@ -147,13 +147,25 @@ details[open] .contenido {
   gap: 12px;
   padding: 10px;
 }
-.galeria img, .galeria iframe {
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
   flex: 0 0 auto;
   width: 90%;
   max-width: 300px;
   border-radius: 10px;
   scroll-snap-align: center;
 }
+
 .galeria::-webkit-scrollbar {
   height: 8px;
 }
