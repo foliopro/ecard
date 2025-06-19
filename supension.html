@@ -264,7 +264,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: #643771;  color: white;
+  background: linear-gradient(145deg, #0d6efd, #0a58ca);
+  color: white;
   font-family: 'Georgia', serif;
   font-size: clamp(1.2rem, 4vw, 1.4rem);
   font-weight: bold;
@@ -281,8 +282,10 @@ body {
 
 
 
-    body { 
-  background: #f4f8ff; 
+
+
+    body {
+  background: rgb(253,197,14);
 }
 
 
@@ -293,7 +296,7 @@ details {
 }
 
 details summary {
-  background: #643771;
+  background: rgb(8,53,95);
   color: white;
   text-align: left; /* 👈 Lo cambiamos a left */
   text-transform: uppercase;
@@ -319,31 +322,6 @@ details[open] summary {
 details summary::-webkit-details-marker {
   display: none;
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url() center/contain no-repeat;
-  opacity: 0.05;
-  z-index: 0;
-  pointer-events: none;
-}
-body > * {
-  position: relative;
-  z-index: 1;
-}
-
-
-
-
-
-
-
-
 
 
   </style>
@@ -377,7 +355,7 @@ Si estás cerca de pensionarte y no sabes cómo será tu mesada, podrías estar 
         display:inline-block;
         width:80%;
         max-width:400px;
-        background:#643771;
+        background:rgb(8,53,95);
         color:white;
         padding:14px 20px;
         border-radius:10px;
@@ -497,6 +475,7 @@ document.querySelectorAll('details').forEach(d => {
     }
   });
 });
+
 
 
 
