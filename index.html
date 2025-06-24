@@ -63,46 +63,58 @@
     </form>
   </div>
 
-  <script>
-    let intentos = 0;
-    const maxIntentos = 3;
+<script>
+  let intentos = 0;
+  const maxIntentos = 3;
 
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const usuario = document.getElementById('usuario').value.trim().toLowerCase();
-      const password = document.getElementById('password').value.trim();
+    const usuario = document.getElementById('usuario').value.trim().toLowerCase();
+    const password = document.getElementById('password').value.trim();
+    const mensaje = document.getElementById('mensaje');
+    mensaje.textContent = 'Validando...';
 
-      const mensaje = document.getElementById('mensaje');
-      mensaje.textContent = 'Validando...';
+    try {
+      const respuesta = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRP_l4auFTuNVOiCrCyDQr-PEjqAkNx4y180n2h8bRtZYwYEfqirwlduWB2sVC5Tcv96DIUnB5xsvj7/pub?output=csv');
+      const texto = await respuesta.text();
+      const lineas = texto.split('\n').slice(1); // Ignora encabezados
+      const hoy = new Date();
 
-      try {
-        const respuesta = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRP_l4auFTuNVOiCrCyDQr-PEjqAkNx4y180n2h8bRtZYwYEfqirwlduWB2sVC5Tcv96DIUnB5xsvj7/pub?output=csv');
-        const texto = await respuesta.text();
-        const lineas = texto.split('\n').slice(1); // saltar encabezados
+      const encontrado = lineas.find(linea => {
+        const [cliente, user, pass] = linea.split(',');
+        return user.trim().toLowerCase() === usuario && pass.trim() === password;
+      });
 
-        const hoy = new Date();
-        const encontrado = lineas.find(linea => {
-          const [cliente, user, pass, finicial, ffinal] = linea.split(',');
-          return user.trim().toLowerCase() === usuario && pass.trim() === password && new Date(ffinal) >= hoy;
-        });
+      if (encontrado) {
+        const [cliente, user, pass, finicial, ffinal, email, whatsapp, nivel, licMax] = encontrado.split(',');
+        const fechaFinal = new Date(ffinal.trim());
 
-        if (encontrado) {
-          localStorage.setItem('nombreTarjeta', usuario);
-          window.location.href = `https://foliopro.github.io/ecard/${usuario}002.html`;
+        if (fechaFinal >= hoy) {
+          // Guardar usuario y licencias en localStorage
+          localStorage.setItem('Usuario', user.trim().toLowerCase());
+          localStorage.setItem('Lic_Maximas', licMax.trim());
+
+          // Redirigir al generador (builder)
+          window.location.href = 'https://foliopro.github.io/ecard/builder.html';
         } else {
-          intentos++;
-          if (intentos >= maxIntentos) {
-            document.body.innerHTML = '<h1 style="text-align:center; margin-top:20%; color:red;">Has superado los intentos permitidos. Intenta más tarde.</h1>';
-          } else {
-            mensaje.textContent = `Intento ${intentos} de ${maxIntentos}. Usuario o licencia no válidos.`;
-          }
+          mensaje.textContent = '⚠️ La licencia ha vencido. Contacta con soporte para renovarla.';
         }
-      } catch (error) {
-        mensaje.textContent = 'Error al validar. Intenta nuevamente.';
-        console.error(error);
+
+      } else {
+        intentos++;
+        if (intentos >= maxIntentos) {
+          document.body.innerHTML = '<h1 style="text-align:center; margin-top:20%; color:red;">Has superado los intentos permitidos. Intenta más tarde.</h1>';
+        } else {
+          mensaje.textContent = `Intento ${intentos} de ${maxIntentos}. Usuario o contraseña incorrectos.`;
+        }
       }
-    });
-  </script>
+
+    } catch (error) {
+      mensaje.textContent = '❌ Error al validar. Intenta nuevamente.';
+      console.error(error);
+    }
+  });
+</script>
 </body>
 </html>
