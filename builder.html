@@ -1059,8 +1059,8 @@ async function subirAGitHub() {
   const repositorio = 'ecard';
   const carpeta = ''; // raíz
 
-  let nombreBase = localStorage.getItem('Usuario')?.toLowerCase() || 'folio';
-
+  const nombreBase = localStorage.getItem('Usuario')?.toLowerCase() || 'folio';
+  const licMax = parseInt(localStorage.getItem('Lic_Maximas')) || 3;
 
   try {
     const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
@@ -1068,11 +1068,18 @@ async function subirAGitHub() {
     });
 
     const archivos = await respuesta.json();
+
+    // 🔍 Validación: ¿es un array?
+    if (!Array.isArray(archivos)) {
+      console.error('❌ La respuesta no es un array:', archivos);
+      return alert('❌ No se pudieron obtener los archivos. Revisa el token o la conexión.');
+    }
+
     const existentes = archivos.filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'));
     const numeroActual = existentes.length;
 
-    if (numeroActual >= 3) {
-      return alert(`❌ Ya has alcanzado el límite de 3 FolioPro.\nPor favor, adquiere una nueva licencia.`);
+    if (numeroActual >= licMax) {
+      return alert(`❌ Ya has alcanzado el límite de ${licMax} FolioPro.\nPor favor, adquiere una nueva licencia.`);
     }
 
     const siguiente = numeroActual + 1;
@@ -1102,12 +1109,9 @@ async function subirAGitHub() {
     }
 
     const linkFinal = `https://${usuario}.github.io/${repositorio}/${nombreFinal}`;
-
-    // 🟢 COPIAR LINK AL PORTAPAPELES
     await navigator.clipboard.writeText(linkFinal);
 
     alert(`✅ FolioPro subido con éxito\n\n📄 Llevas ${siguiente} FolioPro\n🔗 Link: ${linkFinal}\n\n📋 ¡El enlace fue copiado al portapapeles!`);
-
     window.open(linkFinal, '_blank');
 
   } catch (error) {
