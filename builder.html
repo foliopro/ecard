@@ -26,8 +26,29 @@ button:hover {
   background: #0056b3;
 }
 
-    .portada { width: 90%; display: block; margin: 0 auto 10px; border-radius: 8px; }
-    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+.portada {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.logo {
+  width: 18%;
+  max-width: 140px;
+  min-width: 60px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: -50px auto 10px;
+  border: 4px solid #fff;
+  background: #fff;
+}
+
+//    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+
     h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
     
     h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
@@ -37,7 +58,55 @@ button:hover {
     details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
     details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
 
-        
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+
+
     .contenido {
       padding: 15px;
       background: #fff;
@@ -90,13 +159,25 @@ details[open] .contenido {
   gap: 12px;
   padding: 10px;
 }
-.galeria img, .galeria iframe {
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
   flex: 0 0 auto;
   width: 90%;
   max-width: 300px;
   border-radius: 10px;
   scroll-snap-align: center;
 }
+
 .galeria::-webkit-scrollbar {
   height: 8px;
 }
@@ -181,7 +262,7 @@ body {
   
   <div style="text-align: center; margin: 15px 0; font-size: 1rem;">
   <label for="colorBoton">🎨 Color de los botones de sección:</label>
-  <input type="color" id="colorBoton" value="#007bff" style="margin-right: 20px;">
+  <input type="color" id="colorBoton" value="#643771" style="margin-right: 20px;">
 
   <label for="colorFondo">🧾 Color de fondo de la tarjeta:</label>
   <input type="color" id="colorFondo" value="#f4f8ff">
@@ -189,33 +270,119 @@ body {
 
   <textarea id="entradaDatos" style="font-size: 1.2rem;" placeholder="#PORTADA:\n...\n#LOGO:\n...\n#TITULO:\n...\n#DESCRIPCION:\n...\n#SECCIONES:\n&&...\n#MAPA:\n...\n#UBICACION:\n...\n#REDES:\n...\n#LINK_QR:\n..."></textarea>
   
+<div style="margin: 12px 0;">
+  <label for="archivoTxt" style="font-weight:bold;">📂 Cargar archivo .txt</label><br>
+  <input type="file" id="archivoTxt" accept=".txt">
+</div>
+
   <button id="btnGenerar" onclick="generarTarjeta()">🎨 Generar Tarjeta</button>
+  <button id="btnBorrarGitHub" onclick="mostrarOpcionesBorrado()">🗑 Borrar FolioPro</button>
+  <button id="btnConsultarFolios" onclick="consultarFolios()">🔍 Consultar FolioPros</button>
+
   <div id="vistaPrevia" style="margin-top:20px;"></div>
   <pre id="codigoGenerado" style="margin-top:20px;"></pre>
-  <button id="btnCopiar" style="display:none;" onclick="copiarHTML()">📋 Copiar Código HTML</button>
+
+<button id="btnCopiar" style="display:none;" onclick="copiarHTML()">📋 Copiar Código HTML</button>
+<button onclick="descargarArchivoHTML()" style="display:none;">💾 Descargar archivo HTML</button>
+<button id="btnSubirGitHub" style="display:none;" onclick="subirAGitHub()">🚀 Subir a GitHub</button>
+<button id="btnReemplazarGitHub" style="display:none;" onclick="mostrarOpcionesReemplazo()">🛠 Reemplazar FolioPro</button>
 
   <script>
 
 
-function aplicarFormato(linea) {
-  return linea
-    .replace(/^### (.*)/g, '<h2>$1</h2>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[(.*?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+function aplicarFormato(texto, colorBoton) {
+
+  // Botón de submenús tipo {goto}: nombre
+  texto = texto.replace(/{goto}:\s*(\w[\w\-]*)/g, (match, nombre) => {
+    const visible = nombre.replace(/[-_]/g, ' ').toUpperCase();
+    return `<button onclick="abrirSubmenu('${nombre}')" style="margin:10px auto; display:block; padding:10px 16px; background:${colorBoton}; color:white; border:none; border-radius:8px; font-weight:bold;">📂 ${visible}</button>`;
+  });
+
+  // Negrilla alineada a la izquierda
+  texto = texto.replace(/\*\*\*(.*?)\*\*\*/g, '<p style="text-align:left;font-weight:bold;">$1</p>');
+
+  // Cursiva
+  texto = texto.replace(/\*\*(.*?)\*\*/g, '<span style="font-style:italic;">$1</span>');
+
+  // Subtítulo violeta
+  texto = texto.replace(/^###\s*(.*)$/gm, '<p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">$1</p>');
+
+  // Texto centrado
+  texto = texto.replace(/@@(.*?)@@/g, '<p style="text-align:center;">$1</p>');
+
+  // Viñetas
+  texto = texto.replace(/((?:^&- .*(?:\n|$))+)/gm, match => {
+    const items = match.trim().split('\n').map(line => {
+      return `<li>${line.replace(/^&- /, '').trim()}</li>`;
+    }).join('');
+    return `<ul>${items}</ul>`;
+  });
+
+  // Listas numeradas
+  texto = texto.replace(/((?:^&: .*(?:\n|$))+)/gm, match => {
+    const items = match.trim().split('\n').map(line => {
+      return `<li>${line.replace(/^&: /, '').trim()}</li>`;
+    }).join('');
+    return `<ol>${items}</ol>`;
+  });
+
+  // 📌 Enlaces tipo botón externo (abre en otra pestaña)
+  texto = texto.replace(/@url:\s*"(.*?)";\s*(https?:\/\/[^\s]+)/g,
+    `<div style="width:100%;text-align:center;margin:12px 0;">
+      <a href="$2" target="_blank" style="
+        display:inline-block;
+        width:80%;
+        max-width:600px;
+        background:${colorBoton};
+        color:white;
+        padding:14px 20px;
+        border-radius:10px;
+        text-align:center;
+        font-weight:bold;
+        font-size:1.1rem;
+        text-decoration:none;
+        box-shadow:0 4px 8px rgba(0,0,0,0.1);
+        transition:all 0.3s ease;
+      ">$1</a>
+    </div>`);
+
+  // 📌 Nuevo: Botones que abren documentos en ventana modal
+texto = texto.replace(/@urld:\s*"([^"]+)"\s*;\s*(https?:\/\/[^\s]+)/g, (match, titulo, url) => {
+  return `
+    <div style="text-align:center; margin:10px 0;">
+      <button onclick="abrirEnlaceExternoModal('${url}')" style="
+        width: 90%;
+        max-width: 400px;
+        padding: 14px 16px;
+        background: ${colorBoton};
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+      ">📄 ${titulo}</button>
+    </div>`;
+});
+
+  return texto;
 }
 
 
-    function generarTarjeta() {
+
+function generarTarjeta() {
       const texto = document.getElementById('entradaDatos').value || '';
       if (!texto.trim()) return alert('Por favor, pega el contenido.');
       const datos = {};
 
-      const colorBoton = document.getElementById('colorBoton').value;
-      const colorFondo = document.getElementById('colorFondo').value;
-      
+let colorBoton = '#643771';
+let colorFondo = '#f4f8ff';
+let fondoLogo = '';
+
 const lineas = texto.split('\n');
 let claveActual = '';
-datos['RAW'] = {}; // para depurar si deseas
+datos['RAW'] = {};
 
 for (let linea of lineas) {
   const match = linea.match(/^#(\w+):\s*(.*)$/);
@@ -226,6 +393,60 @@ for (let linea of lineas) {
     datos[claveActual] += '\n' + linea;
   }
 }
+
+// Leer colores personalizados desde #COLORES
+
+let usarPaleta = false; // por defecto no usamos paleta
+
+if (datos.COLORES) {
+  const lineasColor = datos.COLORES.split('\n');
+  for (let l of lineasColor) {
+    const [clave, ...resto] = l.split(':');
+    const valor = resto.join(':').trim();
+
+    if (clave.includes('&paleta') && valor.toLowerCase() === 's') {
+      usarPaleta = true;
+    }
+
+    if (!usarPaleta && clave.includes('&boton') && /^\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*$/.test(valor)) {
+      colorBoton = `rgb(${valor.replace(/\s+/g, '')})`;
+    }
+
+    if (!usarPaleta && clave.includes('&fondo') && /^\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*$/.test(valor)) {
+      colorFondo = `rgb(${valor.replace(/\s+/g, '')})`;
+    }
+
+    if (clave.includes('&fondologo') && valor.startsWith('http')) {
+      fondoLogo = valor;
+    }
+  }
+}
+
+// ✅ Si se activa la paleta visual, usamos sus valores
+if (usarPaleta) {
+  colorBoton = document.querySelector('#colorBoton').value || colorBoton;
+  colorFondo = document.querySelector('#colorFondo').value || colorFondo;
+}
+
+      
+
+// Procesar BOTONFLOT
+let botonW = '', botonC = '', botonM = '', botonS = '', botonSM = '';
+
+if (datos.BOTONFLOT) {
+  const lineasBoton = datos.BOTONFLOT.split('\n');
+  for (let l of lineasBoton) {
+    if (l.includes('&%w:')) botonW = l.split(':')[1].trim();
+    if (l.includes('&%c:')) botonC = l.split(':')[1].trim();
+    if (l.includes('&&m:')) botonM = l.match(/"([^"]+)"/)?.[1] || '';
+    if (l.includes('&%s:')) botonS = l.match(/"([^"]+)"/)?.[1] || '';
+    if (l.includes('&&s:')) botonSM = l.match(/"([^"]+)"/)?.[1] || '';
+  }
+}
+// Cierre BOTONFLOT
+
+
+
 
       let bodyHTML = '';
 
@@ -252,64 +473,64 @@ for (let linea of lineas) {
       if (datos.DESCRIPCION) bodyHTML += `<div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">${datos.DESCRIPCION}</p></div>`;
       if (datos.QUIENES_SOMOS) bodyHTML += `<div class="bloque"><p style="text-align:center;">${datos.QUIENES_SOMOS}</p></div>`;
 
- if (datos.SECCIONES) {
- datos.SECCIONES.split(/^&&\s*/m).filter(s => s.trim()).forEach(s => {
 
-    const [titulo, ...cuerpo] = s.trim().split('\n');
-    const content = cuerpo.map(line => {
-      if (/https?:\/\/.+\.(jpg|jpeg|png|gif)/i.test(line)) {
-        return `<img src="${line}" style="width:90%;display:block;margin:10px auto;">`;
-      } else if (/https?:\/\/(www\.)?(youtube\.com|youtu\.be)/i.test(line)) {
-        const videoId = line.split('v=')[1]?.split('&')[0] || line.split('/').pop();
-        return `<iframe width="90%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe>`;
-      }
-      // 🟩 Aquí se aplica el formato enriquecido
-      return `<p>${aplicarFormato(line)}</p>`;
-    }).join('');
-    bodyHTML += `<details><summary>${titulo.trim()}</summary><div class="contenido">${content}</div></details>`;
+
+if (datos.SECCIONES) {
+  datos.SECCIONES.split(/^&&\s*/m).filter(s => s.trim()).forEach(s => {
+    const lineas = s.trim().split('\n');
+    const titulo = lineas[0]?.trim() || '';
+    const cuerpo = lineas.slice(1).map(l => l.trim()).filter(Boolean);
+
+    // 💡 Si solo hay un {goto}, tratamos esta sección como menú externo
+    const esMenu = cuerpo.length === 1 && /{goto}:\s*(\w[\w\-]*)/.test(cuerpo[0]);
+
+    if (esMenu) {
+      const idMenu = cuerpo[0].match(/{goto}:\s*(\w[\w\-]*)/)?.[1];
+
+bodyHTML += `
+  <div class="fake-summary" onclick="abrirSubmenu('${idMenu}')">
+    ▶ ${titulo.toUpperCase()}
+  </div>
+`;
+
+    } else {
+      // Sección normal con contenido enriquecido
+      const contenido = cuerpo.map(line => {
+        if (/https?:\/\/.+\.(jpg|jpeg|png|gif)/i.test(line)) {
+          return `<img src="${line}" style="width:90%;display:block;margin:10px auto;">`;
+        } else if (/https?:\/\/(www\.)?(youtube\.com|youtu\.be)/i.test(line)) {
+          const videoId = line.split('v=')[1]?.split('&')[0] || line.split('/').pop();
+          return `<iframe width="90%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="display:block;margin:10px auto;"></iframe>`;
+        }
+
+        return `<p>${aplicarFormato(line, colorBoton)}</p>`;
+
+      }).join('');
+
+      bodyHTML += `<details><summary>${titulo.toUpperCase()}</summary><div class="contenido">${contenido}</div></details>`;
+    }
   });
 }
+
 
 
 if (datos.IMAGENES) {
   const lineas = datos.IMAGENES.split('\n').map(l => l.trim()).filter(l => l);
   const galeriaImgs = [];
-  let imagenPendiente = null;
-  let recogiendoDescripcion = false;
-  let descripcionActual = [];
 
   for (let i = 0; i < lineas.length; i++) {
     const linea = lineas[i];
+    const esURL = /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i.test(linea);
 
-    if (/^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i.test(linea)) {
-      // Guardamos imagen y activamos modo descripción
-      if (imagenPendiente) {
-        // No tuvo desc anterior, agregar sin descripción
-        galeriaImgs.push(`<img src="${imagenPendiente}" alt="Imagen">`);
-      }
-      imagenPendiente = linea;
-      recogiendoDescripcion = false;
-      descripcionActual = [];
-    } else if (linea.startsWith('&desc:')) {
-      // Vamos a empezar a recoger descripción
-      recogiendoDescripcion = true;
-      descripcionActual = [];
-    } else if (recogiendoDescripcion && imagenPendiente) {
-      descripcionActual.push(linea);
-      // Si estamos en la última línea o lo que sigue es otra imagen, cerramos
-      const siguiente = lineas[i + 1] || '';
-      if (siguiente.startsWith('http') || i === lineas.length - 1) {
-        const descripcion = encodeURIComponent(descripcionActual.join('<br>'));
-        galeriaImgs.push(`<img src="${imagenPendiente}" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('${descripcion}')">`);
-        imagenPendiente = null;
-        recogiendoDescripcion = false;
-      }
+    if (esURL) {
+      const descripcion = lineas[i + 1] && !/^https?:\/\//.test(lineas[i + 1])
+        ? encodeURIComponent(lineas[i + 1])
+        : '';
+      
+      galeriaImgs.push(descripcion
+        ? `<img src="${linea}" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('${descripcion}')">`
+        : `<img src="${linea}" alt="Imagen">`);
     }
-  }
-
-  // Si quedó una imagen sin descripción al final
-  if (imagenPendiente) {
-    galeriaImgs.push(`<img src="${imagenPendiente}" alt="Imagen">`);
   }
 
   if (galeriaImgs.length > 0) {
@@ -321,7 +542,6 @@ if (datos.IMAGENES) {
       </div>`;
   }
 }
-
 
 
 // Galería de Videos
@@ -429,19 +649,74 @@ if (datos.UBICACION) {
       </div>`;
       bodyHTML += `<div class="firma"><p>Desarrollado por <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>`;
 
+// ✅ Agregar botón flotante solo con íconos personalizados
+if (botonW && botonC && botonM) {
+  const mensajeFinal = botonS && botonSM ? encodeURIComponent(`${botonSM} ${botonS}`) : '';
+
+  const botonHTML = `
+    <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
+      ${botonS && botonSM ? `
+      <a href="https://wa.me/?text=${mensajeFinal}" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/Dg8NNkgz/image.png" alt="Compartir" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>` : ''}
+
+      <a href="https://wa.me/${botonW}?text=${encodeURIComponent(botonM)}" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/mCdSYYw2/image.png" alt="WhatsApp" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="tel:${botonC}" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/M5pc1WwG/image.png" alt="Llamar" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+    </div>
+  `;
+
+  // Mostrar en preview
+  document.body.insertAdjacentHTML('beforeend', botonHTML);
+
+  // Incluir en HTML final
+  bodyHTML += botonHTML;
+}
+
+
+
+
       document.getElementById('vistaPrevia').innerHTML = bodyHTML;
-      document.body.style.background = colorFondo;
+
+
+
+
+if (fondoLogo && fondoLogo.trim() !== '') {
+  document.body.style.background = `url(${fondoLogo}) center/cover no-repeat fixed`;
+} else {
+  document.body.style.background = colorFondo;
+}
+
+
+
+
+
+
       document.querySelectorAll('details summary').forEach(s => {
       s.style.background = colorBoton;
       });
+
+
+const tituloFlotante = document.querySelector('.titulo-flotante');
+if (tituloFlotante) {
+  tituloFlotante.style.background = colorBoton;
+}
+
+
+
+
 
 	document.querySelectorAll('h2').forEach(h => {
   	h.style.color = colorBoton;
 	});
 
 
-// *** NUEVA LÍNEA PARA ABRIR LA PRIMERA SECCIÓN ***
-document.querySelector('#vistaPrevia details').open = true;
+// *** NUEVA LÍNEA PARA ABRIR LA PRIMERA SECCIÓN ***. ahora no. despues
+//document.querySelector('#vistaPrevia details').open = true;
 
 const fullHTML = `<!DOCTYPE html>
 <html lang="es">
@@ -455,12 +730,85 @@ const fullHTML = `<!DOCTYPE html>
 <meta property="og:url" content="https://foliopro.github.io/ecard/ejemplo.html">
 <meta property="og:type" content="website">
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+
+document.getElementById('btnBorrarGitHub').style.display = 'inline-block';
+
+
+
+
+
+
   <style>
+
     ${document.querySelector('style').textContent}
-    body { background: ${colorFondo}; }
-    details summary {
-      background: ${colorBoton};
-    }
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: ${colorBoton}; /* ← Ahora toma el color del usuario */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+body {
+  padding-top: 80px;
+}
+
+
+
+
+
+    body {
+  ${(fondoLogo && fondoLogo.trim() !== '') 
+    ? `background: url(${fondoLogo}) center/cover no-repeat fixed;`
+    : `background: ${colorFondo};`}
+}
+
+
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+
   </style>
 </head>
 <body>
@@ -472,6 +820,22 @@ const fullHTML = `<!DOCTYPE html>
       <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
     </div>
   </div>
+
+
+<!-- Modal para documentos externos -->
+<div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; width:90%; height:90%; max-width:900px; position:relative;">
+    <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+
+
+
+
+
+
 
   <script>
     // Abre la primera sección automáticamente
@@ -487,6 +851,26 @@ const fullHTML = `<!DOCTYPE html>
     function cerrarDescripcion() {
       document.getElementById('modalImagen').style.display = 'none';
     }
+
+
+
+
+// 👇 Función para abrir documentos externos en modal
+function abrirDocumentoModal(url) {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = url;
+  modal.style.display = 'block';
+}
+function cerrarDocumentoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+
 
     function descargarVCF() {
       const nombre = document.querySelector('h2')?.textContent || 'Contacto';
@@ -515,13 +899,6 @@ END:VCARD\`;
 
     let scrollHabilitado = false;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const primerDetails = document.querySelector('details');
-  if (primerDetails) {
-    primerDetails.setAttribute("open", "true");
-    setTimeout(() => { scrollHabilitado = true; }, 500); // esperar medio segundo
-  }
-});
 
 document.querySelectorAll('details').forEach(d => {
   d.addEventListener('toggle', function () {
@@ -537,6 +914,33 @@ document.querySelectorAll('details').forEach(d => {
 });
 
 
+// Funciones para abrir y cerrar documentos externos en modal
+function abrirEnlaceExternoModal(url) {
+  try {
+    const iframe = document.getElementById('iframeDocumento');
+    const modal = document.getElementById('modalDocumento');
+
+    iframe.src = url;
+    modal.style.display = 'block';
+
+    setTimeout(() => {
+      if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+        window.open(url, '_blank');
+        cerrarEnlaceExternoModal();
+      }
+    }, 3000);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+function cerrarEnlaceExternoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
 
   <\/script>
 </body>
@@ -545,9 +949,24 @@ document.querySelectorAll('details').forEach(d => {
 
 
       const pre = document.getElementById('codigoGenerado');
-      pre.textContent = fullHTML;
-      pre.style.display = 'block';
-      document.getElementById('btnCopiar').style.display = 'inline-block';
+
+	pre.textContent = fullHTML;
+	pre.style.display = 'block';
+
+	// Mostrar botón de copiar
+	document.getElementById('btnCopiar').style.display = 'inline-block';
+
+	// Mostrar botón de descarga (lo ocultaremos por defecto más arriba)
+	document.querySelector('button[onclick="descargarArchivoHTML()"]').style.display = 'inline-block';
+
+	// Mostrar botón de subir
+	document.getElementById('btnSubirGitHub').style.display = 'inline-block';
+
+	// Mostrar botón el botón Reemplazar
+	document.getElementById('btnReemplazarGitHub').style.display = 'inline-block';
+
+
+
       document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', function () {
         if (this.open) document.querySelectorAll('details').forEach(o => { if (o !== this) o.removeAttribute('open'); });
       }));
@@ -559,6 +978,440 @@ document.querySelectorAll('details').forEach(d => {
         .then(() => alert('✅ Código copiado'))
         .catch(() => alert('❌ Error al copiar'));
     }
+
+
+
+
+
+
+
+
+// 👇 NUEVA FUNCIÓN para leer el archivo TXT
+// 👇 Esto va fuera de cualquier función
+document.getElementById('archivoTxt').addEventListener('change', function(event) {
+  const archivo = event.target.files[0];
+  if (!archivo) return;
+
+  const lector = new FileReader();
+  lector.onload = function(e) {
+    const contenido = e.target.result;
+    document.getElementById('entradaDatos').value = contenido;
+
+    // ✅ Mostrar el botón "Generar Tarjeta"
+    document.getElementById('btnGenerar').style.display = 'inline-block';
+
+    // ✅ Guardar nombre de la tarjeta
+    const match = contenido.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+    if (match && match[1]) {
+      const nombreTarjeta = match[1].trim().replace(/\s+/g, '-').toLowerCase();
+      localStorage.setItem('nombreTarjeta', nombreTarjeta);
+      console.log('✅ Nombre de tarjeta guardado:', nombreTarjeta);
+    } else {
+      localStorage.setItem('nombreTarjeta', 'mi-tarjeta');
+      console.warn('⚠️ No se encontró el nombre. Usando "mi-tarjeta".');
+    }
+  };
+
+  lector.readAsText(archivo);
+});
+
+
+
+
+
+
+
+
+
+
+
+// 👇 NUEVA FUNCIÓN para descargar el archivo HTML
+
+function descargarArchivoHTML() {
+  const contenido = document.getElementById('codigoGenerado').textContent;
+  const original = document.getElementById('entradaDatos').value;
+
+  // 🔎 Intenta extraer el nombre desde el texto original
+  let nombreArchivo = 'mi-tarjeta'; // por defecto
+
+const match = original.match(/#NOMTARJETA:\s*&ecard:\s*(.+)/i) ||
+              original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+
+  console.log('🎯 Nombre detectado:', nombreArchivo); // Para verificar en consola
+
+  const blob = new Blob([contenido], { type: 'text/html' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `${nombreArchivo}.html`;
+  link.click();
+
+  alert(`✅ Archivo guardado como: ${nombreArchivo}.html`);
+}
+
+
+
+async function subirAGitHub() {
+  const contenido = document.getElementById('codigoGenerado').textContent;
+  if (!contenido.trim()) return alert('⚠️ No hay código generado para subir.');
+
+  const token = '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';
+  const usuario = 'foliopro';
+  const repositorio = 'ecard';
+  const carpeta = ''; // raíz
+
+  const original = document.getElementById('entradaDatos').value;
+  const match = original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+  let nombreBase = match ? match[1].trim().replace(/\s+/g, '-').toLowerCase() : 'folio';
+
+  try {
+    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+
+    const archivos = await respuesta.json();
+    const existentes = archivos.filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'));
+    const numeroActual = existentes.length;
+
+    if (numeroActual >= 3) {
+      return alert(`❌ Ya has alcanzado el límite de 3 FolioPro.\nPor favor, adquiere una nueva licencia.`);
+    }
+
+    const siguiente = numeroActual + 1;
+    const numeroFormateado = String(siguiente).padStart(3, '0');
+    const nombreFinal = `${nombreBase}${numeroFormateado}.html`;
+
+    const url = `https://api.github.com/repos/${usuario}/${repositorio}/contents/${nombreFinal}`;
+    const contenidoCodificado = btoa(unescape(encodeURIComponent(contenido)));
+
+    const body = {
+      message: `🆕 Subida automática de FolioPro: ${nombreFinal}`,
+      content: contenidoCodificado,
+    };
+
+    const subida = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!subida.ok) {
+      const error = await subida.json();
+      throw new Error(error.message || 'Error desconocido al subir');
+    }
+
+    const linkFinal = `https://${usuario}.github.io/${repositorio}/${nombreFinal}`;
+
+    // 🟢 COPIAR LINK AL PORTAPAPELES
+    await navigator.clipboard.writeText(linkFinal);
+
+    alert(`✅ FolioPro subido con éxito\n\n📄 Llevas ${siguiente} FolioPro\n🔗 Link: ${linkFinal}\n\n📋 ¡El enlace fue copiado al portapapeles!`);
+
+    window.open(linkFinal, '_blank');
+
+  } catch (error) {
+    console.error('❌ Error al subir:', error);
+    alert(`❌ No se pudo subir el archivo.\n${error.message}`);
+  }
+}
+
+
+
+
+async function mostrarOpcionesReemplazo() {
+  const token = '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';
+  const usuario = 'foliopro';
+  const repositorio = 'ecard';
+  const carpeta = '';
+
+  const original = document.getElementById('entradaDatos').value;
+  const match = original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+  let nombreBase = match ? match[1].trim().replace(/\s+/g, '-').toLowerCase() : null;
+
+  if (!nombreBase) return alert('⚠️ No se encontró el nombre base en #NOMTARJETA');
+
+  try {
+    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+
+    const archivos = await respuesta.json();
+    const foliosCliente = archivos
+      .filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'))
+      .map(a => a.name);
+
+    if (foliosCliente.length === 0) {
+      return alert('⚠️ No se encontraron FolioPro existentes para este usuario.');
+    }
+
+    // Rellenar el select
+    const select = document.getElementById('selectFolio');
+    select.innerHTML = '';
+    foliosCliente.forEach(nombre => {
+      const option = document.createElement('option');
+      option.value = nombre;
+      option.textContent = nombre;
+      select.appendChild(option);
+    });
+
+    // Mostrar modal
+    document.getElementById('modalReemplazo').style.display = 'block';
+
+  } catch (error) {
+    console.error(error);
+    alert('❌ Error al obtener los archivos de GitHub');
+  }
+}
+
+function cerrarModalReemplazo() {
+  document.getElementById('modalReemplazo').style.display = 'none';
+}
+
+function confirmarReemplazo() {
+  const seleccionado = document.getElementById('selectFolio').value;
+  cerrarModalReemplazo();
+  reemplazarFolioPro(seleccionado);
+}
+
+
+
+async function reemplazarFolioPro(nombreArchivo) {
+  const token = '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';
+  const usuario = 'foliopro';
+  const repositorio = 'ecard';
+  const carpeta = '';
+  const contenido = document.getElementById('codigoGenerado').textContent;
+
+  try {
+    // 🔎 Obtener el SHA del archivo a reemplazar
+    const info = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}${nombreArchivo}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+
+    const { sha } = await info.json();
+
+    const body = {
+      message: `🔄 Reemplazo desde FolioPro Generator - ${nombreArchivo}`,
+      content: btoa(unescape(encodeURIComponent(contenido))),
+      sha: sha
+    };
+
+    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}${nombreArchivo}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!respuesta.ok) throw new Error((await respuesta.json()).message || 'Error en reemplazo');
+
+    const url = `https://${usuario}.github.io/${repositorio}/${nombreArchivo}`;
+    await navigator.clipboard.writeText(url);
+
+    alert(`✅ FolioPro "${nombreArchivo}" reemplazado exitosamente\n\n🔗 Copiado al portapapeles:\n${url}`);
+    window.open(url, '_blank');
+
+  } catch (error) {
+    console.error(error);
+    alert('❌ No se pudo reemplazar el archivo');
+  }
+}
+
+
+
+async function mostrarOpcionesBorrado() {
+  const token = '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';
+  const usuario = 'foliopro';
+  const repositorio = 'ecard';
+  const carpeta = '';
+
+  const original = document.getElementById('entradaDatos').value;
+  const match = original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+  let nombreBase = match ? match[1].trim().replace(/\s+/g, '-').toLowerCase() : null;
+
+  if (!nombreBase) return alert('⚠️ No se encontró el nombre base en #NOMTARJETA');
+
+  try {
+    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+
+    const archivos = await respuesta.json();
+    const foliosCliente = archivos
+      .filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'))
+      .map(a => a.name);
+
+    if (foliosCliente.length === 0) {
+      return alert('⚠️ No hay FolioPro para borrar.');
+    }
+
+    // Mostrar modal y cargar opciones
+    const select = document.getElementById('listaFoliosABorrar');
+    select.innerHTML = foliosCliente.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
+    document.getElementById('modalBorrar').style.display = 'block';
+
+  } catch (error) {
+    console.error(error);
+    alert('❌ Error al obtener los archivos de GitHub');
+  }
+}
+
+function cerrarModalBorrar() {
+  document.getElementById('modalBorrar').style.display = 'none';
+}
+
+
+
+async function borrarFolioPro(nombreArchivo) {
+  const token = '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';
+  const usuario = 'foliopro';
+  const repositorio = 'ecard';
+  const carpeta = '';
+
+  try {
+    // 🔍 Obtener SHA del archivo
+    const info = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}${nombreArchivo}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+
+    const { sha } = await info.json();
+
+    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}${nombreArchivo}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `🗑 Eliminado desde FolioPro Generator: ${nombreArchivo}`,
+        sha: sha
+      })
+    });
+
+    if (!respuesta.ok) throw new Error((await respuesta.json()).message || 'Error al eliminar');
+
+    alert(`✅ FolioPro "${nombreArchivo}" fue eliminado exitosamente.`);
+  } catch (error) {
+    console.error(error);
+    alert('❌ No se pudo eliminar el archivo');
+  }
+}
+
+
+
+async function consultarFolios() {
+  const token = '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';
+  const usuario = 'foliopro';
+  const repositorio = 'ecard';
+  const carpeta = '';
+
+  const original = document.getElementById('entradaDatos')?.value || '';
+  const match = original.match(/#NOMTARJETA:\s*&ecard:\s*(.+)/i) ||
+                original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+
+  const nombreBase = match ? match[1].trim().replace(/\s+/g, '-').toLowerCase() : null;
+
+  if (!nombreBase) {
+    return alert('⚠️ No se encontró el nombre base en #NOMTARJETA:\n&ecard: usuario');
+  }
+
+  try {
+    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+
+    const archivos = await respuesta.json();
+    const foliosCliente = archivos
+      .filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'));
+
+    if (foliosCliente.length === 0) {
+      return alert(`⚠️ No se encontraron tarjetas para el usuario "${nombreBase}".`);
+    }
+
+    const contenedor = document.getElementById('listaFoliosConsulta');
+    contenedor.innerHTML = '<p style="font-size:0.95rem;">Cargando títulos...</p>';
+
+    let tabla = `<table style="width:100%; font-size:0.9rem; border-collapse:collapse;">
+<thead>
+  <tr style="background:#f0f0f0;">
+    <th style="padding:6px;">#</th>
+    <th style="padding:6px;">Archivo</th>
+    <th style="padding:6px;">Título</th>
+    <th style="padding:6px;">Descripción</th>
+    <th style="padding:6px;">Enlace</th>
+  </tr>
+</thead>      <tbody>`;
+
+const resultados = await Promise.all(
+  foliosCliente.map(async (archivo, i) => {
+    const url = `https://${usuario}.github.io/${repositorio}/${archivo.name}`;
+    try {
+      const res = await fetch(url);
+      const html = await res.text();
+
+      // ✅ Mejorado para capturar contenido multilínea
+      const tituloMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']\s*([\s\S]*?)\s*["']>/i);
+      const descripcionMatch = html.match(/<meta\s+property=["']og:description["']\s+content=["']\s*([\s\S]*?)\s*["']>/i);
+
+      const titulo = tituloMatch ? tituloMatch[1].trim() : 'Sin título';
+      const descripcion = descripcionMatch ? descripcionMatch[1].trim() : 'Sin descripción';
+
+      return `<tr>
+        <td style="padding:6px;">${i + 1}</td>
+        <td style="padding:6px;">${archivo.name}</td>
+        <td style="padding:6px;">${titulo}</td>
+        <td style="padding:6px;">${descripcion}</td>
+        <td style="padding:6px;">
+          <a href="${url}" target="_blank" style="color:#1976d2; margin-right:8px;">🌐 Ver</a>
+          <button onclick="copiarLink('${url}')" style="padding:3px 6px; font-size:0.9rem;">📋 Copiar</button>
+        </td>
+      </tr>`;
+    } catch (e) {
+      return `<tr>
+        <td>${i + 1}</td>
+        <td>${archivo.name}</td>
+        <td colspan="3" style="color:red;">❌ Error al leer</td>
+      </tr>`;
+    }
+  })
+);
+
+    tabla += resultados.join('') + '</tbody></table>';
+    contenedor.innerHTML = tabla;
+    document.getElementById('modalConsultaFolios').style.display = 'block';
+
+  } catch (e) {
+    console.error(e);
+    alert('❌ No se pudieron consultar las tarjetas.');
+  }
+}
+
+
+
+
+function confirmarBorrado() {
+  const seleccionado = document.getElementById('listaFoliosABorrar').value;
+  if (!seleccionado) return alert('❌ No se seleccionó ningún archivo');
+
+  const ok = confirm(`⚠️ ¿Estás seguro de borrar "${seleccionado}"? Esta acción no se puede deshacer.`);
+  if (!ok) return;
+
+  cerrarModalBorrar();
+  borrarFolioPro(seleccionado);
+}
+
+
+
+
+
+
+
+
+
 
 function descargarVCF() {
   const nombre = document.querySelector('h2')?.textContent || 'Contacto';
@@ -583,6 +1436,13 @@ END:VCARD`;
   link.click();
 }
 
+
+
+
+
+
+
+
   </script>
 
 
@@ -592,6 +1452,62 @@ END:VCARD`;
     <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
   </div>
 </div>
+
+
+<!-- 👇 AQUI MODAL PARA LISTA DE TARJETAS-->
+<div id="modalReemplazo" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999;">
+  <div style="background:#fff; padding:20px; border-radius:8px; max-width:400px; margin:10% auto; text-align:center; position:relative;">
+    <h3>🔁 Selecciona el FolioPro a reemplazar</h3>
+    <select id="selectFolio" style="width:90%; padding:10px; margin:10px 0;"></select>
+    <div style="margin-top:15px;">
+      <button onclick="confirmarReemplazo()" style="padding:10px 16px; background:#007bff; color:#fff; border:none; border-radius:6px;">✅ Reemplazar</button>
+      <button onclick="cerrarModalReemplazo()" style="padding:10px 16px; background:gray; color:white; border:none; border-radius:6px; margin-left:10px;">❌ Cancelar</button>
+    </div>
+  </div>
+</div>
+<!-- 👇 FINAL MODAL PARA LISTA DE TARJETAS-->
+
+
+
+
+
+
+<!-- 👇 AQUI el nuevo modal para documentos -->
+
+  <div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; max-width:90%; max-height:90%; position:relative;">
+      <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <iframe id="iframeDocumento" src="" style="width:100%; height:80vh; border:none;"></iframe>
+    </div>
+  </div>
+
+
+
+
+<!-- 🗑 MODAL DE CONFIRMACION DE BORRADO -->
+<div id="modalBorrar" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div style="background:white; max-width:400px; margin:10% auto; padding:20px; border-radius:10px; position:relative;">
+    <h3>🗑 Borrar FolioPro</h3>
+    <p>Selecciona la tarjeta que deseas borrar:</p>
+    <select id="listaFoliosABorrar" style="width:100%; margin:10px 0; padding:6px;"></select>
+    <button onclick="confirmarBorrado()" style="background:#c62828; color:white; padding:10px 15px; border:none; border-radius:6px;">Borrar</button>
+    <button onclick="cerrarModalBorrar()" style="margin-left:10px;">Cancelar</button>
+  </div>
+</div>
+
+
+<!-- Modal para consultar Folios-->
+<div id="modalConsultaFolios" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999;">
+  <div style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; max-width:90%; max-height:90vh; overflow:auto; position:relative;">
+    <span onclick="document.getElementById('modalConsultaFolios').style.display='none'" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <h3>📄 Tarjetas de este usuario</h3>
+    <div id="listaFoliosConsulta" style="margin-top:15px;"></div>
+  </div>
+</div>
+
+
+
+
 
 <script>
   function mostrarDescripcion(texto) {
@@ -604,8 +1520,47 @@ END:VCARD`;
   function cerrarDescripcion() {
     document.getElementById('modalImagen').style.display = 'none';
   }
+
+
+
+
+    function abrirEnlaceExternoModal(url) {
+      try {
+        const iframe = document.getElementById('iframeDocumento');
+        const modal = document.getElementById('modalDocumento');
+
+        iframe.src = url;
+        modal.style.display = 'block';
+
+        setTimeout(() => {
+          if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+            window.open(url, '_blank');
+            cerrarEnlaceExternoModal();
+          }
+        }, 3000);
+      } catch (e) {
+        window.open(url, '_blank');
+      }
+    }
+
+
+
+    function cerrarEnlaceExternoModal() {
+      const modal = document.getElementById('modalDocumento');
+      const iframe = document.getElementById('iframeDocumento');
+      iframe.src = '';
+      modal.style.display = 'none';
+    }
+
+
+
+
 </script>
 
 
 </body>
 </html>
+
+
+
+
