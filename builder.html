@@ -1283,15 +1283,8 @@ async function consultarFolios() {
   const repositorio = 'ecard';
   const carpeta = '';
 
-  const original = document.getElementById('entradaDatos')?.value || '';
-  const match = original.match(/#NOMTARJETA:\s*&ecard:\s*(.+)/i) ||
-                original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
-
-  const nombreBase = match ? match[1].trim().replace(/\s+/g, '-').toLowerCase() : null;
-
-  if (!nombreBase) {
-    return alert('⚠️ No se encontró el nombre base en #NOMTARJETA:\n&ecard: usuario');
-  }
+const nombreBase = localStorage.getItem('Usuario');
+if (!nombreBase) return alert('⚠️ No se ha iniciado sesión correctamente.');
 
   try {
     const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
