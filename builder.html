@@ -278,6 +278,8 @@ body {
   <button id="btnGenerar" onclick="generarTarjeta()">🎨 Generar Tarjeta</button>
   <button id="btnBorrarGitHub" onclick="mostrarOpcionesBorrado()">🗑 Borrar FolioPro</button>
   <button id="btnConsultarFolios" onclick="consultarFolios()">🔍 Consultar FolioPros</button>
+  <button id="btnCerrarSesion" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+
 
   <div id="vistaPrevia" style="margin-top:20px;"></div>
   <pre id="codigoGenerado" style="margin-top:20px;"></pre>
@@ -286,6 +288,7 @@ body {
 <button onclick="descargarArchivoHTML()" style="display:none;">💾 Descargar archivo HTML</button>
 <button id="btnSubirGitHub" style="display:none;" onclick="subirAGitHub()">🚀 Subir a GitHub</button>
 <button id="btnReemplazarGitHub" style="display:none;" onclick="mostrarOpcionesReemplazo()">🛠 Reemplazar FolioPro</button>
+
 
   <script>
 
@@ -1054,77 +1057,39 @@ async function subirAGitHub() {
   const contenido = document.getElementById('codigoGenerado').textContent;
   if (!contenido.trim()) return alert('⚠️ No hay código generado para subir.');
 
-  const token = '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';
-  const usuario = 'foliopro';
-  const repositorio = 'ecard';
-  const carpeta = ''; // raíz
-
-  const nombreBase = localStorage.getItem('Usuario')?.toLowerCase() || 'folio';
+  const usuario = localStorage.getItem('Usuario')?.toLowerCase() || 'folio';
   const licMax = parseInt(localStorage.getItem('Lic_Maximas')) || 3;
 
   try {
-    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
-      headers: { 'Authorization': `token ${token}` }
-    });
-
-    const archivos = await respuesta.json();
-	if (!Array.isArray(archivos)) {
-  		console.error('❌ La respuesta no es un array:', archivos);
-  		alert('❌ No se pudo verificar los archivos. Revisa tu token de GitHub o permisos de acceso.');
-  		return;
-	}
-
-
-    // 🔍 Validación: ¿es un array?
-    if (!Array.isArray(archivos)) {
-      console.error('❌ La respuesta no es un array:', archivos);
-      return alert('❌ No se pudieron obtener los archivos. Revisa el token o la conexión.');
-    }
-
-    const existentes = archivos.filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'));
-    const numeroActual = existentes.length;
-
-    if (numeroActual >= licMax) {
-      return alert(`❌ Ya has alcanzado el límite de ${licMax} FolioPro.\nPor favor, adquiere una nueva licencia.`);
-    }
-
-    const siguiente = numeroActual + 1;
-    const numeroFormateado = String(siguiente).padStart(3, '0');
-    const nombreFinal = `${nombreBase}${numeroFormateado}.html`;
-
-    const url = `https://api.github.com/repos/${usuario}/${repositorio}/contents/${nombreFinal}`;
-    const contenidoCodificado = btoa(unescape(encodeURIComponent(contenido)));
-
-    const body = {
-      message: `🆕 Subida automática de FolioPro: ${nombreFinal}`,
-      content: contenidoCodificado,
-    };
-
-    const subida = await fetch(url, {
-      method: 'PUT',
+    const response = await fetch('https://us-central1-folio-builder-62ea0.cloudfunctions.net/api/subirTarjeta', {
+      method: 'POST',
       headers: {
-        'Authorization': `token ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        usuario,
+        licMax,
+        html: contenido
+      })
     });
 
-    if (!subida.ok) {
-      const error = await subida.json();
-      throw new Error(error.message || 'Error desconocido al subir');
-    }
+    const resultado = await response.json();
 
-    const linkFinal = `https://${usuario}.github.io/${repositorio}/${nombreFinal}`;
-    await navigator.clipboard.writeText(linkFinal);
+    if (!response.ok) throw new Error(resultado.error || 'Error desconocido');
 
-    alert(`✅ FolioPro subido con éxito\n\n📄 Llevas ${siguiente} FolioPro\n🔗 Link: ${linkFinal}\n\n📋 ¡El enlace fue copiado al portapapeles!`);
-    window.open(linkFinal, '_blank');
+    await navigator.clipboard.writeText(resultado.url);
+    alert(`✅ Subido con éxito\n\n🔗 ${resultado.url} (copiado al portapapeles)`);
+    window.open(resultado.url, '_blank');
 
-  } catch (error) {
-    console.error('❌ Error al subir:', error);
-    alert(`❌ No se pudo subir el archivo.\n${error.message}`);
+  } catch (err) {
+    alert(`❌ Error al subir:\n${err.message}`);
+    console.error(err);
   }
 }
+
+
+
+
 
 
 
@@ -1446,6 +1411,12 @@ END:VCARD`;
 }
 
 
+function cerrarSesion() {
+  localStorage.removeItem('Usuario');
+  localStorage.removeItem('Lic_Maximas');
+  alert('🔒 Has cerrado sesión correctamente.');
+  window.location.href = 'index.html'; // Redirige al login
+}
 
 
 
