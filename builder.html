@@ -1073,13 +1073,18 @@ async function subirAGitHub() {
       })
     });
 
-    const resultado = await response.json();
+const resultado = await response.json();
 
-    if (!response.ok) throw new Error(resultado.error || 'Error desconocido');
+if (!response.ok) throw new Error(resultado.error || 'Error desconocido');
 
-    await navigator.clipboard.writeText(resultado.url);
-    alert(`✅ Subido con éxito\n\n🔗 ${resultado.url} (copiado al portapapeles)`);
-    window.open(resultado.url, '_blank');
+await navigator.clipboard.writeText(resultado.url);
+
+alert(`✅ Subido con éxito
+📄 Archivo: ${resultado.archivo}
+📊 Tarjetas usadas: ${resultado.usadas} / ${parseInt(localStorage.getItem('Lic_Maximas') || 3)}
+🔗 ${resultado.url} (copiado al portapapeles)`);
+
+window.open(resultado.url, '_blank');
 
   } catch (err) {
     alert(`❌ Error al subir:\n${err.message}`);
