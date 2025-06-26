@@ -1094,6 +1094,76 @@ window.open(resultado.url, '_blank');
 
 
 
+async function consultarFolios() {
+  const usuario = localStorage.getItem('Usuario');
+  if (!usuario) return alert('⚠️ Usuario no encontrado en sesión.');
+
+  try {
+    const respuesta = await fetch('https://us-central1-folio-builder-62ea0.cloudfunctions.net/api/consultar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ usuario })
+    });
+
+    const data = await respuesta.json();
+    if (!respuesta.ok) throw new Error(data.error || 'Error al consultar');
+
+    const contenedor = document.getElementById('listaFoliosConsulta');
+    contenedor.innerHTML = '<p style="font-size:0.95rem;">Cargando títulos...</p>';
+
+    let tabla = `<table style="width:100%; font-size:0.9rem; border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f0f0f0;">
+          <th style="padding:6px;">#</th>
+          <th style="padding:6px;">Archivo</th>
+          <th style="padding:6px;">Título</th>
+          <th style="padding:6px;">Descripción</th>
+          <th style="padding:6px;">Enlace</th>
+        </tr>
+      </thead><tbody>`;
+
+    const resultados = await Promise.all(
+      data.map(async (archivo, i) => {
+        const url = `https://foliopro.github.io/ecard/${archivo}`;
+        try {
+          const res = await fetch(url);
+          const html = await res.text();
+          const titulo = (html.match(/<meta\s+property=["']og:title["']\s+content=["']\s*([\s\S]*?)\s*["']>/i) || [])[1]?.trim() || 'Sin título';
+          const descripcion = (html.match(/<meta\s+property=["']og:description["']\s+content=["']\s*([\s\S]*?)\s*["']>/i) || [])[1]?.trim() || 'Sin descripción';
+
+          return `<tr>
+            <td>${i + 1}</td>
+            <td>${archivo}</td>
+            <td>${titulo}</td>
+            <td>${descripcion}</td>
+            <td>
+              <a href="${url}" target="_blank" style="color:#1976d2;">🌐 Ver</a>
+              <button onclick="copiarLink('${url}')" style="padding:3px 6px;">📋 Copiar</button>
+            </td>
+          </tr>`;
+        } catch {
+          return `<tr>
+            <td>${i + 1}</td>
+            <td>${archivo}</td>
+            <td colspan="3" style="color:red;">❌ No se pudo leer</td>
+          </tr>`;
+        }
+      })
+    );
+
+    tabla += resultados.join('') + '</tbody></table>';
+    contenedor.innerHTML = tabla;
+    document.getElementById('modalConsultaFolios').style.display = 'block';
+
+  } catch (e) {
+    console.error(e);
+    alert('❌ No se pudo obtener la lista de archivos.');
+  }
+}
+
+
 
 
 
@@ -1437,6 +1507,7 @@ function cerrarSesion() {
 
 </body>
 </html>
+
 
 
 
