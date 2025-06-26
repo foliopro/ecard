@@ -1283,68 +1283,60 @@ async function borrarFolioPro(nombreArchivo) {
 
 
 async function consultarFolios() {
-  const nombreBase = localStorage.getItem('Usuario');
-  if (!nombreBase) return alert('⚠️ No se ha iniciado sesión correctamente.');
+  const usuario = localStorage.getItem('Usuario');
+  if (!usuario) return alert('⚠️ Usuario no encontrado en sesión.');
 
   try {
-    const response = await fetch('https://us-central1-folio-builder-62ea0.cloudfunctions.net/api/consultar', {
+    const respuesta = await fetch('https://us-central1-folio-builder-62ea0.cloudfunctions.net/api/consultar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ usuario: nombreBase })
+      body: JSON.stringify({ usuario })
     });
 
-    const resultado = await response.json();
+    const data = await respuesta.json();
 
-    if (!response.ok) throw new Error(resultado.error || 'Error desconocido');
-
-    if (!resultado.folios || resultado.folios.length === 0) {
-      return alert(`⚠️ No se encontraron tarjetas para el usuario "${nombreBase}".`);
-    }
+    if (!respuesta.ok) throw new Error(data.error || 'Error al consultar');
 
     const contenedor = document.getElementById('listaFoliosConsulta');
     contenedor.innerHTML = '<p style="font-size:0.95rem;">Cargando títulos...</p>';
 
     let tabla = `<table style="width:100%; font-size:0.9rem; border-collapse:collapse;">
-<thead>
-  <tr style="background:#f0f0f0;">
-    <th style="padding:6px;">#</th>
-    <th style="padding:6px;">Archivo</th>
-    <th style="padding:6px;">Título</th>
-    <th style="padding:6px;">Descripción</th>
-    <th style="padding:6px;">Enlace</th>
-  </tr>
-</thead><tbody>`;
+      <thead>
+        <tr style="background:#f0f0f0;">
+          <th style="padding:6px;">#</th>
+          <th style="padding:6px;">Archivo</th>
+          <th style="padding:6px;">Título</th>
+          <th style="padding:6px;">Descripción</th>
+          <th style="padding:6px;">Enlace</th>
+        </tr>
+      </thead><tbody>`;
 
     const resultados = await Promise.all(
-      resultado.folios.map(async (archivo, i) => {
+      data.map(async (archivo, i) => {
         const url = `https://foliopro.github.io/ecard/${archivo}`;
         try {
           const res = await fetch(url);
           const html = await res.text();
-
-          const tituloMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']\s*([\s\S]*?)\s*["']>/i);
-          const descripcionMatch = html.match(/<meta\s+property=["']og:description["']\s+content=["']\s*([\s\S]*?)\s*["']>/i);
-
-          const titulo = tituloMatch ? tituloMatch[1].trim() : 'Sin título';
-          const descripcion = descripcionMatch ? descripcionMatch[1].trim() : 'Sin descripción';
+          const titulo = (html.match(/<meta\s+property=["']og:title["']\s+content=["']\s*([\s\S]*?)\s*["']>/i) || [])[1]?.trim() || 'Sin título';
+          const descripcion = (html.match(/<meta\s+property=["']og:description["']\s+content=["']\s*([\s\S]*?)\s*["']>/i) || [])[1]?.trim() || 'Sin descripción';
 
           return `<tr>
-            <td style="padding:6px;">${i + 1}</td>
-            <td style="padding:6px;">${archivo}</td>
-            <td style="padding:6px;">${titulo}</td>
-            <td style="padding:6px;">${descripcion}</td>
-            <td style="padding:6px;">
-              <a href="${url}" target="_blank" style="color:#1976d2; margin-right:8px;">🌐 Ver</a>
-              <button onclick="copiarLink('${url}')" style="padding:3px 6px; font-size:0.9rem;">📋 Copiar</button>
+            <td>${i + 1}</td>
+            <td>${archivo}</td>
+            <td>${titulo}</td>
+            <td>${descripcion}</td>
+            <td>
+              <a href="${url}" target="_blank" style="color:#1976d2;">🌐 Ver</a>
+              <button onclick="copiarLink('${url}')" style="padding:3px 6px;">📋 Copiar</button>
             </td>
           </tr>`;
         } catch {
           return `<tr>
             <td>${i + 1}</td>
             <td>${archivo}</td>
-            <td colspan="3" style="color:red;">❌ Error al leer</td>
+            <td colspan="3" style="color:red;">❌ No se pudo leer</td>
           </tr>`;
         }
       })
@@ -1354,9 +1346,9 @@ async function consultarFolios() {
     contenedor.innerHTML = tabla;
     document.getElementById('modalConsultaFolios').style.display = 'block';
 
-  } catch (err) {
-    console.error(err);
-    alert('❌ No se pudieron consultar las tarjetas.');
+  } catch (e) {
+    console.error(e);
+    alert('❌ No se pudo obtener la lista de archivos.');
   }
 }
 
