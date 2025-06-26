@@ -1170,23 +1170,21 @@ async function consultarFolios() {
 
 
 async function mostrarOpcionesReemplazo() {
-  const token = 'ghp_modificar';
-  const usuario = 'foliopro';
+  const usuarioGitHub = 'foliopro';
   const repositorio = 'ecard';
-  const carpeta = '';
-
-  const original = document.getElementById('entradaDatos').value;
-  const match = original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
-  let nombreBase = match ? match[1].trim().replace(/\s+/g, '-').toLowerCase() : null;
-
-  if (!nombreBase) return alert('⚠️ No se encontró el nombre base en #NOMTARJETA');
+  const nombreBase = localStorage.getItem('Usuario');
+  if (!nombreBase) return alert('⚠️ No se ha iniciado sesión correctamente.');
 
   try {
-    const respuesta = await fetch(`https://api.github.com/repos/${usuario}/${repositorio}/contents/${carpeta}`, {
-      headers: { 'Authorization': `token ${token}` }
+    const respuesta = await fetch(`https://api.github.com/repos/${usuarioGitHub}/${repositorio}/contents`, {
+      headers: {
+        'Authorization': `token ghp_TU_TOKEN_AQUI`  // Este token ya no lo usaremos si usamos Firebase
+      }
     });
 
     const archivos = await respuesta.json();
+    if (!Array.isArray(archivos)) throw new Error('❌ No se pudo leer la lista de archivos');
+
     const foliosCliente = archivos
       .filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'))
       .map(a => a.name);
@@ -1195,17 +1193,8 @@ async function mostrarOpcionesReemplazo() {
       return alert('⚠️ No se encontraron FolioPro existentes para este usuario.');
     }
 
-    // Rellenar el select
     const select = document.getElementById('selectFolio');
-    select.innerHTML = '';
-    foliosCliente.forEach(nombre => {
-      const option = document.createElement('option');
-      option.value = nombre;
-      option.textContent = nombre;
-      select.appendChild(option);
-    });
-
-    // Mostrar modal
+    select.innerHTML = foliosCliente.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
     document.getElementById('modalReemplazo').style.display = 'block';
 
   } catch (error) {
