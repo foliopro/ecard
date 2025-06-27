@@ -1170,38 +1170,33 @@ async function consultarFolios() {
 
 
 async function mostrarOpcionesReemplazo() {
-  const usuarioGitHub = 'foliopro';
-  const repositorio = 'ecard';
   const nombreBase = localStorage.getItem('Usuario');
   if (!nombreBase) return alert('⚠️ No se ha iniciado sesión correctamente.');
 
   try {
-    const respuesta = await fetch(`https://api.github.com/repos/${usuarioGitHub}/${repositorio}/contents`, {
-      headers: {
-        'Authorization': `token ghp_TU_TOKEN_AQUI`  // Este token ya no lo usaremos si usamos Firebase
-      }
+    const res = await fetch('https://us-central1-folio-builder-62ea0.cloudfunctions.net/api/consultar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usuario: nombreBase })
     });
 
-    const archivos = await respuesta.json();
-    if (!Array.isArray(archivos)) throw new Error('❌ No se pudo leer la lista de archivos');
+    const archivos = await res.json();
+    if (!res.ok || !Array.isArray(archivos)) throw new Error('No se pudieron cargar los archivos');
 
-    const foliosCliente = archivos
-      .filter(a => a.name.startsWith(nombreBase) && a.name.endsWith('.html'))
-      .map(a => a.name);
-
-    if (foliosCliente.length === 0) {
+    if (archivos.length === 0) {
       return alert('⚠️ No se encontraron FolioPro existentes para este usuario.');
     }
 
     const select = document.getElementById('selectFolio');
-    select.innerHTML = foliosCliente.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
+    select.innerHTML = archivos.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
     document.getElementById('modalReemplazo').style.display = 'block';
 
   } catch (error) {
     console.error(error);
-    alert('❌ Error al obtener los archivos de GitHub');
+    alert('❌ Error al obtener los archivos desde el servidor');
   }
 }
+
 
 function cerrarModalReemplazo() {
   document.getElementById('modalReemplazo').style.display = 'none';
@@ -1483,4 +1478,7 @@ function cerrarSesion() {
 
 </body>
 </html>
+
+
+
 
