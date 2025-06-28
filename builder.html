@@ -1078,12 +1078,14 @@ if (!response.ok) throw new Error(resultado.error || 'Error desconocido');
 
 await navigator.clipboard.writeText(resultado.url);
 
-window.open(resultado.url, '_blank');
 
 alert(`✅ Subido con éxito
 📄 Archivo: ${resultado.archivo}
 📊 Tarjetas usadas: ${resultado.usadas} / ${parseInt(localStorage.getItem('Lic_Maximas') || 3)}
 🔗 ${resultado.url} (copiado al portapapeles)`);
+
+window.open(resultado.url, '_blank');
+
 
   } catch (err) {
     alert(`❌ Error al subir:\n${err.message}`);
@@ -1478,6 +1480,7 @@ function cerrarSesion() {
 
 </body>
 </html>
+
 
 
 
