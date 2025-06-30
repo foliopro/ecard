@@ -412,19 +412,10 @@ texto = texto.replace(/@urld:\s*"([^"]+)"\s*;\s*(https?:\/\/[^\s]+)/g, (match, t
 
 
 function generarTarjeta() {
-
       const texto = document.getElementById('entradaDatos').value || '';
       if (!texto.trim()) return alert('Por favor, pega el contenido.');
+
       const datos = {};
-
-
-
-// ✅ Leer #VENCIMIENTO si está presente
-if (texto.includes('#VENCIMIENTO')) {
-  const match = texto.match(/#VENCIMIENTO\s*\n?\s*([\d\/\-]+)/i);
-  if (match) datos.VENCIMIENTO = match[1].trim();
-}
-
 
 let colorBoton = '#643771';
 let colorFondo = '#f4f8ff';
@@ -444,11 +435,22 @@ for (let linea of lineas) {
   }
 }
 
+
+// ✅ LUEGO: Parsear la fecha de vencimiento desde datos.VENCIMIENTO
+  let fechaVencimiento = null;
+  if (datos.VENCIMIENTO) {
+    const partes = datos.VENCIMIENTO.trim().split('/');
+    if (partes.length === 3) {
+      const [dd, mm, yyyy] = partes;
+      fechaVencimiento = new Date(`${yyyy}-${mm}-${dd}T23:59:59`);
+    }
+  }
+
+
+
 // Leer colores personalizados desde #COLORES
 
 let usarPaleta = false; // por defecto no usamos paleta
-
-
 
 if (datos.COLORES) {
   const lineasColor = datos.COLORES.split('\n');
@@ -501,51 +503,6 @@ if (datos.BOTONFLOT) {
 
 
       let bodyHTML = '';
-
-
-// 📆 Si hay vencimiento, validamos antes de continuar
-if (datos.VENCIMIENTO) {
-  const partes = datos.VENCIMIENTO.split(/[\/\-]/); // admite 30/12/2025 o 30-12-2025
-  const fechaVencimiento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T23:59:59`);
-  const hoy = new Date();
-
-if (hoy > fechaVencimiento) {
-  const urlActual = window.location.href;
-  const mensajeWA = encodeURIComponent(
-    `Señores FolioPro. La tarjeta "${urlActual}" se encuentra vencida. Estoy interesado en renovarla. Mi nombre es ...`
-  );
-
-  bodyHTML = `
-    <div style="text-align:center; font-family:'Inter', sans-serif; padding:50px; max-width:600px; margin:auto;">
-      <h2 style="color:#c62828; font-size:2rem;">🚫 Esta tarjeta ha expirado</h2>
-      <p style="font-size:1.2rem; color:#444; margin-top:20px;">
-        Esta tarjeta digital ya no está activa desde el <strong>${datos.VENCIMIENTO}</strong>.
-      </p>
-      <p style="margin-top:25px; font-size:1rem; color:#777;">
-        Si eres el propietario y deseas renovarla, puedes contactarnos directamente:
-      </p>
-      <a href="https://wa.me/573117715353?text=${mensajeWA}" target="_blank" style="
-        display:inline-block;
-        margin-top:20px;
-        background-color:#25D366;
-        color:white;
-        padding:12px 20px;
-        border-radius:8px;
-        font-size:1rem;
-        text-decoration:none;
-        font-weight:bold;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      ">
-        📲 Contactarnos por WhatsApp
-      </a>
-    </div>
-  `;
-  document.getElementById('vistaPrevia').innerHTML = bodyHTML;
-  return;
-}
-
-
-
 
       bodyHTML += `
   <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
@@ -799,6 +756,36 @@ if (botonW && botonC && botonM) {
 
 
 
+
+// 🟡 SI LA TARJETA ESTÁ VENCIDA, MOSTRAR MODAL DE ADVERTENCIA (SOLO EN PREVIEW)
+if (fechaVencimiento && Date.now() > fechaVencimiento.getTime()) {
+  const modalVencida = `
+    <div id="modalVencida" style="
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    ">
+      <div style="background: #fff; padding: 30px; border-radius: 12px; text-align: center; max-width: 500px; width: 90%; position:relative;">
+        <span onclick="document.getElementById('modalVencida').style.display='none'" style="position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 1.5rem;">❌</span>
+        <h2 style="color: #c62828;">⛔ Tarjeta vencida</h2>
+        <p>Esta tarjeta ha vencido. Si eres el creador, contacta con soporte para renovarla.</p>
+        <a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20${(localStorage.getItem('nombreTarjeta') || 'mi-tarjeta')}.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..." 
+           target="_blank" 
+           style="display:inline-block; margin-top:10px; padding:10px 20px; background:#25d366; color:white; border-radius:8px; text-decoration:none;">
+          📱 Contactar por WhatsApp
+        </a>
+      </div>
+    </div>
+  `;
+  bodyHTML += modalVencida;
+}
+
+
       document.getElementById('vistaPrevia').innerHTML = bodyHTML;
 
 
@@ -954,6 +941,23 @@ details summary::-webkit-details-marker {
     // Abre la primera sección automáticamente
     document.querySelector('details')?.setAttribute("open", "true");
 
+
+  // 🔒 BLOQUEAR SI LA TARJETA YA ESTÁ VENCIDA
+ const fechaVenc = new Date("2025-09-30T23:59:59.000Z");
+if (Date.now() > fechaVenc.getTime()) {
+  document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+    '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+    '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+    '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20nombre.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+    ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+    '📲 Contactar por WhatsApp' +
+    '</a>' +
+  '</div>';
+}
+
+
+
+
     function mostrarDescripcion(texto) {
       const modal = document.getElementById('modalImagen');
       const descBox = document.getElementById('descripcionImagen');
@@ -1105,35 +1109,45 @@ function cerrarEnlaceExternoModal() {
 
 
 
-// 👇 NUEVA FUNCIÓN para leer el archivo TXT
-// 👇 Esto va fuera de cualquier función
-document.getElementById('archivoTxt').addEventListener('change', function(event) {
-  const archivo = event.target.files[0];
-  if (!archivo) return;
+// 👇 NUEVA FUNCIÓN ROBUSTA para leer el archivo TXT
+// 🔒 Garantiza que el input existe antes de accederlo
+document.addEventListener('DOMContentLoaded', function () {
+  const inputArchivo = document.getElementById('archivoTxt');
+  if (!inputArchivo) return;
 
-  const lector = new FileReader();
-  lector.onload = function(e) {
-    const contenido = e.target.result;
-    document.getElementById('entradaDatos').value = contenido;
+  inputArchivo.addEventListener('change', function(event) {
+    const archivo = event.target.files[0];
+    if (!archivo) return;
 
-    // ✅ Mostrar el botón "Generar Tarjeta"
-    document.getElementById('btnGenerar').style.display = 'inline-block';
+    const lector = new FileReader();
 
-    // ✅ Guardar nombre de la tarjeta
-    const match = contenido.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
-    if (match && match[1]) {
-      const nombreTarjeta = match[1].trim().replace(/\s+/g, '-').toLowerCase();
-      localStorage.setItem('nombreTarjeta', nombreTarjeta);
-      console.log('✅ Nombre de tarjeta guardado:', nombreTarjeta);
-    } else {
-      localStorage.setItem('nombreTarjeta', 'mi-tarjeta');
-      console.warn('⚠️ No se encontró el nombre. Usando "mi-tarjeta".');
-    }
-  };
+    lector.onload = function(e) {
+      const contenido = e.target.result;
+      document.getElementById('entradaDatos').value = contenido;
 
-  lector.readAsText(archivo);
+      // ✅ Mostrar el botón "Generar Tarjeta"
+      const btn = document.getElementById('btnGenerar');
+      if (btn) btn.style.display = 'inline-block';
+
+      // ✅ Guardar nombre de la tarjeta
+      const match = contenido.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
+      if (match && match[1]) {
+        const nombreTarjeta = match[1].trim().replace(/\s+/g, '-').toLowerCase();
+        localStorage.setItem('nombreTarjeta', nombreTarjeta);
+        console.log('✅ Nombre de tarjeta guardado:', nombreTarjeta);
+      } else {
+        localStorage.setItem('nombreTarjeta', 'mi-tarjeta');
+        console.warn('⚠️ No se encontró el nombre. Usando "mi-tarjeta".');
+      }
+    };
+
+    lector.onerror = function() {
+      alert('❌ No se pudo leer el archivo');
+    };
+
+    lector.readAsText(archivo);
+  });
 });
-
 
 
 
@@ -1494,47 +1508,6 @@ function cerrarSesion() {
 
 
 
-
-(function () {
-  const fechaTexto = "${datos.VENCIMIENTO}"; // ← Esto se inyecta dinámicamente al generar el HTML
-  if (!fechaTexto) return;
-
-  const partes = fechaTexto.split(/[\/\-]/);
-  const vencimiento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T23:59:59`);
-  const hoy = new Date();
-
-  if (hoy > vencimiento) {
-    const url = window.location.href;
-    const mensaje = encodeURIComponent(
-      `Señores FolioPro. La tarjeta "${url}" se encuentra vencida. Estoy interesado en renovarla. Mi nombre es ...`
-    );
-    document.body.innerHTML = `
-      <div style="text-align:center; font-family:'Inter', sans-serif; padding:50px; max-width:600px; margin:auto;">
-        <h2 style="color:#c62828; font-size:2rem;">🚫 Esta tarjeta ha expirado</h2>
-        <p style="font-size:1.2rem; color:#444; margin-top:20px;">
-          Esta tarjeta digital ya no está activa desde el <strong>${fechaTexto}</strong>.
-        </p>
-        <p style="margin-top:25px; font-size:1rem; color:#777;">
-          Si eres el propietario y deseas renovarla, puedes contactarnos directamente:
-        </p>
-        <a href="https://wa.me/573117715353?text=${mensaje}" target="_blank" style="
-          display:inline-block;
-          margin-top:20px;
-          background-color:#25D366;
-          color:white;
-          padding:12px 20px;
-          border-radius:8px;
-          font-size:1rem;
-          text-decoration:none;
-          font-weight:bold;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        ">
-          📲 Contactarnos por WhatsApp
-        </a>
-      </div>
-    `;
-  }
-})();
 
 
 
