@@ -249,6 +249,26 @@ body {
   </style>
 </head>
 <body>
+
+<body>
+  <div id="bienvenidaUsuario" style="
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #444;
+    background: #fff3cd;
+    padding: 6px 12px;
+    border: 1px solid #ffeeba;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    display: none;
+  ">
+    👤 Bienvenido, <span id="nombreUsuario"></span>
+  </div>
+
   
 <!-- 🖼 Banner inicial sin márgenes exagerados -->
 <div style="width: 100%; text-align: center; margin: 0; padding: 0;">
@@ -1479,6 +1499,22 @@ function cerrarSesion() {
       iframe.src = '';
       modal.style.display = 'none';
     }
+
+
+
+ window.addEventListener('DOMContentLoaded', () => {
+    const usuario = localStorage.getItem('Usuario');
+    if (usuario) {
+      document.getElementById('nombreUsuario').textContent = usuario;
+      document.getElementById('bienvenidaUsuario').style.display = 'block';
+
+      // ✅ Mensaje de bienvenida (opcional)
+      setTimeout(() => {
+        alert(`👋 Bienvenido, ${usuario}!`);
+      }, 500);
+    }
+  });
+
 
 
 
