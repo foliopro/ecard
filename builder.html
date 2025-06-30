@@ -307,6 +307,7 @@ body {
   <button id="btnBorrarGitHub" onclick="mostrarOpcionesBorrado()">🗑 Borrar FolioPro</button>
   <button id="btnConsultarFolios" onclick="consultarFolios()">🔍 Consultar FolioPros</button>
   <button id="btnCerrarSesion" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+  <button id="btnNuevaTarjeta" onclick="nuevaTarjeta()">🆕 Nueva Tarjeta</button>
 
 
   <div id="vistaPrevia" style="margin-top:20px;"></div>
@@ -1516,7 +1517,12 @@ function cerrarSesion() {
   });
 
 
-
+function nuevaTarjeta() {
+    const ok = confirm("⚠️ ¿Estás seguro de comenzar una nueva tarjeta?\nSe perderán los cambios actuales.");
+    if (ok) {
+      location.reload(); // Recarga la página completa desde cero
+    }
+  }
 
 
 </script>
@@ -1524,7 +1530,4 @@ function cerrarSesion() {
 
 </body>
 </html>
-
-
-
 
