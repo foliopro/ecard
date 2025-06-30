@@ -251,6 +251,40 @@ body {
 <body>
 
 <body>
+
+  <!-- 🌟 Pantalla de Bienvenida (centrada al inicio) -->
+  <div id="pantallaBienvenida" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #ffffff;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+  ">
+    <h2 style="font-size: 2rem; color: #333;">¡Bienvenido a FolioPro!</h2>
+    <p style="max-width: 500px; font-size: 1.1rem; color: #555; margin-top: 10px;">
+      Crea, edita y comparte tu tarjeta profesional con estilo. ¡Empieza ahora a diseñar tu FolioPro!
+    </p>
+    <button onclick="ocultarBienvenida()" style="
+      margin-top: 25px;
+      padding: 10px 20px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    ">🚀 Continuar</button>
+  </div>
+
+  <!-- 👤 Bienvenida al usuario (parte superior derecha) -->
   <div id="bienvenidaUsuario" style="
     position: absolute;
     top: 10px;
@@ -269,24 +303,23 @@ body {
     👤 Bienvenido, <span id="nombreUsuario"></span>
   </div>
 
-  
-<!-- 🖼 Banner inicial sin márgenes exagerados -->
-<div style="width: 100%; text-align: center; margin: 0; padding: 0;">
-  <img src="https://i.ibb.co/GQ1FdY0B/BANNER-INICIAL.png" alt="FolioPro Banner" style="width: 100%; max-width: 100%; height: auto; display: block;">
-</div>
+  <!-- 🖼 Banner inicial -->
+  <div style="width: 100%; text-align: center; margin: 0; padding: 0;">
+    <img src="https://i.ibb.co/GQ1FdY0B/BANNER-INICIAL.png" alt="FolioPro Banner" style="width: 100%; max-width: 100%; height: auto; display: block;">
+  </div>
 
-<!-- ✨ Bienvenida profesional, más pegada al banner -->
-<div style="text-align: center; padding: 30px 20px 40px; background: linear-gradient(to bottom, #f3f6fc, #ffffff); border-radius: 12px; margin-top: 0px; margin-bottom: 30px;">
-  <h1 style="font-size: 2.2rem; font-weight: 700; color: #222; margin-top: 10px;">🚀 Bienvenido a <span style="color: #1976d2;">FolioPro</span></h1>
-  <p style="font-size: 1.2rem; color: #333; max-width: 700px; margin: 15px auto;">
-    <strong>Tu marca, tu historia, en un solo folio digital.</strong> Crea fácilmente tarjetas profesionales para mostrar tus proyectos, productos o servicios.  
-    Con FolioPro puedes compartir tu trabajo de forma elegante, moderna y efectiva.
-  </p>
-  <p style="font-size: 1.05rem; color: #444; margin-top: 20px;">
-    ✍️ <strong>Paso 1:</strong> Selecciona tu plantilla FolioPro personalizada <br>
-    🛠 <strong>Paso 2:</strong> Da clic en <span style="color: #1976d2; font-weight: bold;">“Generar Tarjeta”</span> para visualizar y continuar
-  </p>
-</div>
+  <!-- ✨ Texto profesional de bienvenida -->
+  <div style="text-align: center; padding: 30px 20px 40px; background: linear-gradient(to bottom, #f3f6fc, #ffffff); border-radius: 12px; margin-top: 0px; margin-bottom: 30px;">
+    <h1 style="font-size: 2.2rem; font-weight: 700; color: #222; margin-top: 10px;">🚀 Bienvenido a <span style="color: #1976d2;">FolioPro</span></h1>
+    <p style="font-size: 1.2rem; color: #333; max-width: 700px; margin: 15px auto;">
+      <strong>Tu marca, tu historia, en un solo folio digital.</strong> Crea fácilmente tarjetas profesionales para mostrar tus proyectos, productos o servicios.
+      Con FolioPro puedes compartir tu trabajo de forma elegante, moderna y efectiva.
+    </p>
+    <p style="font-size: 1.05rem; color: #444; margin-top: 20px;">
+      ✍️ <strong>Paso 1:</strong> Selecciona tu plantilla FolioPro personalizada <br>
+      🛠 <strong>Paso 2:</strong> Da clic en <span style="color: #1976d2; font-weight: bold;">“Generar Tarjeta”</span> para visualizar y continuar
+    </p>
+  </div>
   
   <div style="text-align: center; margin: 15px 0; font-size: 1rem;">
   <label for="colorBoton">🎨 Color de los botones de sección:</label>
