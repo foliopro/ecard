@@ -669,12 +669,21 @@ if (datos.UBICACION) {
   }
 
 
-      if (datos.LINK_QR) {
-        bodyHTML += `<div class="bloque"><div class="qr" style="text-align:center;">
-          <h3>Escanea para acceder</h3>
-          <img src="${datos.LINK_QR}" alt="Código QR" style="width: 150px; height: auto; border-radius: 12px;">
-        </div></div>`;
-      }
+if (datos.LINK_QR) {
+  const partesQR = datos.LINK_QR.trim().split('\n');
+  const enlaceQR = partesQR[0]?.trim();
+  const textoQR = partesQR[1]?.trim() || 'Escanea para acceder';
+
+  if (enlaceQR) {
+    const qrGenerado = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(enlaceQR)}`;
+    bodyHTML += `<div class="bloque" style="text-align:center; padding:20px; background:white; border-radius:12px; margin:20px;">
+      <h3 style="color:#555; font-weight:500;">${textoQR}</h3>
+      <img src="${qrGenerado}" alt="Código QR" style="width: 150px; height: auto; border-radius: 12px;">
+    </div>`;
+  }
+}
+
+
 
       bodyHTML += `<div class="descargar">
         <button onclick="descargarVCF()">📥 Descargar Contacto</button>
