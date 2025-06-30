@@ -1552,12 +1552,19 @@ function cerrarSesion() {
 
 
  window.addEventListener('DOMContentLoaded', () => {
-    const usuario = localStorage.getItem('Usuario');
-    if (usuario) {
-      document.getElementById('nombreUsuario').textContent = usuario;
-      document.getElementById('bienvenidaUsuario').style.display = 'block';
+  const usuario = localStorage.getItem('Usuario');
+  if (usuario) {
+    document.getElementById('nombreUsuario').textContent = usuario;
+    document.getElementById('bienvenidaUsuario').style.display = 'block';
+
+    // ✅ Mostrar modal SOLO si no se ha mostrado esta sesión
+    if (!sessionStorage.getItem('BienvenidaMostrada')) {
+      mostrarModalBienvenida(); // 🪄 Muestra el modal
+      sessionStorage.setItem('BienvenidaMostrada', '1'); // 🔒 Marcar como mostrada
     }
-  });
+  }
+});
+
 
 
 
@@ -1588,6 +1595,10 @@ function cerrarModalBienvenida() {
   }
 
 
+function mostrarModalBienvenida() {
+  const modal = document.getElementById('modalBienvenida');
+  modal.style.display = 'flex';
+}
 
 
 </script>
