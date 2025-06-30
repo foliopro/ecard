@@ -251,6 +251,16 @@ body {
 <body>
 
 <body>
+<!-- 🟢 MODAL DE BIENVENIDA -->
+  <div id="modalBienvenida" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:99999; display:flex; justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:30px; border-radius:12px; text-align:center; max-width:500px; width:90%; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+      <h2 style="margin-bottom:10px; font-size: 1.8rem; color: #1976d2;">👋 ¡Bienvenido a FolioPro!</h2>
+      <p style="font-size:1.1rem; color:#444;">Tu marca, tu historia, en un solo folio digital. Crea tarjetas profesionales elegantes, personalizadas y listas para compartir.</p>
+      <button onclick="cerrarModalBienvenida()" style="margin-top:20px; padding:10px 20px; background:#1976d2; color:white; border:none; border-radius:8px; font-size:1rem; cursor:pointer;">Continuar</button>
+    </div>
+  </div>
+
+  <!-- 🟡 USUARIO SUPERIOR DERECHA -->
   <div id="bienvenidaUsuario" style="
     position: absolute;
     top: 10px;
@@ -269,25 +279,23 @@ body {
     👤 Bienvenido, <span id="nombreUsuario"></span>
   </div>
 
-  
-<!-- 🖼 Banner inicial sin márgenes exagerados -->
-<div style="width: 100%; text-align: center; margin: 0; padding: 0;">
-  <img src="https://i.ibb.co/GQ1FdY0B/BANNER-INICIAL.png" alt="FolioPro Banner" style="width: 100%; max-width: 100%; height: auto; display: block;">
-</div>
+  <!-- 🖼️ BANNER -->
+  <div style="width: 100%; text-align: center; margin: 0; padding: 0;">
+    <img src="https://i.ibb.co/GQ1FdY0B/BANNER-INICIAL.png" alt="FolioPro Banner" style="width: 100%; max-width: 100%; height: auto; display: block;">
+  </div>
 
-<!-- ✨ Bienvenida profesional, más pegada al banner -->
-<div style="text-align: center; padding: 30px 20px 40px; background: linear-gradient(to bottom, #f3f6fc, #ffffff); border-radius: 12px; margin-top: 0px; margin-bottom: 30px;">
-  <h1 style="font-size: 2.2rem; font-weight: 700; color: #222; margin-top: 10px;">🚀 Bienvenido a <span style="color: #1976d2;">FolioPro</span></h1>
-  <p style="font-size: 1.2rem; color: #333; max-width: 700px; margin: 15px auto;">
-    <strong>Tu marca, tu historia, en un solo folio digital.</strong> Crea fácilmente tarjetas profesionales para mostrar tus proyectos, productos o servicios.  
-    Con FolioPro puedes compartir tu trabajo de forma elegante, moderna y efectiva.
-  </p>
-  <p style="font-size: 1.05rem; color: #444; margin-top: 20px;">
-    ✍️ <strong>Paso 1:</strong> Selecciona tu plantilla FolioPro personalizada <br>
-    🛠 <strong>Paso 2:</strong> Da clic en <span style="color: #1976d2; font-weight: bold;">“Generar Tarjeta”</span> para visualizar y continuar
-  </p>
-</div>
-  
+  <!-- 📘 TEXTO DE BIENVENIDA -->
+  <div style="text-align: center; padding: 30px 20px 40px; background: linear-gradient(to bottom, #f3f6fc, #ffffff); border-radius: 12px; margin-top: 0px; margin-bottom: 30px;">
+    <h1 style="font-size: 2.2rem; font-weight: 700; color: #222; margin-top: 10px;">🚀 Bienvenido a <span style="color: #1976d2;">FolioPro</span></h1>
+    <p style="font-size: 1.2rem; color: #333; max-width: 700px; margin: 15px auto;">
+      <strong>Tu marca, tu historia, en un solo folio digital.</strong> Crea fácilmente tarjetas profesionales para mostrar tus proyectos, productos o servicios.  
+      Con FolioPro puedes compartir tu trabajo de forma elegante, moderna y efectiva.
+    </p>
+    <p style="font-size: 1.05rem; color: #444; margin-top: 20px;">
+      ✍️ <strong>Paso 1:</strong> Selecciona tu plantilla FolioPro personalizada <br>
+      🛠 <strong>Paso 2:</strong> Da clic en <span style="color: #1976d2; font-weight: bold;">“Generar Tarjeta”</span> para visualizar y continuar
+    </p>
+  </div>  
   <div style="text-align: center; margin: 15px 0; font-size: 1rem;">
   <label for="colorBoton">🎨 Color de los botones de sección:</label>
   <input type="color" id="colorBoton" value="#643771" style="margin-right: 20px;">
@@ -1251,6 +1259,23 @@ async function mostrarOpcionesReemplazo() {
 }
 
 
+
+ // Mostrar nombre de usuario arriba a la derecha
+  const usuario = localStorage.getItem('Usuario');
+  if (usuario) {
+    document.getElementById('nombreUsuario').textContent = usuario;
+    document.getElementById('bienvenidaUsuario').style.display = 'block';
+  }
+
+  // Función para cerrar el modal
+  function cerrarModalBienvenida() {
+    document.getElementById('modalBienvenida').style.display = 'none';
+  }
+
+
+
+
+
 function cerrarModalReemplazo() {
   document.getElementById('modalReemplazo').style.display = 'none';
 }
@@ -1562,6 +1587,10 @@ function descargarQR() {
 }
 
 
+
+function cerrarModalBienvenida() {
+    document.getElementById('modalBienvenida').style.display = 'none';
+  }
 
 
 
