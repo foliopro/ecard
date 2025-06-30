@@ -1556,11 +1556,6 @@ function cerrarSesion() {
     if (usuario) {
       document.getElementById('nombreUsuario').textContent = usuario;
       document.getElementById('bienvenidaUsuario').style.display = 'block';
-
-      // ✅ Mensaje de bienvenida (opcional)
-      setTimeout(() => {
-        alert(`👋 Bienvenido, ${usuario}!`);
-      }, 500);
     }
   });
 
