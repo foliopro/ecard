@@ -316,7 +316,7 @@ body {
 <button onclick="descargarArchivoHTML()" style="display:none;">💾 Descargar archivo HTML</button>
 <button id="btnSubirGitHub" style="display:none;" onclick="subirAGitHub()">🚀 Subir a GitHub</button>
 <button id="btnReemplazarGitHub" style="display:none;" onclick="mostrarOpcionesReemplazo()">🛠 Reemplazar FolioPro</button>
- <button id="btnNuevaTarjeta" onclick="nuevaTarjeta()">🆕 Nueva Tarjeta</button>
+<button id="btnNuevaTarjeta" style="display:none;" onclick="nuevaTarjeta()">🆕 Nueva Tarjeta</button>
 
 
   <script>
@@ -860,11 +860,6 @@ details summary::-webkit-details-marker {
     <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
   </div>
 </div>
-
-
-
-
-
 
 
 
@@ -1523,13 +1518,14 @@ function cerrarSesion() {
   });
 
 
+
+
 function nuevaTarjeta() {
-    const ok = confirm("⚠️ ¿Estás seguro de comenzar una nueva tarjeta?\nSe perderán los cambios actuales.");
+    const ok = confirm("⚠️ ¿Deseas comenzar una nueva tarjeta? Se perderán todos los cambios actuales.");
     if (ok) {
-      location.reload(); // Recarga la página completa desde cero
+      location.reload();
     }
   }
-
 
 
 
