@@ -412,9 +412,19 @@ texto = texto.replace(/@urld:\s*"([^"]+)"\s*;\s*(https?:\/\/[^\s]+)/g, (match, t
 
 
 function generarTarjeta() {
+
       const texto = document.getElementById('entradaDatos').value || '';
       if (!texto.trim()) return alert('Por favor, pega el contenido.');
       const datos = {};
+
+
+
+// ✅ Leer #VENCIMIENTO si está presente
+if (texto.includes('#VENCIMIENTO')) {
+  const match = texto.match(/#VENCIMIENTO\s*\n?\s*([\d\/\-]+)/i);
+  if (match) datos.VENCIMIENTO = match[1].trim();
+}
+
 
 let colorBoton = '#643771';
 let colorFondo = '#f4f8ff';
@@ -437,6 +447,8 @@ for (let linea of lineas) {
 // Leer colores personalizados desde #COLORES
 
 let usarPaleta = false; // por defecto no usamos paleta
+
+
 
 if (datos.COLORES) {
   const lineasColor = datos.COLORES.split('\n');
@@ -489,6 +501,51 @@ if (datos.BOTONFLOT) {
 
 
       let bodyHTML = '';
+
+
+// 📆 Si hay vencimiento, validamos antes de continuar
+if (datos.VENCIMIENTO) {
+  const partes = datos.VENCIMIENTO.split(/[\/\-]/); // admite 30/12/2025 o 30-12-2025
+  const fechaVencimiento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T23:59:59`);
+  const hoy = new Date();
+
+if (hoy > fechaVencimiento) {
+  const urlActual = window.location.href;
+  const mensajeWA = encodeURIComponent(
+    `Señores FolioPro. La tarjeta "${urlActual}" se encuentra vencida. Estoy interesado en renovarla. Mi nombre es ...`
+  );
+
+  bodyHTML = `
+    <div style="text-align:center; font-family:'Inter', sans-serif; padding:50px; max-width:600px; margin:auto;">
+      <h2 style="color:#c62828; font-size:2rem;">🚫 Esta tarjeta ha expirado</h2>
+      <p style="font-size:1.2rem; color:#444; margin-top:20px;">
+        Esta tarjeta digital ya no está activa desde el <strong>${datos.VENCIMIENTO}</strong>.
+      </p>
+      <p style="margin-top:25px; font-size:1rem; color:#777;">
+        Si eres el propietario y deseas renovarla, puedes contactarnos directamente:
+      </p>
+      <a href="https://wa.me/573117715353?text=${mensajeWA}" target="_blank" style="
+        display:inline-block;
+        margin-top:20px;
+        background-color:#25D366;
+        color:white;
+        padding:12px 20px;
+        border-radius:8px;
+        font-size:1rem;
+        text-decoration:none;
+        font-weight:bold;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      ">
+        📲 Contactarnos por WhatsApp
+      </a>
+    </div>
+  `;
+  document.getElementById('vistaPrevia').innerHTML = bodyHTML;
+  return;
+}
+
+
+
 
       bodyHTML += `
   <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
@@ -1437,6 +1494,47 @@ function cerrarSesion() {
 
 
 
+
+(function () {
+  const fechaTexto = "${datos.VENCIMIENTO}"; // ← Esto se inyecta dinámicamente al generar el HTML
+  if (!fechaTexto) return;
+
+  const partes = fechaTexto.split(/[\/\-]/);
+  const vencimiento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T23:59:59`);
+  const hoy = new Date();
+
+  if (hoy > vencimiento) {
+    const url = window.location.href;
+    const mensaje = encodeURIComponent(
+      `Señores FolioPro. La tarjeta "${url}" se encuentra vencida. Estoy interesado en renovarla. Mi nombre es ...`
+    );
+    document.body.innerHTML = `
+      <div style="text-align:center; font-family:'Inter', sans-serif; padding:50px; max-width:600px; margin:auto;">
+        <h2 style="color:#c62828; font-size:2rem;">🚫 Esta tarjeta ha expirado</h2>
+        <p style="font-size:1.2rem; color:#444; margin-top:20px;">
+          Esta tarjeta digital ya no está activa desde el <strong>${fechaTexto}</strong>.
+        </p>
+        <p style="margin-top:25px; font-size:1rem; color:#777;">
+          Si eres el propietario y deseas renovarla, puedes contactarnos directamente:
+        </p>
+        <a href="https://wa.me/573117715353?text=${mensaje}" target="_blank" style="
+          display:inline-block;
+          margin-top:20px;
+          background-color:#25D366;
+          color:white;
+          padding:12px 20px;
+          border-radius:8px;
+          font-size:1rem;
+          text-decoration:none;
+          font-weight:bold;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        ">
+          📲 Contactarnos por WhatsApp
+        </a>
+      </div>
+    `;
+  }
+})();
 
 
 
