@@ -670,23 +670,31 @@ if (datos.UBICACION) {
 
 
 if (datos.LINK_QR) {
-  const lineasQR = datos.LINK_QR.trim().split('\n').map(x => x.trim()).filter(Boolean);
-  const textoQR = lineasQR.length === 2 ? lineasQR[0] : 'Escanea para acceder';
-  const enlaceQR = lineasQR.length === 2 ? lineasQR[1] : lineasQR[0];
-
-  const logo = datos.LOGO || 'https://i.ibb.co/M5pc1WwG/image.png'; // Logo por defecto
+  const link = datos.LINK_QR.trim();
+  const mensajeQR = datos.MENSAJE_QR || 'Escanea para acceder';
 
   bodyHTML += `
-  <div class="bloque" style="text-align:center; padding:20px;">
-    <h3 style="margin-bottom:12px;">${textoQR}</h3>
-    <div style="position:relative; width:180px; margin:auto;">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(enlaceQR)}" 
-           alt="Código QR" style="width:180px; height:180px; border-radius:10px;">
-      <img src="${logo}" 
-           style="width:50px; height:50px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); border-radius:10px; box-shadow:0 0 6px rgba(0,0,0,0.3);">
+    <div class="bloque" style="text-align:center;">
+      <div class="qr">
+        <h3 style="font-weight: 500; margin-bottom: 10px;">${mensajeQR}</h3>
+        <div style="display:inline-block; position:relative;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(link)}" 
+               id="codigoQRGenerado" 
+               alt="Código QR" 
+               style="width: 180px; height: 180px; border-radius: 12px;">
+          <img src="https://i.ibb.co/hFB5PxDS/Logo-cuadrado.png" 
+               alt="Logo" 
+               style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
+        </div>
+        <div>
+          <button onclick="descargarQR()" style="margin-top: 6px; font-size: 0.8rem; color: #555; background: none; border: none; cursor: pointer;">⬇️ Descargar QR</button>
+        </div>
+      </div>
     </div>
-  </div>`;
+  `;
 }
+
+
 
 
 
@@ -1540,6 +1548,20 @@ function nuevaTarjeta() {
       location.reload();
     }
   }
+
+
+
+function descargarQR() {
+  const qr = document.getElementById('codigoQRGenerado');
+  const link = document.createElement('a');
+  link.href = qr.src;
+  link.download = 'codigo_qr.png';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+
 
 
 
