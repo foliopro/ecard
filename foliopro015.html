@@ -512,6 +512,15 @@ Si estás cerca de pensionarte y no sabes cómo será tu mesada, podrías estar 
   }
 
 
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+const claveTarjeta = "";
+if (claveTarjeta !== "") {
+  const claveIngresada = prompt("🔒 Esta tarjeta está protegida.
+Ingresa la contraseña para continuar:");
+  if (claveIngresada !== claveTarjeta) {
+    document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+  }
+}
 
 
 
