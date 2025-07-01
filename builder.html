@@ -796,6 +796,17 @@ if (fechaVencimiento && Date.now() > fechaVencimiento.getTime()) {
 }
 
 
+// 🔐 BLOQUEO POR CONTRASEÑA (solo en preview)
+if (datos.PASSWORD && datos.PASSWORD.trim() !== '') {
+  const clave = datos.PASSWORD.trim();
+  const promptClave = prompt("🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:");
+
+  if (promptClave !== clave) {
+    alert("❌ Contraseña incorrecta. No se puede mostrar esta tarjeta.");
+    return; // Detener ejecución si está mal
+  }
+}
+
       document.getElementById('vistaPrevia').innerHTML = bodyHTML;
 
 
@@ -969,6 +980,14 @@ details summary::-webkit-details-marker {
   }
 
 
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+const claveTarjeta = "${datos.PASSWORD ? datos.PASSWORD.trim() : ''}";
+if (claveTarjeta !== "") {
+  const claveIngresada = prompt("🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:");
+  if (claveIngresada !== claveTarjeta) {
+    document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+  }
+}
 
 
 
