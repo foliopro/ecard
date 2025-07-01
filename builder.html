@@ -798,6 +798,9 @@ if (fechaVencimiento && Date.now() > fechaVencimiento.getTime()) {
 
 // 🔐 BLOQUEO POR CONTRASEÑA (solo en preview)
 if (datos.PASSWORD && datos.PASSWORD.trim() !== '') {
+ console.log("🔐 Clave definida:", datos.PASSWORD.trim()); // 👈 AQUÍ
+
+
   const clave = datos.PASSWORD.trim();
   const promptClave = prompt("🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:");
 
