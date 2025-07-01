@@ -955,7 +955,6 @@ details summary::-webkit-details-marker {
     // Abre la primera sección automáticamente
     document.querySelector('details')?.setAttribute("open", "true");
 
-  // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
 // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
   const fechaVenc = new Date("${vencimientoISO}");
   if (Date.now() > fechaVenc.getTime()) {
@@ -1692,3 +1691,7 @@ function mostrarModalBienvenida() {
 
 </body>
 </html>
+
+
+
+
