@@ -986,14 +986,14 @@ details summary::-webkit-details-marker {
 
 
 // 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
-const clave = "${claveTarjeta}";
-if (clave !== "") {
-  const claveIngresada = prompt("🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:");
-  if (claveIngresada !== clave) {
-    document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+console.log("🧪 El script de contraseña se está ejecutando...");
+  const clave = "${claveTarjeta}";
+  if (clave !== "") {
+    const claveIngresada = prompt("🔒 Esta tarjeta está protegida.\\nIngresa la contraseña para continuar:");
+    if (claveIngresada !== clave) {
+      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+    }
   }
-}
-
 
 
     function mostrarDescripcion(texto) {
