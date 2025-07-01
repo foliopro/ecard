@@ -986,14 +986,43 @@ details summary::-webkit-details-marker {
 
 
 // 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
-console.log("🧪 El script de contraseña se está ejecutando...");
-  const clave = "${claveTarjeta}";
-  if (clave !== "") {
-    const claveIngresada = prompt("🔒 Esta tarjeta está protegida.\\\\nIngresa la contraseña para continuar:");
-    if (claveIngresada !== clave) {
-      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+// 🔐 BLOQUEO POR CONTRASEÑA con campo oculto
+const clave = "${claveTarjeta}";
+if (clave !== "") {
+  const overlay = document.createElement('div');
+  overlay.style = `
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center;
+    z-index:99999;
+  `;
+
+  const modal = document.createElement('div');
+  modal.style = `
+    background:white; padding:30px; border-radius:12px; max-width:400px; width:90%;
+    text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  `;
+
+  modal.innerHTML = `
+    <h2>🔐 Tarjeta protegida</h2>
+    <p style="margin-bottom:15px;">Ingresa la contraseña para acceder</p>
+    <input id="claveInput" type="password" style="padding:10px; width:100%; border:1px solid #ccc; border-radius:8px; font-size:1rem;" />
+    <br><br>
+    <button style="padding:10px 20px; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer;">Ingresar</button>
+  `;
+
+  modal.querySelector('button').onclick = () => {
+    const valor = document.getElementById('claveInput').value;
+    if (valor === clave) {
+      document.body.removeChild(overlay);
+    } else {
+      alert('❌ Contraseña incorrecta');
     }
-  }
+  };
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
 
 
     function mostrarDescripcion(texto) {
