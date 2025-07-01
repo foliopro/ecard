@@ -429,22 +429,32 @@ for (let linea of lineas) {
   const match = linea.match(/^#(\w+):\s*(.*)$/);
   if (match) {
     claveActual = match[1];
-    datos[claveActual] = match[2] ? match[2].trim() : '';
+    const contenido = match[2].trim();
+    datos[claveActual] = contenido !== '' ? contenido : '';
   } else if (claveActual) {
-    datos[claveActual] += '\n' + linea;
+    if (datos[claveActual]) {
+      datos[claveActual] += '\n' + linea.trim();
+    } else {
+      datos[claveActual] = linea.trim();
+    }
   }
 }
 
 
 // ✅ LUEGO: Parsear la fecha de vencimiento desde datos.VENCIMIENTO
-  let fechaVencimiento = null;
-  if (datos.VENCIMIENTO) {
-    const partes = datos.VENCIMIENTO.trim().split('/');
-    if (partes.length === 3) {
-      const [dd, mm, yyyy] = partes;
-      fechaVencimiento = new Date(`${yyyy}-${mm}-${dd}T23:59:59`);
-    }
+let fechaVencimiento = null;
+if (datos.VENCIMIENTO) {
+  const raw = datos.VENCIMIENTO.split('\n').map(l => l.trim()).filter(l => l)[0]; // solo primera línea válida
+  const partes = raw?.split('/');
+  if (partes && partes.length === 3) {
+    const [dd, mm, yyyy] = partes;
+    fechaVencimiento = new Date(`${yyyy}-${mm}-${dd}T23:59:59`);
+    console.log("✅ Fecha de vencimiento interpretada como:", fechaVencimiento.toISOString());
+  } else {
+    console.warn("⚠️ Formato de fecha inválido en #VENCIMIENTO:", datos.VENCIMIENTO);
   }
+}
+
 
 
 
@@ -782,7 +792,7 @@ if (fechaVencimiento && Date.now() > fechaVencimiento.getTime()) {
       </div>
     </div>
   `;
-  bodyHTML += modalVencida;
+  document.body.insertAdjacentHTML('beforeend', modalVencida);
 }
 
 
@@ -824,6 +834,10 @@ if (tituloFlotante) {
 // *** NUEVA LÍNEA PARA ABRIR LA PRIMERA SECCIÓN ***. ahora no. despues
 //document.querySelector('#vistaPrevia details').open = true;
 
+// ✅ Variables dinámicas para el HTML final
+const vencimientoISO = fechaVencimiento ? fechaVencimiento.toISOString() : '';
+const nombreTarjeta = localStorage.getItem('nombreTarjeta') || 'mi-tarjeta';
+
 const fullHTML = `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -832,7 +846,7 @@ const fullHTML = `<!DOCTYPE html>
   <title>FolioPro - Mi Portafolio Digital</title>
 <meta property="og:title" content="${datos.TITULO || 'Mi Portafolio Digital'}">
 <meta property="og:description" content="${datos.DESCRIPCION || 'Conoce mi perfil profesional con FolioPro'}">
-<meta property="og:image" content="${datos.LOGO || datos.PORTADA || 'https://foliopro.github.io/default-image.jpg'}">
+<meta property="og:image" content="${datos.LOGO || datos.PORTADA || 'https://foliopro.github.io/default-i|mage.jpg'}">
 <meta property="og:url" content="https://foliopro.github.io/ecard/ejemplo.html">
 <meta property="og:type" content="website">
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
@@ -941,19 +955,20 @@ details summary::-webkit-details-marker {
     // Abre la primera sección automáticamente
     document.querySelector('details')?.setAttribute("open", "true");
 
+  // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+// 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+  const fechaVenc = new Date("${vencimientoISO}");
+  if (Date.now() > fechaVenc.getTime()) {
+    document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+      '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+      '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+      '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20' + "${nombreTarjeta}" + '.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+      ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+      '📱 Contactar por WhatsApp' +
+      '</a>' +
+    '</div>';
+  }
 
-  // 🔒 BLOQUEAR SI LA TARJETA YA ESTÁ VENCIDA
- const fechaVenc = new Date("2025-09-30T23:59:59.000Z");
-if (Date.now() > fechaVenc.getTime()) {
-  document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
-    '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
-    '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
-    '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20nombre.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
-    ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
-    '📲 Contactar por WhatsApp' +
-    '</a>' +
-  '</div>';
-}
 
 
 
@@ -1677,7 +1692,3 @@ function mostrarModalBienvenida() {
 
 </body>
 </html>
-
-
-
-
