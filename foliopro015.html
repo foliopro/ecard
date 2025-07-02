@@ -365,7 +365,7 @@ Si estás cerca de pensionarte y no sabes cómo será tu mesada, podrías estar 
       ">Da click AQUI para solicitar asesoria</a>
     </div></p><p>- Haz clic YA en el boton de Whatsapp</p><p>- Llamanos tambien</p><p>- Comparte esta tarjeta Digital con tus familiares o amigos para que no se lleven sorpresas al pensionarse</p><p>Cordialmente</p><p>CESAR CANO</p><img src="https://i.ibb.co/7NgGphYM/CESAR-2.jpg" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>SUBMENUS</summary><div class="contenido"><p>
     <div style="text-align:center; margin:10px 0;">
-      <button onclick="abrirEnlaceExternoModal('https://docs.google.com/document/d/e/2PACX-1vSEShdGJ5Q77UdizZzbHZcOGPH3iUffZ2Vh20Yi1UnniQNGXljJKZ4C4LZ-V2PNmF_fcgX_OgDeCZp4/pub')" style="
+      <button onclick="abrirEnlaceExternoModal('https://hypernotepad.com/n/60c7419dea2e8f3a')" style="
         width: 90%;
         max-width: 400px;
         padding: 14px 16px;
@@ -513,16 +513,15 @@ Si estás cerca de pensionarte y no sabes cómo será tu mesada, podrías estar 
 
 
 // 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
-const claveTarjeta = "";
-if (claveTarjeta !== "") {
-  const claveIngresada = prompt("🔒 Esta tarjeta está protegida.
-Ingresa la contraseña para continuar:");
-  if (claveIngresada !== claveTarjeta) {
-    document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+console.log("🧪 El script de contraseña se está ejecutando...");
+  const clave = "abc123";
+  if (clave !== "") {
+    const mensaje = "🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:";
+    const claveIngresada = prompt(mensaje);
+    if (claveIngresada !== clave) {
+      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+    }
   }
-}
-
-
 
     function mostrarDescripcion(texto) {
       const modal = document.getElementById('modalImagen');
