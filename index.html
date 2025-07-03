@@ -12,10 +12,17 @@
       margin: 0;
       height: 100vh;
     }
-    .izquierda {
-      flex: 1;
-      background: url('https://i.ibb.co/Xf78YD7G/Portada-Tarjeta.jpg') center/cover no-repeat;
-    }
+
+.izquierda {
+  flex: 1;
+  min-width: 300px;
+  background: url('https://i.ibb.co/Xf78YD7G/Portada-Tarjeta.jpg') center top no-repeat;
+  background-size: contain;  /* 👈 MOSTRARÁ TODO el alto */
+  background-repeat: no-repeat;
+  background-color: white;   /* Relleno blanco si sobra */
+  height: 100vh;
+}
+
     .derecha {
       flex: 1;
       padding: 40px;
@@ -51,7 +58,7 @@
 <body>
   <div class="izquierda"></div>
   <div class="derecha">
-    <h1>FOLIO PRO</h1>
+    <h1>FOLIOPRO</h1>
     <h2>Tarjetas de Presentación Digital</h2>
     <p><em>¡Haz que tu primera impresión sea inolvidable! Lleva tu identidad profesional en la palma de tu mano.</em></p>
 
