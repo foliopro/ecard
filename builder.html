@@ -516,19 +516,47 @@ if (datos.BOTONFLOT) {
 
 
 // ⏳ Mostrar FV en esquina superior izquierda
-let fechaVenc = '31/12/2030'; // valor por defecto
+// 📆 Si hay vencimiento, validamos antes de continuar
+if (datos.VENCIMIENTO) {
+  const partes = datos.VENCIMIENTO.split(/[\/\-]/); // admite 30/12/2025 o 30-12-2025
+  const fechaVencimiento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}T23:59:59`);
+  const hoy = new Date();
 
-if (datos.VENCIMIENTO && datos.VENCIMIENTO.trim() !== '') {
-  fechaVenc = datos.VENCIMIENTO.replace(/-/g, '/');
-} else {
-  datos.VENCIMIENTO = fechaVenc; // también lo guardamos en datos para otras validaciones
+  if (hoy > fechaVencimiento) {
+    const urlActual = window.location.href;
+    const mensajeWA = encodeURIComponent(
+      `Señores FolioPro. La tarjeta "${urlActual}" se encuentra vencida. Estoy interesado en renovarla. Mi nombre es ...`
+    );
+
+    bodyHTML = `
+      <div style="text-align:center; font-family:'Inter', sans-serif; padding:50px; max-width:600px; margin:auto;">
+        <h2 style="color:#c62828; font-size:2rem;">🚫 Esta tarjeta ha expirado</h2>
+        <p style="font-size:1.2rem; color:#444; margin-top:20px;">
+          Esta tarjeta digital ya no está activa desde el <strong>${datos.VENCIMIENTO}</strong>.
+        </p>
+        <p style="margin-top:25px; font-size:1rem; color:#777;">
+          Si eres el propietario y deseas renovarla, puedes contactarnos directamente:
+        </p>
+        <a href="https://wa.me/573117715353?text=${mensajeWA}" target="_blank" style="
+          display:inline-block;
+          margin-top:20px;
+          background-color:#25D366;
+          color:white;
+          padding:12px 20px;
+          border-radius:8px;
+          font-size:1rem;
+          text-decoration:none;
+          font-weight:bold;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        ">
+          📲 Contactarnos por WhatsApp
+        </a>
+      </div>
+    `;
+    document.getElementById('vistaPrevia').innerHTML = bodyHTML;
+    return; // ⛔ Detenemos si está vencida
+  }
 }
-
-bodyHTML += `
-  <div style="position:fixed; top:10px; left:10px; background:#fce4ec; color:#c2185b; padding:5px 10px; font-weight:bold; font-family:'Inter', sans-serif; border-radius:6px; font-size:0.9rem; z-index:9999;">
-    📅 FV: ${fechaVenc}
-  </div>
-`;
 
 
 
@@ -878,6 +906,14 @@ const fullHTML = `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FolioPro - Mi Portafolio Digital</title>
+
+${datos.VENCIMIENTO ? `
+  <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.8); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: #333; font-family: 'Inter', sans-serif;">
+    FV: ${datos.VENCIMIENTO}
+  </div>
+` : ''}
+
+
 <meta property="og:title" content="${datos.TITULO || 'Mi Portafolio Digital'}">
 <meta property="og:description" content="${datos.DESCRIPCION || 'Conoce mi perfil profesional con FolioPro'}">
 <meta property="og:image" content="${datos.LOGO || datos.PORTADA || 'https://foliopro.github.io/default-i|mage.jpg'}">
@@ -1083,17 +1119,28 @@ END:VCARD\`;
 
 
 document.querySelectorAll('details').forEach(d => {
-  d.addEventListener('toggle', function () {
-    if (this.open && scrollHabilitado) {
-      document.querySelectorAll('details').forEach(o => {
-        if (o !== this) o.removeAttribute('open');
-      });
-      setTimeout(() => {
-        this.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
+    d.addEventListener('toggle', function () {
+      if (this.open && scrollHabilitado) {
+        document.querySelectorAll('details').forEach(o => {
+          if (o !== this) o.removeAttribute('open');
+        });
+        setTimeout(() => {
+          this.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    });
   });
-});
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Funciones para abrir y cerrar documentos externos en modal
@@ -1152,9 +1199,16 @@ function cerrarEnlaceExternoModal() {
 
 
 
-      document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', function () {
-        if (this.open) document.querySelectorAll('details').forEach(o => { if (o !== this) o.removeAttribute('open'); });
-      }));
+     document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      document.querySelectorAll('details').forEach(o => {
+        if (o !== this) o.removeAttribute('open'); // Cierra las otras secciones
+      });
+    }
+  });
+});
+
     }
 
 
