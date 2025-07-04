@@ -899,6 +899,10 @@ const nombreTarjeta = localStorage.getItem('nombreTarjeta') || 'mi-tarjeta';
 const claveTarjeta = datos.PASSWORD ? datos.PASSWORD.trim() : '';
 
 
+
+// ✅ AQUI INICIA FULLHTML
+
+
 const fullHTML = `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1114,7 +1118,7 @@ END:VCARD\`;
 
     // Exclusividad de secciones tipo details
 
-    let scrollHabilitado = false;
+    let scrollHabilitado = true;
 
 
 document.querySelectorAll('details').forEach(d => {
