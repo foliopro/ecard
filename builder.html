@@ -1119,17 +1119,28 @@ END:VCARD\`;
 
 
 document.querySelectorAll('details').forEach(d => {
-  d.addEventListener('toggle', function () {
-    if (this.open && scrollHabilitado) {
-      document.querySelectorAll('details').forEach(o => {
-        if (o !== this) o.removeAttribute('open');
-      });
-      setTimeout(() => {
-        this.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
+    d.addEventListener('toggle', function () {
+      if (this.open && scrollHabilitado) {
+        document.querySelectorAll('details').forEach(o => {
+          if (o !== this) o.removeAttribute('open');
+        });
+        setTimeout(() => {
+          this.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    });
   });
-});
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Funciones para abrir y cerrar documentos externos en modal
