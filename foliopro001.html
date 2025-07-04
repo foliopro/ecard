@@ -7,7 +7,7 @@
 
 
   <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.8); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: #333; font-family: 'Inter', sans-serif;">
-    FV: 31/12/2025
+    FV: 31/12/2030
 
   </div>
 
@@ -343,7 +343,7 @@ details summary::-webkit-details-marker {
 
 <!-- ✅ FECHA DE VENCIMIENTO -->
   <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.8); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: #333; font-family: 'Inter', sans-serif;">
-    FV: 31/12/2025
+    FV: 31/12/2030
 
   </div>
 
@@ -441,7 +441,7 @@ details summary::-webkit-details-marker {
     document.querySelector('details')?.setAttribute("open", "true");
 
 // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
-  const fechaVenc = new Date("2026-01-01T04:59:59.000Z");
+  const fechaVenc = new Date("2031-01-01T04:59:59.000Z");
   if (Date.now() > fechaVenc.getTime()) {
     document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
       '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
