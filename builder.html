@@ -248,7 +248,6 @@ body {
     
   </style>
 </head>
-<body>
 
 <body>
 <!-- 🟢 MODAL DE BIENVENIDA -->
@@ -529,6 +528,8 @@ bodyHTML += `
     📅 FV: ${fechaVenc}
   </div>
 `;
+
+
 
 
 
@@ -872,12 +873,24 @@ const nombreTarjeta = localStorage.getItem('nombreTarjeta') || 'mi-tarjeta';
 const claveTarjeta = datos.PASSWORD ? datos.PASSWORD.trim() : '';
 
 
+
+// ✅ AQUI INICIA FULLHTML
+
+
 const fullHTML = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FolioPro - Mi Portafolio Digital</title>
+
+${datos.VENCIMIENTO ? `
+  <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.8); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: #333; font-family: 'Inter', sans-serif;">
+    FV: ${datos.VENCIMIENTO}
+  </div>
+` : ''}
+
+
 <meta property="og:title" content="${datos.TITULO || 'Mi Portafolio Digital'}">
 <meta property="og:description" content="${datos.DESCRIPCION || 'Conoce mi perfil profesional con FolioPro'}">
 <meta property="og:image" content="${datos.LOGO || datos.PORTADA || 'https://foliopro.github.io/default-i|mage.jpg'}">
@@ -995,7 +1008,9 @@ details summary::-webkit-details-marker {
 
 
   <script>
-   
+    // Abre la primera sección automáticamente
+    document.querySelector('details')?.setAttribute("open", "true");
+
 // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
   const fechaVenc = new Date("${vencimientoISO}");
   if (Date.now() > fechaVenc.getTime()) {
@@ -1077,24 +1092,32 @@ END:VCARD\`;
 
     // Exclusividad de secciones tipo details
 
-    let scrollHabilitado = false;
+    let scrollHabilitado = true;
 
 
 document.querySelectorAll('details').forEach(d => {
-  d.addEventListener('toggle', function () {
-    if (this.open && scrollHabilitado) {
-      document.querySelectorAll('details').forEach(o => {
-        if (o !== this) o.removeAttribute('open');
-      });
-      setTimeout(() => {
-        this.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
+    d.addEventListener('toggle', function () {
+      if (this.open && scrollHabilitado) {
+        document.querySelectorAll('details').forEach(o => {
+          if (o !== this) o.removeAttribute('open');
+        });
+        setTimeout(() => {
+          this.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    });
   });
-});
 
- // Abre la primera sección automáticamente
-    document.querySelector('details')?.setAttribute("open", "true");
+
+
+
+
+
+
+
+
+
+
 
 
 // Funciones para abrir y cerrar documentos externos en modal
@@ -1153,7 +1176,7 @@ function cerrarEnlaceExternoModal() {
 
 
 
-           document.querySelectorAll('details').forEach(d => {
+     document.querySelectorAll('details').forEach(d => {
   d.addEventListener('toggle', function () {
     if (this.open) {
       document.querySelectorAll('details').forEach(o => {
@@ -1164,7 +1187,6 @@ function cerrarEnlaceExternoModal() {
 });
 
     }
-
 
 
 
