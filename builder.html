@@ -1176,17 +1176,11 @@ function cerrarEnlaceExternoModal() {
 
 
 
-     document.querySelectorAll('details').forEach(d => {
-  d.addEventListener('toggle', function () {
-    if (this.open) {
-      document.querySelectorAll('details').forEach(o => {
-        if (o !== this) o.removeAttribute('open'); // Cierra las otras secciones
-      });
+         document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', function () {
+        if (this.open) document.querySelectorAll('details').forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      }));
     }
-  });
-});
 
-    }
 
 
 
