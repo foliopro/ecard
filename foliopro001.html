@@ -433,9 +433,7 @@ details summary::-webkit-details-marker {
 
 
   <script>
-    // Abre la primera sección automáticamente
-    document.querySelector('details')?.setAttribute("open", "true");
-
+   
 // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
   const fechaVenc = new Date("2026-01-01T04:59:59.000Z");
   if (Date.now() > fechaVenc.getTime()) {
@@ -532,6 +530,9 @@ document.querySelectorAll('details').forEach(d => {
     }
   });
 });
+
+ // Abre la primera sección automáticamente
+    document.querySelector('details')?.setAttribute("open", "true");
 
 
 // Funciones para abrir y cerrar documentos externos en modal
