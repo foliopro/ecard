@@ -514,54 +514,22 @@ if (datos.BOTONFLOT) {
       let bodyHTML = '';
 
 
-if (fechaVencimiento && Date.now() > fechaVencimiento.getTime()) {
-  const modalVencida = `
-    <div id="modalVencida" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 99999;">
-      <div style="background: #fff; padding: 30px; border-radius: 12px; text-align: center; max-width: 500px; width: 90%; position: relative;">
-        <span onclick="document.getElementById('modalVencida').style.display='none'" style="position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 1.5rem;">❌</span>
-        <h2 style="color: #c62828;">⛔ Tarjeta vencida</h2>
-        <p>Esta tarjeta ha vencido. Si eres el creador, contacta con soporte para renovarla.</p>
-        <a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20${(localStorage.getItem('nombreTarjeta') || 'mi-tarjeta')}.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..." 
-           target="_blank" style="display:inline-block; margin-top:10px; padding:10px 20px; background:#25d366; color:white; border-radius:8px; text-decoration:none;">
-          📱 Contactar por WhatsApp
-        </a>
-      </div>
-    </div>
-  `;
-  
-  // Agregar el mensaje al final del contenido sin borrar nada
-  document.body.insertAdjacentHTML('beforeend', modalVencida);
+// ⏳ Mostrar FV en esquina superior izquierda
+let fechaVenc = '31/12/2030'; // valor por defecto
+
+if (datos.VENCIMIENTO && datos.VENCIMIENTO.trim() !== '') {
+  fechaVenc = datos.VENCIMIENTO.replace(/-/g, '/');
+} else {
+  datos.VENCIMIENTO = fechaVenc; // también lo guardamos en datos para otras validaciones
 }
 
-    bodyHTML = `
-      <div style="text-align:center; font-family:'Inter', sans-serif; padding:50px; max-width:600px; margin:auto;">
-        <h2 style="color:#c62828; font-size:2rem;">🚫 Esta tarjeta ha expirado</h2>
-        <p style="font-size:1.2rem; color:#444; margin-top:20px;">
-          Esta tarjeta digital ya no está activa desde el <strong>${datos.VENCIMIENTO}</strong>.
-        </p>
-        <p style="margin-top:25px; font-size:1rem; color:#777;">
-          Si eres el propietario y deseas renovarla, puedes contactarnos directamente:
-        </p>
-        <a href="https://wa.me/573117715353?text=${mensajeWA}" target="_blank" style="
-          display:inline-block;
-          margin-top:20px;
-          background-color:#25D366;
-          color:white;
-          padding:12px 20px;
-          border-radius:8px;
-          font-size:1rem;
-          text-decoration:none;
-          font-weight:bold;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        ">
-          📲 Contactarnos por WhatsApp
-        </a>
-      </div>
-    `;
-    document.getElementById('vistaPrevia').innerHTML = bodyHTML;
-    return; // ⛔ Detenemos si está vencida
-  }
-}
+bodyHTML += `
+  <div style="position:fixed; top:10px; left:10px; background:#fce4ec; color:#c2185b; padding:5px 10px; font-weight:bold; font-family:'Inter', sans-serif; border-radius:6px; font-size:0.9rem; z-index:9999;">
+    📅 FV: ${fechaVenc}
+  </div>
+`;
+
+
 
 
 
@@ -1208,17 +1176,11 @@ function cerrarEnlaceExternoModal() {
 
 
 
-     document.querySelectorAll('details').forEach(d => {
-  d.addEventListener('toggle', function () {
-    if (this.open) {
-      document.querySelectorAll('details').forEach(o => {
-        if (o !== this) o.removeAttribute('open'); // Cierra las otras secciones
-      });
+         document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', function () {
+        if (this.open) document.querySelectorAll('details').forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      }));
     }
-  });
-});
 
-    }
 
 
 
