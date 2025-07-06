@@ -523,11 +523,12 @@ if (datos.VENCIMIENTO && datos.VENCIMIENTO.trim() !== '') {
   datos.VENCIMIENTO = fechaVenc; // también lo guardamos en datos para otras validaciones
 }
 
-bodyHTML += `
-  <div style="position:fixed; top:10px; left:10px; background:#fce4ec; color:#c2185b; padding:5px 10px; font-weight:bold; font-family:'Inter', sans-serif; border-radius:6px; font-size:0.9rem; z-index:9999;">
-    📅 FV: ${fechaVenc}
-  </div>
-`;
+// no imprimir fecha
+//bodyHTML += `
+//  <div style="position:fixed; top:10px; left:10px; background:#fce4ec; color:#c2185b; padding:5px 10px; font-weight:bold; font-family:'Inter', sans-serif; border-radius:6px; font-size:0.9rem; z-index:9999;">
+//    📅 FV: ${fechaVenc}
+//  </div>
+//`;
 
 
 
