@@ -1032,7 +1032,23 @@ details summary::-webkit-details-marker {
 
   <script>
     // Abre la primera sección automáticamente
-    document.querySelector('details')?.setAttribute("open", "true");
+    // document.querySelector('details')?.setAttribute("open", "true");
+
+const secciones = document.querySelectorAll('details');
+secciones.forEach(d => {
+  d.removeAttribute('open');
+
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      secciones.forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+    
 
 // 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
   const fechaVenc = new Date("${vencimientoISO}");
