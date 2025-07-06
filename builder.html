@@ -596,6 +596,25 @@ bodyHTML += `
 }
 
 
+document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', function () {
+      if (this.open && scrollHabilitado) {
+        document.querySelectorAll('details').forEach(o => {
+          if (o !== this) o.removeAttribute('open');
+        });
+        setTimeout(() => {
+          this.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    });
+  });
+
+// Mostrar el contenido generado en la vista previa
+  document.getElementById('vistaPrevia').innerHTML = bodyHTML;
+
+  // Asegurar que la página siempre cargue desde el principio
+  window.scrollTo(0, 0);  // Esto hará que la página inicie desde la parte superior (inicio)
+
 
 if (datos.IMAGENES) {
   const lineas = datos.IMAGENES.split('\n').map(l => l.trim()).filter(l => l);
@@ -829,8 +848,11 @@ if (datos.PASSWORD && datos.PASSWORD.trim() !== '') {
   }
 }
 
-      document.getElementById('vistaPrevia').innerHTML = bodyHTML;
+// Mostrar el contenido generado en la vista previa
+document.getElementById('vistaPrevia').innerHTML = bodyHTML;
 
+// Asegurar que la página siempre cargue desde la parte superior
+  window.scrollTo(0, 0);  // Esto desplazará la página al inicio (parte superior)
 
 
 
@@ -1094,19 +1116,6 @@ END:VCARD\`;
 
     let scrollHabilitado = true;
 
-
-document.querySelectorAll('details').forEach(d => {
-    d.addEventListener('toggle', function () {
-      if (this.open && scrollHabilitado) {
-        document.querySelectorAll('details').forEach(o => {
-          if (o !== this) o.removeAttribute('open');
-        });
-        setTimeout(() => {
-          this.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100);
-      }
-    });
-  });
 
 
 
