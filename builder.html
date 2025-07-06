@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -511,8 +510,10 @@ if (datos.BOTONFLOT) {
 
 
 
+ // AQUI SE GENERA TODO EL HTML DE LA TARJETA
 
-      let bodyHTML = '';
+
+let bodyHTML = '';
 
 
 // ⏳ Mostrar FV en esquina superior izquierda
@@ -524,6 +525,7 @@ if (datos.VENCIMIENTO && datos.VENCIMIENTO.trim() !== '') {
   datos.VENCIMIENTO = fechaVenc; // también lo guardamos en datos para otras validaciones
 }
 
+
 bodyHTML += `
   <div style="position:fixed; top:10px; left:10px; background:#fce4ec; color:#c2185b; padding:5px 10px; font-weight:bold; font-family:'Inter', sans-serif; border-radius:6px; font-size:0.9rem; z-index:9999;">
     📅 FV: ${fechaVenc}
@@ -532,7 +534,7 @@ bodyHTML += `
 
 
 
-
+// Agregar información estática y dinámica
 
       bodyHTML += `
   <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
@@ -558,6 +560,7 @@ bodyHTML += `
       if (datos.QUIENES_SOMOS) bodyHTML += `<div class="bloque"><p style="text-align:center;">${datos.QUIENES_SOMOS}</p></div>`;
 
 
+// Agregar las secciones y contenido
 
 if (datos.SECCIONES) {
   datos.SECCIONES.split(/^&&\s*/m).filter(s => s.trim()).forEach(s => {
@@ -578,6 +581,7 @@ bodyHTML += `
 `;
 
     } else {
+
       // Sección normal con contenido enriquecido
       const contenido = cuerpo.map(line => {
         if (/https?:\/\/.+\.(jpg|jpeg|png|gif)/i.test(line)) {
@@ -597,24 +601,28 @@ bodyHTML += `
 }
 
 
-document.querySelectorAll('details').forEach(d => {
-    d.addEventListener('toggle', function () {
-      if (this.open && scrollHabilitado) {
-        document.querySelectorAll('details').forEach(o => {
-          if (o !== this) o.removeAttribute('open');
-        });
-        setTimeout(() => {
-          this.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100);
-      }
-    });
-  });
-
 // Mostrar el contenido generado en la vista previa
   document.getElementById('vistaPrevia').innerHTML = bodyHTML;
 
   // Asegurar que la página siempre cargue desde el principio
   window.scrollTo(0, 0);  // Esto hará que la página inicie desde la parte superior (inicio)
+
+// Bloque que maneja el comportamiento de apertura y cierre de las secciones
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      document.querySelectorAll('details').forEach(o => {
+        if (o !== this) o.removeAttribute('open'); // Cierra las otras secciones
+      });
+
+ // Desplaza la vista a la sección abierta
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
 
 
 if (datos.IMAGENES) {
