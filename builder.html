@@ -276,6 +276,7 @@ body {
     display: none;
   ">
     👤 Bienvenido, <span id="nombreUsuario"></span>
+<div id="infoFolios" style="font-size:0.9rem; margin-top:6px;"></div>
   </div>
 
   <!-- 🖼️ BANNER -->
@@ -1682,12 +1683,14 @@ function cerrarSesion() {
 
 <!-- Modal para consultar Folios-->
 <div id="modalConsultaFolios" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999;">
-  <div style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; max-width:90%; max-height:90vh; overflow:auto; position:relative;">
+<div style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; max-width:90%; max-height:90vh; overflow:auto; position:relative; padding-bottom:80px;">
     <span onclick="document.getElementById('modalConsultaFolios').style.display='none'" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
     <h3>📄 Tarjetas de este usuario</h3>
     <div id="listaFoliosConsulta" style="margin-top:15px;"></div>
   </div>
 </div>
+
+
 
 
 
@@ -1743,6 +1746,13 @@ function cerrarSesion() {
   if (usuario) {
     document.getElementById('nombreUsuario').textContent = usuario;
     document.getElementById('bienvenidaUsuario').style.display = 'block';
+const usados = localStorage.getItem('Lic_Usadas') || '0';
+const maximas = localStorage.getItem('Lic_Maximas') || '0';
+document.getElementById('infoFolios').innerHTML = `📊 Folios usados: ${usados} / ${maximas}`;
+
+
+
+
 
     // ✅ Mostrar modal SOLO si no se ha mostrado esta sesión
     if (!sessionStorage.getItem('BienvenidaMostrada')) {
@@ -1793,7 +1803,6 @@ function mostrarModalBienvenida() {
 
 </body>
 </html>
-
 
 
 
