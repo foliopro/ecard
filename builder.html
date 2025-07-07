@@ -1413,6 +1413,37 @@ async function consultarFolios() {
 }
 
 
+async function mostrarResumenFolios() {
+  const usuario = localStorage.getItem('Usuario');
+  if (!usuario) return;
+
+  try {
+    const respuesta = await fetch('https://us-central1-folio-builder-62ea0.cloudfunctions.net/api/consultar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usuario })
+    });
+
+    const data = await respuesta.json();
+    if (!respuesta.ok || !Array.isArray(data)) throw new Error('Error al obtener folios');
+
+    const usados = data.length;
+    const maximas = parseInt(localStorage.getItem('Lic_Maximas') || '0');
+
+    document.getElementById('infoFolios').innerHTML = `📊 Folios usados: ${usados} / ${maximas}`;
+  } catch (e) {
+    console.error('❌ Error al consultar resumen de folios:', e);
+    document.getElementById('infoFolios').textContent = '⚠️ No se pudo cargar resumen de folios.';
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -1453,6 +1484,8 @@ async function mostrarOpcionesReemplazo() {
   if (usuario) {
     document.getElementById('nombreUsuario').textContent = usuario;
     document.getElementById('bienvenidaUsuario').style.display = 'block';
+    mostrarResumenFolios();
+
   }
 
   // Función para cerrar el modal
