@@ -911,7 +911,7 @@ const fullHTML = `<!DOCTYPE html>
 
 <meta property="og:title" content="${(datos.TITULO || '').replace(/"/g, "'")}">
 <meta property="og:description" content="${(datos.DESCRIPCION || datos.QUIENES_SOMOS || 'Conoce mi perfil profesional con FolioPro').replace(/"/g, "'")}">
-<meta property="og:image" content="${(datos.IMGDESTACADA || datos.PORTADA || datos.LOGO || 'https://foliopro.github.io/ecard/default.jpg').trim()}">
+<meta property="og:image" content="${datos.LOGO || 'https://foliopro.github.io/ecard/default.jpg'}">
 <meta property="og:url" content="https://foliopro.github.io/ecard/${localStorage.getItem('nombreTarjeta') || 'mi-tarjeta'}.html">
 <meta property="og:type" content="website">
 
