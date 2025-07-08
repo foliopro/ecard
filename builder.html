@@ -908,12 +908,6 @@ const fullHTML = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FolioPro - Mi Portafolio Digital</title>
 
-${datos.VENCIMIENTO ? `
-  <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.8); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: #333; font-family: 'Inter', sans-serif;">
-    FV: ${datos.VENCIMIENTO}
-  </div>
-` : ''}
-
 
 <meta property="og:title" content="${datos.TITULO || 'Mi Portafolio Digital'}">
 <meta property="og:description" content="${datos.DESCRIPCION || 'Conoce mi perfil profesional con FolioPro'}">
@@ -1003,11 +997,6 @@ details summary::-webkit-details-marker {
   </style>
 </head>
 <body>
-
-<!-- ✅ FECHA DE VENCIMIENTO -->
-  <div style="position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.8); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; color: #333; font-family: 'Inter', sans-serif;">
-    FV: ${datos.VENCIMIENTO || '31/12/2030'}
-  </div>
 
 
 
@@ -1731,7 +1720,7 @@ function cerrarSesion() {
     padding: 20px 24px 120px 24px;
     border-radius: 12px;
     max-width: 90%;
-    max-height: 80vh;
+    max-height: 90vh;
     overflow-y: auto;
     position: relative;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
