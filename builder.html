@@ -785,7 +785,6 @@ bodyHTML += `
 `;
 
 
-
   //    bodyHTML += `<div class="firma"><p>🚀 FolioPro, una marca de Supension Plus <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>`;
 
 // ✅ Agregar botón flotante solo con íconos personalizados
@@ -1878,7 +1877,19 @@ function mostrarModalBienvenida() {
 }
 
 
+
 </script>
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    const archivo = location.pathname.split("/").pop(); // ejemplo.html
+    const mensaje = `Cordial saludo. Vengo del Foliopro ${archivo}. Estoy interesado en una tarjeta. Mi nombre es...`;
+    const enlace = `https://wa.me/573117715353?text=${encodeURIComponent(mensaje)}`;
+
+    const link = document.getElementById("linkContacto");
+    if (link) link.href = enlace;
+  });
 
 
 </body>
