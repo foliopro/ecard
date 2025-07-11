@@ -771,7 +771,22 @@ if (datos.LINK_QR) {
       bodyHTML += `<div class="descargar">
         <button onclick="descargarVCF()">📥 Descargar Contacto</button>
       </div>`;
-      bodyHTML += `<div class="firma"><p>📌 FolioPro, una marca de Supension Plus <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>`;
+
+
+bodyHTML += `
+  <div class="firma" style="text-align:center; margin-top:40px; font-size:0.9rem; color:#777;">
+    <p>
+      📌 FolioPro, una marca de Supension Plus — 
+      <a id="linkContacto" href="#" target="_blank" title="Solicita tu tarjeta" style="text-decoration:none; color:inherit;">
+        Solicita la tuya
+      </a>
+    </p>
+  </div>
+`;
+
+
+
+  //    bodyHTML += `<div class="firma"><p>🚀 FolioPro, una marca de Supension Plus <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>`;
 
 // ✅ Agregar botón flotante solo con íconos personalizados
 if (botonW && botonC && botonM) {
