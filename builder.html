@@ -683,20 +683,26 @@ if (datos.VIDEOS) {
 if (datos.MAPA) {
   let direccionMapa = datos.MAPA.trim();
 
-  // Si es una dirección en texto (no es URL), la transformamos
-  if (!/^https?:\/\//i.test(direccionMapa)) {
-    const direccionCodificada = encodeURIComponent(direccionMapa);
-    direccionMapa = `https://www.google.com/maps?output=embed&q=${direccionCodificada}`;
-  }
+  let urlIframe = '';
+  let urlExterna = '';
 
-  const linkExterno = direccionMapa.replace('?output=embed', '');
+  if (/^https?:\/\//i.test(direccionMapa)) {
+    // Ya es una URL completa
+    urlIframe = direccionMapa;
+    urlExterna = direccionMapa.replace(/[?&]output=embed/, '');
+  } else {
+    // Es dirección en texto: la convertimos
+    const codificada = encodeURIComponent(direccionMapa);
+    urlIframe = `https://www.google.com/maps?output=embed&q=${codificada}`;
+    urlExterna = `https://www.google.com/maps?q=${codificada}`;
+  }
 
   bodyHTML += `
     <div class="bloque">
-      <div class="mapa" style="text-align:center;">
-        <iframe src="${direccionMapa}" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="mapa" style="text-align:center; position:relative;">
+        <iframe src="${urlIframe}" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         <div style="margin-top:10px;">
-          <a href="${linkExterno}" target="_blank"
+          <a href="${urlExterna}" target="_blank"
              style="display:inline-block; background:${colorBoton}; color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
              📌 Ver en Google Maps
           </a>
