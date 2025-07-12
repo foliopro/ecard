@@ -192,7 +192,7 @@ details[open] .contenido {
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(145deg, #0d6efd, #0a58ca);
+  background: transparent; /* ← será reemplazado por JavaScript */
   color: white;
   font-family: 'Georgia', serif;
   font-size: clamp(1.2rem, 4vw, 1.4rem);
@@ -200,10 +200,11 @@ details[open] .contenido {
   padding: 14px 30px;
   text-align: center;
   z-index: 999;
-  border-radius: 0 0 20px 20px; /* redondeado solo abajo */
+  border-radius: 0 0 20px 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
+
 body {
   padding-top: 80px;
 }
@@ -417,9 +418,16 @@ function generarTarjeta() {
 
       const datos = {};
 
-let colorBoton = '#643771';
-let colorFondo = '#f4f8ff';
-let fondoLogo = '';
+//let colorBoton = '#643771';
+//let colorFondo = '#f4f8ff';
+//let fondoLogo = '';
+
+let colorBoton = datos.COLOR_BOTON || "rgb(100,55,113)";
+let colorFondo = datos.COLOR_FONDO || "#f9f9f9";
+let fondoLogo   = datos.FONDO || '';
+
+
+
 
 const lineas = texto.split('\n');
 let claveActual = '';
@@ -535,20 +543,19 @@ if (datos.VENCIMIENTO && datos.VENCIMIENTO.trim() !== '') {
 
 
 
-      bodyHTML += `
-  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
-    <a href="https://wa.me/573117715353" target="_blank" style="color:#007bff; text-decoration:none; font-weight:500;">
-      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
-    </a>
-  </div>
-`;
+//      bodyHTML += `
+//   <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+//     <a href="https://wa.me/573117715353" target="_blank" style="color:#007bff; text-decoration:none; font-weight:500;">
+//       🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+//     </a>
+//   </div>
+// `;
 
     
       if (datos.PORTADA) bodyHTML += `<img class="portada" src="${datos.PORTADA}" alt="Portada">`;
       if (datos.LOGO) bodyHTML += `<img class="logo" src="${datos.LOGO}" alt="Logo">`;
       if (datos.TITULO) bodyHTML += `<div class="titulo-flotante">${datos.TITULO}</div>`;
       bodyHTML += `<div class="folio-footer">
-
       </div>`;
 
       bodyHTML += `<div class="bloque"><h2>${datos.TITULO}</h2></div>`;
@@ -671,15 +678,34 @@ if (datos.VIDEOS) {
   }
 }
 
+
       
-      if (datos.MAPA) {
-        bodyHTML += `
-          <div class="bloque">
-            <div class="mapa" style="text-align:center;">
-              <iframe src="${datos.MAPA}" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>`;
-      }
+if (datos.MAPA) {
+  let direccionMapa = datos.MAPA.trim();
+
+  // Si es una dirección en texto (no es URL), la transformamos
+  if (!/^https?:\/\//i.test(direccionMapa)) {
+    const direccionCodificada = encodeURIComponent(direccionMapa);
+    direccionMapa = `https://www.google.com/maps?output=embed&q=${direccionCodificada}`;
+  }
+
+  const linkExterno = direccionMapa.replace('?output=embed', '');
+
+  bodyHTML += `
+    <div class="bloque">
+      <div class="mapa" style="text-align:center;">
+        <iframe src="${direccionMapa}" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div style="margin-top:10px;">
+          <a href="${linkExterno}" target="_blank"
+             style="display:inline-block; background:${colorBoton}; color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
+             📌 Ver en Google Maps
+          </a>
+        </div>
+      </div>
+    </div>`;
+}
+
+
       
 if (datos.UBICACION) {
   bodyHTML += `<div class="bloque"><div class="contacto ubicacion-line">`;
@@ -752,8 +778,8 @@ if (datos.LINK_QR) {
                id="codigoQRGenerado" 
                alt="Código QR" 
                style="width: 180px; height: 180px; border-radius: 12px;">
-          <img src="https://i.ibb.co/hFB5PxDS/Logo-cuadrado.png" 
-               alt="Logo" 
+          <img src="${datos.LOGO || 'https://i.ibb.co/hFB5PxDS/Logo-cuadrado.png'}" 
+               alt="Logo Cliente" 
                style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
         </div>
         <div>
@@ -773,19 +799,20 @@ if (datos.LINK_QR) {
       </div>`;
 
 
+// ✅ Footer Tarjeta
+
 bodyHTML += `
-  <div class="firma" style="text-align:center; margin-top:40px; font-size:0.9rem; color:#777;">
-    <p>
-      📌 FolioPro, una marca de Supension Plus — 
-      <a id="linkContacto" href="#" target="_blank" title="Solicita tu tarjeta" style="text-decoration:none; color:inherit;">
-        Solicita la tuya
-      </a>
-    </p>
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353?text=Hola,%20quiero%20mi%20Tarjeta%20Digital%20FolioPro,%20mi%20nombre%20es..." 
+       target="_blank" 
+       style="color:#022C2B; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
   </div>
 `;
 
 
-  //    bodyHTML += `<div class="firma"><p>🚀 FolioPro, una marca de Supension Plus <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>`;
+
 
 // ✅ Agregar botón flotante solo con íconos personalizados
 if (botonW && botonC && botonM) {
@@ -938,7 +965,8 @@ const fullHTML = `<!DOCTYPE html>
   <style>
 
     ${document.querySelector('style').textContent}
-document.getElementById
+
+
 .titulo-flotante {
   position: fixed;
   top: 0;
@@ -1005,6 +1033,10 @@ details[open] summary {
 details summary::-webkit-details-marker {
   display: none;
 }
+
+h2 {
+    color: ${colorBoton};
+  }
 
 
   </style>
@@ -1284,7 +1316,7 @@ function descargarArchivoHTML() {
   const original = document.getElementById('entradaDatos').value;
 
   // 🔎 Intenta extraer el nombre desde el texto original
-  let nombreArchivo = 'mi-tarjeta'; // por defecto
+  let nombreArchivo = 'Mi-FolioPro'; // por defecto
 
 const match = original.match(/#NOMTARJETA:\s*&ecard:\s*(.+)/i) ||
               original.match(/#NOMTARJETA:\s*\n\s*&ecard:\s*(.+)/i);
@@ -1877,17 +1909,17 @@ function mostrarModalBienvenida() {
 }
 
 
-window.addEventListener("DOMContentLoaded", () => {
-    const archivo = location.pathname.split("/").pop(); // ejemplo.html
-    const mensaje = `Cordial saludo. Vengo del Foliopro ${archivo}. Estoy interesado en una tarjeta. Mi nombre es...`;
-    const enlace = `https://wa.me/573117715353?text=${encodeURIComponent(mensaje)}`;
+//const tituloFlotante = document.querySelector('.titulo-flotante');
+//  if (tituloFlotante && typeof colorBoton !== 'undefined') {
+//    tituloFlotante.style.background = colorBoton;
+//  }
 
-    const link = document.getElementById("linkContacto");
-    if (link) link.href = enlace;
-  });
+
+
 
 
 </script>
+
 
 </body>
 </html>
