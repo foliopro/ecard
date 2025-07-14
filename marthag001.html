@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+
+
+<meta property="og:title" content="MARTHA GONZÁLEZ
+">
+<meta property="og:description" content="Formamos mujeres líderes, libres y con impacto
+">
+<meta property="og:image" content="https://tarjetasweb2-6838.kxcdn.com/archivos/3510bebb-84ca-411a-bc0c-26e6bb1961eb-icon.png
+">
+<meta property="og:url" content="https://foliopro.github.io/ecard/mi-tarjeta.html">
+<meta property="og:type" content="website">
+
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+
+
+
+
+
+
+
+  <style>
+
+    
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+.portada {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.logo {
+  width: 18%;
+  max-width: 140px;
+  min-width: 60px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: -50px auto 10px;
+  border: 4px solid #fff;
+  background: #fff;
+}
+
+//    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+
+
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent; /* ← será reemplazado por JavaScript */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgb(100,55,113); /* ← Ahora toma el color del usuario */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+
+
+
+    body {
+  background: #f9f9f9;
+}
+
+
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: rgb(100,55,113);
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+h2 {
+    color: rgb(100,55,113);
+  }
+
+
+  </style>
+</head>
+<body>
+
+
+
+  <img class="portada" src="https://tarjetasweb2-6838.kxcdn.com/archivos/feeaa83b-37af-44d6-a65c-fe4c3df4d22a-medium.jpg
+" alt="Portada"><img class="logo" src="https://tarjetasweb2-6838.kxcdn.com/archivos/3510bebb-84ca-411a-bc0c-26e6bb1961eb-icon.png
+" alt="Logo"><div class="titulo-flotante">MARTHA GONZÁLEZ
+</div><div class="folio-footer">
+      </div><div class="bloque"><h2>MARTHA GONZÁLEZ
+</h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">Formamos mujeres líderes, libres y con impacto
+</p></div><div class="bloque"><p style="text-align:center;">Ayudo a mujeres que desean reconectarse con su poder personal, a fortalecer su autoestima y liderazgo, y a vivir una vida plena y empoderada, utilizando un modelo integral de acompañamiento con herramientas de desarrollo personal, mentoría emocional y espiritualidad práctica, para que no sigan postergando su bienestar ni depender de entornos que limitan su crecimiento
+</p></div><details><summary>BIENVENIDA</summary><div class="contenido"><img src="https://i.ibb.co/sp56PY01/Martha.png" style="width:90%;display:block;margin:10px auto;"><p>¡Hola y Bienvenida a este espacio que hemos creado para ti!</p><p>Aquí comienzan las transformaciones reales.</p><p>Muchas mujeres, como tú, llegaron sintiendo dudas, miedos o heridas… y hoy están viviendo con fuerza, propósito y libertad.</p><p>Descubrieron su potencial, sanaron, se empoderaron y ahora lideran su vida con amor y autenticidad.</p><p>Tú también puedes hacerlo.</p><p>Aquí encontrarás apoyo, herramientas y una comunidad que te inspira a crecer y construir la vida que mereces.</p><p>El cambio comienza con una decisión: elegirte.</p><p>¿Estás lista?</p></div></details><details><summary>¿Y SI LO QUE ESTÁS VIVIENDO ES MALTRATO EMOCIONAL Y AÚN NO LO HAS NOTADO?</summary><div class="contenido"><img src="https://i.ibb.co/hJrxnp7H/1-Maltrato.jpg" style="width:90%;display:block;margin:10px auto;"><p>No siempre hay gritos. No siempre hay golpes.</p><p>Pero a veces hay miedo de hablar, silencios que duelen, y una sensación constante de que algo no está bien, aunque no puedas explicarlo.</p><p>Tal vez sonríes, sigues tu rutina, y desde afuera todo parece normal. Pero por dentro… te sientes atrapada, desconectada de ti misma y cada vez más lejos de tus sueños.</p><p>Este artículo no es para juzgarte. Es para hablarte como mujer, de mujer a mujer, y decirte algo que puede cambiarlo todo:</p><p>No estás sola.</p><p>1. ¿Podrías estar viviendo maltrato emocional sin darte cuenta?</p><p>A mí también me pasó.</p><p>Vivía en otro país. Tenía una relación que desde afuera parecía estable. Pero poco a poco dejé de tomar decisiones. Él tenía mis documentos, mi dinero, y controlaba mi entorno. No hubo golpes físicos. Pero sí gritos, exigencias, manipulación emocional… y un miedo sutil que fue creciendo dentro de mí.</p><p>Estaba aislada, desconectada, sobreviviendo.</p><p>Hasta que algo en mí despertó.</p><p>Tuve el valor de hablar con unos amigos. Ellos me escucharon, me ayudaron, y logré salir de esa situación. Volví a mi tierra, comencé a sanar, me reconstruí… y encontré mi propósito.</p><p>2. Hoy estoy aquí para ayudarte a ti</p><p>Hoy acompaño a mujeres que, como tú, quieren reencontrarse consigo mismas, recuperar su autoestima, dejar atrás relaciones o entornos que las limitan y volver a liderar su vida con fuerza, libertad y propósito.</p><p>Porque no solo es posible sanar, también puedes descubrir tu pasión, convertirla en tu propósito, y vivir de ella con plenitud.</p><p>Y cuando lo haces, inspiras a otras mujeres a hacer lo mismo.</p><p>3. ¿Qué herramientas tengo para ti?</p><p>He creado un modelo de acompañamiento integral que une:</p><p>✔ Mentoría emocional y guía espiritual práctica</p><p>✔ Herramientas de empoderamiento y liderazgo personal</p><p>✔ Acompañamiento para que inicies tu camino como mujer emprendedora</p><p>✔ Un espacio seguro para que sanes, crezcas y brilles</p><p>4. Si sientes que esta historia se parece a la tuya, es porque muchas estamos pasando (o hemos pasado) por lo mismo.</p><p>Y si llegaste hasta aquí, no es casualidad.</p><p>Tal vez este sea el momento de hacer algo diferente.</p><p>Tal vez este sea tu primer paso para elegirte.</p><p>5. Yo ya estuve ahí. Y salí.</p><p>Busqué ayuda. La encontré. Aprendí. Y hoy quiero decirte con el corazón en la mano:</p><p>Tú también puedes.</p><p>No estás sola.</p><p>Podemos ayudarte a sanar, empoderarte y construir la vida que mereces, libre de dependencia, llena de sentido y con un propósito que te inspire cada día.</p><p>6. ¿Lista para dar ese primer paso?</p><p>Porque yo soy la mujer indicada para ayudarte a salir de donde estás y acompañarte a donde tú sueñas llegar.</p><p>➡ Navega en este sitio y descubre por qué puedo ser esa guía para ti.</p><p>Tu transformación comienza hoy.</p><p>Haz clic en el botón flotante y conversemos. Estoy aquí para escucharte.</p></div></details><details><summary>MISIÓN</summary><div class="contenido"><img src="https://i.ibb.co/WpPLf5KH/2-Mision.jpg" style="width:90%;display:block;margin:10px auto;"><p>Liberar el potencial en las Mujeres</p><p>Nuestra misión es liberar el potencial que habita en cada mujer, acompañándola en un proceso consciente de transformación personal y empoderamiento. A través de herramientas estratégicas, espacios de formación y redes de apoyo, impulsamos su capacidad para reconocerse, liderarse y tomar decisiones que impacten positivamente su vida, su entorno y su futuro. Creemos firmemente que cuando una mujer se elige, se fortalece y se activa, se convierte en agente de cambio para su comunidad y para el mundo.</p></div></details><details><summary>VISIÓN</summary><div class="contenido"><img src="https://i.ibb.co/prXCywzn/3-Vision.jpg" style="width:90%;display:block;margin:10px auto;"><p>Mujeres Felices y Empoderadas</p><p>Visualizamos un mundo en el que cada mujer camine con libertad, felicidad y poder interior. Un mundo donde las mujeres lideren sus vidas desde el propósito, construyan relaciones sanas, emprendan con confianza y eleven su voz con seguridad. Nuestra visión es ser un referente en el empoderamiento femenino integral, generando impacto social y empresarial sostenible, a través de mujeres que han transformado su historia en su mayor fuente de fuerza.</p></div></details><details><summary>VALORES</summary><div class="contenido"><img src="https://i.ibb.co/ZpJb4P6x/4-valores.jpg" style="width:90%;display:block;margin:10px auto;"><p>Confianza</p><p>Solidaridad</p><p>Agradecimiento</p><p>Respeto</p><p>Compromiso</p></div></details><details><summary>FORTALEZAS</summary><div class="contenido"><img src="https://i.ibb.co/mV2ZgkqM/4-fortaleza.jpg" style="width:90%;display:block;margin:10px auto;"><p>Inteligencia Relacional</p><p>Flexibilidad</p><p>Comunicación</p><p>Trabajo en Equipo</p><p>Entusiasta</p><p>Generosidad</p><p>Carismática</p></div></details><details><summary>FORMACIÓN PROFESIONAL</summary><div class="contenido"><img src="https://i.ibb.co/gL21wtL1/5-Clases.jpg" style="width:90%;display:block;margin:10px auto;"><p>1. Escuela Superior de Administración Pública - ESAP</p><p>- Administrador Público Municipal y Regional.</p><p>- Participación Comunitaria desde la Frontera de la Comunidad.</p><p>- Alta Gerencia Pública.</p><p>- Presupuesto Público.</p><p>- Implicaciones Financieras, Funcionales e Institucionales</p><p>2 Cámara de Comercio, ICONTEC Internacional y SENA</p><p>- Diplomado de Calidad para la Gestión Pública</p><p>- Formación e Auditores e Calida en Gestión Pública</p><p>3 RETAR - Consultora de Talento Humano y Desarrollo Personal</p><p>- Certificación en Coaching Ontológico Modelo de desarrollo Personal RETAR</p><p>- Desarrollo de Liderazgo y Trabajo en Equipo "SER" RETAdoR</p></div></details><details><summary>ACTIVIDADES DESARROLLAS</summary><div class="contenido"><img src="https://i.ibb.co/YBgHP55S/6-proyectos.jpg" style="width:90%;display:block;margin:10px auto;"><p>- Administradora del Proyecto TeveNet Televisión por cable en Villamaría Caldas.</p><p>- Administradora del Proyecto cable Cauca Samán del Norte en Tuluá Valle.</p><p>- Profesional Universitario desde 1985 al 2007 en el Instituto Seccional de Salud del Quindio.</p><p>- Acompañamiento a mujeres mayores en apoyo presencial y emocional.</p><p>- Integrante del equipo coordinador del colectivo MUCIAQ - Mujeres Cívicas por Armenia y Quindío.</p><p>- Presidente de la Junta de Acción Comunal del Barrio 19 de Enero en Armenia - Quindio.</p><p>- Integrante asociada ASOCOMUNA Comuna 2.</p><p>- Asociada Cooperativa CREAFAM.</p><p>- Programa QUALITY - Programa de Liderazgo y Coaching fundamentado en la Construcción de Proyectos de Vida. - Instituto Internacional de Liderazgo INILID - @jorgepardocoach</p></div></details>
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria"><img src="https://i.ibb.co/NgVY4BJW/01.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22Tu%20pasado%20no%20define%20qui%C3%A9n%20eres%2C%20tu%20fuerza%20para%20levantarte%20lo%20hace.%22')"><img src="https://i.ibb.co/GBJwGBr/02.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22Donde%20hubo%20dolor%2C%20ahora%20florece%20el%20poder%20de%20una%20mujer%20que%20decidi%C3%B3%20empezar%20de%20nuevo.%22')"><img src="https://i.ibb.co/d0YYWM3S/03.png" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22De%20las%20cenizas%20del%20miedo%2C%20nacen%20las%20mujeres%20m%C3%A1s%20valientes%20y%20emprendedoras.%22')"><img src="https://i.ibb.co/rR77mKRB/05.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22Ser%20libre%20es%20emprender%20no%20solo%20un%20negocio%2C%20sino%20una%20nueva%20vida%20llena%20de%20prop%C3%B3sito.%22')"><img src="https://i.ibb.co/4ZqZBpFj/06.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22Lo%20que%20una%20super%C3%B3%2C%20puede%20inspirar%20a%20miles.%20Juntas%2C%20transformamos%20dolor%20en%20progreso.%22')"><img src="https://i.ibb.co/WNpX2Ky8/07.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22Mujer%20valiente%3A%20tu%20historia%20puede%20ser%20la%20luz%20para%20otra%20que%20hoy%20busca%20salir.%22')"><img src="https://i.ibb.co/PGgcHkwW/08.jpg" alt="Imagen" style="cursor:pointer;" onclick="mostrarDescripcion('%22Cada%20paso%20que%20das%20como%20emprendedora%20es%20una%20victoria%20frente%20al%20silencio%2C%20el%20miedo%20y%20la%20violencia.%22')"></div>
+      </div>
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
+        <div class="galeria"><iframe width="300" height="180" src="https://www.youtube.com/embed/yaYiVpglXrU?si=S2x4LnamVGFmPmwE" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/1D_5GUTSabk?si=kfjBy_wsjFe4RJxA" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+    <div class="bloque">
+      <div class="mapa" style="text-align:center; position:relative;">
+        <iframe src="https://www.google.com/maps?output=embed&q=Calle%2017%20%2315-49%2C%20Armenia%2C%20Quindio" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div style="margin-top:10px;">
+          <a href="https://www.google.com/maps?q=Calle%2017%20%2315-49%2C%20Armenia%2C%20Quindio" target="_blank"
+             style="display:inline-block; background:rgb(100,55,113); color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
+             📌 Ver en Google Maps
+          </a>
+        </div>
+      </div>
+    </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Cra 8a No 18 60 Oficina 111</div><div>📍Armenia, Quindío</div><div><a href="tel:171549" style="color:#007bff;text-decoration:underline;">📍Cl 17 15 49 Of 501</a></div><div>📍Armenia Quindio</div><div><a href="mailto:marthagonz2025@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: marthagonz2025@gmail.com</a></div><div><a href="tel:+573108964223" style="color:#007bff;text-decoration:underline;">📲 Celular: +573108964223</a></div></div></div>
+    <div class="bloque" style="text-align:center;">
+      <div class="qr">
+        <h3 style="font-weight: 500; margin-bottom: 10px;">Escanea para acceder</h3>
+        <div style="display:inline-block; position:relative;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fmarthagonz001.html" 
+               id="codigoQRGenerado" 
+               alt="Código QR" 
+               style="width: 180px; height: 180px; border-radius: 12px;">
+          <img src="https://tarjetasweb2-6838.kxcdn.com/archivos/3510bebb-84ca-411a-bc0c-26e6bb1961eb-icon.png
+" 
+               alt="Logo Cliente" 
+               style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
+        </div>
+        <div>
+          <button onclick="descargarQR()" style="margin-top: 6px; font-size: 0.8rem; color: #555; background: none; border: none; cursor: pointer;">⬇️ Descargar QR</button>
+        </div>
+      </div>
+    </div>
+  <div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div>
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353?text=Hola,%20quiero%20mi%20Tarjeta%20Digital%20FolioPro,%20mi%20nombre%20es..." 
+       target="_blank" 
+       style="color:#022C2B; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+
+    <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
+      
+      <a href="https://wa.me/?text=Hola%2C%20Necesitas%20ayuda%20%3F%20Consulta%20aqui%20como%20podemos%20ayudartete!!!%20https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fmarthagonz001.html" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/Dg8NNkgz/image.png" alt="Compartir" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="https://wa.me/573108964223?text=Hola%20Martha.%20C%C3%B3mo%20puedes%20ayudarme%20para%20mi%20proceso%20personal.%20Mi%20nombre%20es..." target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/mCdSYYw2/image.png" alt="WhatsApp" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="tel:+573108964223" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/M5pc1WwG/image.png" alt="Llamar" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+    </div>
+  
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+
+<!-- Modal para documentos externos -->
+<div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; width:90%; height:90%; max-width:900px; position:relative;">
+    <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+
+
+  <script>
+    // Abre la primera sección automáticamente
+    // document.querySelector('details')?.setAttribute("open", "true");
+
+const secciones = document.querySelectorAll('details');
+secciones.forEach(d => {
+  d.removeAttribute('open');
+
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      secciones.forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+    
+
+// 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+  const fechaVenc = new Date("");
+  if (Date.now() > fechaVenc.getTime()) {
+    document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+      '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+      '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+      '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20' + "mi-tarjeta" + '.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+      ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+      '📱 Contactar por WhatsApp' +
+      '</a>' +
+    '</div>';
+  }
+
+
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+console.log("🧪 El script de contraseña se está ejecutando...");
+  const clave = "";
+  if (clave !== "") {
+    const mensaje = "🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:";
+    const claveIngresada = prompt(mensaje);
+    if (claveIngresada !== clave) {
+      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+    }
+  }
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+
+
+
+// 👇 Función para abrir documentos externos en modal
+function abrirDocumentoModal(url) {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = url;
+  modal.style.display = 'block';
+}
+function cerrarDocumentoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Funciones para abrir y cerrar documentos externos en modal
+function abrirEnlaceExternoModal(url) {
+  try {
+    const iframe = document.getElementById('iframeDocumento');
+    const modal = document.getElementById('modalDocumento');
+
+    iframe.src = url;
+    modal.style.display = 'block';
+
+    setTimeout(() => {
+      if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+        window.open(url, '_blank');
+        cerrarEnlaceExternoModal();
+      }
+    }, 3000);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+function cerrarEnlaceExternoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+  </script>
+</body>
+</html>
