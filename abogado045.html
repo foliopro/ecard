@@ -209,7 +209,7 @@ details[open] .contenido {
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(145deg, #0d6efd, #0a58ca);
+  background: transparent; /* ← será reemplazado por JavaScript */
   color: white;
   font-family: 'Georgia', serif;
   font-size: clamp(1.2rem, 4vw, 1.4rem);
@@ -217,10 +217,11 @@ details[open] .contenido {
   padding: 14px 30px;
   text-align: center;
   z-index: 999;
-  border-radius: 0 0 20px 20px; /* redondeado solo abajo */
+  border-radius: 0 0 20px 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
+
 body {
   padding-top: 80px;
 }
@@ -264,13 +265,14 @@ body {
 
     
   
-document.getElementById
+
+
 .titulo-flotante {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #643771; /* ← Ahora toma el color del usuario */
+  background: rgb(100,55,113); /* ← Ahora toma el color del usuario */
   color: white;
   font-family: 'Georgia', serif;
   font-size: clamp(1.2rem, 4vw, 1.4rem);
@@ -292,7 +294,7 @@ body {
 
 
     body {
-  background: #f4f8ff;
+  background: #f9f9f9;
 }
 
 
@@ -303,7 +305,7 @@ details {
 }
 
 details summary {
-  background: #643771;
+  background: rgb(100,55,113);
   color: white;
   text-align: left; /* 👈 Lo cambiamos a left */
   text-transform: uppercase;
@@ -330,6 +332,10 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
+h2 {
+    color: rgb(100,55,113);
+  }
+
 
   </style>
 </head>
@@ -337,17 +343,10 @@ details summary::-webkit-details-marker {
 
 
 
-  
-  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
-    <a href="https://wa.me/573117715353" target="_blank" style="color:#007bff; text-decoration:none; font-weight:500;">
-      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
-    </a>
-  </div>
-<img class="portada" src="https://i.pinimg.com/1200x/d6/89/5d/d6895da6b1cecf292a3e12fa41a0c7b7.jpg
+  <img class="portada" src="https://lacco.co/wp-content/uploads/2024/09/Tendencias-actuales-en-la-asesoria-legal-empresarial.jpg
 " alt="Portada"><img class="logo" src="https://i.pinimg.com/1200x/fa/07/80/fa078098dc9037aece0d68b3c6fe6f64.jpg
 " alt="Logo"><div class="titulo-flotante">ABOGADO OSCAR PINZON
 </div><div class="folio-footer">
-
       </div><div class="bloque"><h2>ABOGADO OSCAR PINZON
 </h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">TU ASESOR JURIDICO
 </p></div><div class="bloque"><p style="text-align:center;"><b>Tu problema legal merece una solución experta.</b><br><br>
@@ -357,7 +356,7 @@ En Nuestra Firma de Abogados, , entendemos tus necesidades y trabajamos para enc
         display:inline-block;
         width:80%;
         max-width:600px;
-        background:#643771;
+        background:rgb(100,55,113);
         color:white;
         padding:14px 20px;
         border-radius:10px;
@@ -368,23 +367,28 @@ En Nuestra Firma de Abogados, , entendemos tus necesidades y trabajamos para enc
         box-shadow:0 4px 8px rgba(0,0,0,0.1);
         transition:all 0.3s ease;
       ">Da click AQUI para solicitar asesoria</a>
-    </div></p><p>- Haz clic YA en el boton de Whatsapp</p><p>- Llamanos tambien</p><p>- Comparte esta tarjeta Digital con tus familiares o amigos para que no se lleven sorpresas al pensionarse</p><p>== FIN SECCIONES</p></div></details>
+    </div></p><p>- Haz clic YA en el boton de Whatsapp</p><p>- Llamanos tambien</p><p>- Comparte esta tarjeta Digital con tus familiares o amigos para que no se lleven sorpresas al pensionarse</p></div></details>
       <div class="bloque">
         <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
         <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
-        <div class="galeria"><img src="https://images.pexels.com/photos/7876039/pexels-photo-7876039.jpeg" alt="Imagen"><img src="https://www.abogacia.mx/site/article/7828/7722/el-papel-del-abogado-civil-en-el-derecho-0_ai1.jpg" alt="Imagen"><img src="https://www.asesoriaheras.es/wp-content/uploads/2021/07/asesoria-juridica-que-es-scaled.jpg" alt="Imagen"></div>
+        <div class="galeria"><img src="https://colombia.unir.net/wp-content/uploads/sites/4/2025/01/Que-tipos-de-abogados-existen-y-cuales-son-sus-funciones1.jpg" alt="Imagen"><img src="https://www.esade.edu/wp-content/uploads/2024/07/abogado-asesorando-pareja.jpg" alt="Imagen"><img src="https://www.abogacia.mx/site/article/7828/7722/el-papel-del-abogado-civil-en-el-derecho-0_ai1.jpg" alt="Imagen"><img src="https://files.alerta.rcnradio.com/alerta_bogota/public/2022-09/abogados_2.jpg" alt="Imagen"><img src="https://www.asesoriaheras.es/wp-content/uploads/2021/07/asesoria-juridica-que-es-scaled.jpg" alt="Imagen"><img src="https://img.lalr.co/cms/2022/09/05195911/1080X900_ABOGADOS.jpg" alt="Imagen"></div>
       </div>
       <div class="bloque">
         <h3 style="text-align:center;">🎥 Galería de Videos</h3>
         <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
         <div class="galeria"><iframe width="300" height="180" src="https://www.youtube.com/embed/kgDHhkNQkaU?si=xDFy32dnsMrwX3T3" frameborder="0" allowfullscreen></iframe></div>
       </div>
-          <div class="bloque">
-            <div class="mapa" style="text-align:center;">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.744510235588!2d-75.69861132975471!3d4.813873329998695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3887488e95ab5b%3A0xc6789f40ba9254ce!2sCra.%208%20%23%2018-60%2C%20Pereira%2C%20Risaralda!5e0!3m2!1ses!2sco!4v1750276007649!5m2!1ses!2sco
-" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Cra 8a No 18 60 Oficina 111</div><div>📍Pereira Risaralda</div><div><a href="mailto:tuabogadoexperto@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: tuabogadoexperto@gmail.com</a></div><div><a href="tel:+573117715353" style="color:#007bff;text-decoration:underline;">📲 Celular: +573117715353</a></div></div></div><div class="redes-line"><a href="https://www.facebook.com/supensionplus?locale=es_LA" target="_blank"><img src="https://i.ibb.co/6JJ5FZ1S/IFbook.png" alt="facebook" title="Facebook"></a><a href="https://www.instagram.com/supensionplus/" target="_blank"><img src="https://i.ibb.co/chCqtLkw/IInstagram.png" alt="instagram" title="Instagram"></a></div>
+    <div class="bloque">
+      <div class="mapa" style="text-align:center; position:relative;">
+        <iframe src="https://www.google.com/maps?output=embed&q=Cra%208%20%2318-60%2C%20Pereira%20%2C%20Risaralda%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div style="margin-top:10px;">
+          <a href="https://www.google.com/maps?q=Cra%208%20%2318-60%2C%20Pereira%20%2C%20Risaralda%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" target="_blank"
+             style="display:inline-block; background:rgb(100,55,113); color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
+             📌 Ver en Google Maps
+          </a>
+        </div>
+      </div>
+    </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Cra 8a No 18 60 Oficina 111</div><div>📍Pereira Risaralda</div><div><a href="mailto:tuabogadoexperto@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: tuabogadoexperto@gmail.com</a></div><div><a href="tel:+573117715353" style="color:#007bff;text-decoration:underline;">📲 Celular: +573117715353</a></div></div></div><div class="redes-line"><a href="https://www.facebook.com/supensionplus?locale=es_LA" target="_blank"><img src="https://i.ibb.co/6JJ5FZ1S/IFbook.png" alt="facebook" title="Facebook"></a><a href="https://www.instagram.com/supensionplus/" target="_blank"><img src="https://i.ibb.co/chCqtLkw/IInstagram.png" alt="instagram" title="Instagram"></a></div>
     <div class="bloque" style="text-align:center;">
       <div class="qr">
         <h3 style="font-weight: 500; margin-bottom: 10px;">Escanea para acceder</h3>
@@ -393,8 +397,9 @@ En Nuestra Firma de Abogados, , entendemos tus necesidades y trabajamos para enc
                id="codigoQRGenerado" 
                alt="Código QR" 
                style="width: 180px; height: 180px; border-radius: 12px;">
-          <img src="https://i.ibb.co/hFB5PxDS/Logo-cuadrado.png" 
-               alt="Logo" 
+          <img src="https://i.pinimg.com/1200x/fa/07/80/fa078098dc9037aece0d68b3c6fe6f64.jpg
+" 
+               alt="Logo Cliente" 
                style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
         </div>
         <div>
@@ -405,13 +410,12 @@ En Nuestra Firma de Abogados, , entendemos tus necesidades y trabajamos para enc
   <div class="descargar">
         <button onclick="descargarVCF()">📥 Descargar Contacto</button>
       </div>
-  <div class="firma" style="text-align:center; margin-top:40px; font-size:0.9rem; color:#777;">
-    <p>
-      📌 FolioPro, una marca de Supension Plus — 
-      <a id="linkContacto" href="#" target="_blank" title="Solicita tu tarjeta" style="text-decoration:none; color:inherit;">
-        Solicita la tuya
-      </a>
-    </p>
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353?text=Hola,%20quiero%20mi%20Tarjeta%20Digital%20FolioPro,%20mi%20nombre%20es..." 
+       target="_blank" 
+       style="color:#022C2B; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
   </div>
 
     <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
