@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+
+
+<meta property="og:title" content="KAIROS ARTE & VIDA
+">
+<meta property="og:description" content="ANA PARDO COACH
+">
+<meta property="og:image" content="https://i.ibb.co/5WMsQD3j/image.png
+">
+<meta property="og:url" content="https://foliopro.github.io/ecard/mi-tarjeta.html">
+<meta property="og:type" content="website">
+
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+
+
+
+
+
+
+
+  <style>
+
+    
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+.portada {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.logo {
+  width: 18%;
+  max-width: 140px;
+  min-width: 60px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: -50px auto 10px;
+  border: 4px solid #fff;
+  background: #fff;
+}
+
+//    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+
+
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent; /* ← será reemplazado por JavaScript */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgb(2,51,48); /* ← Ahora toma el color del usuario */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+
+
+
+    body {
+  background: #f9f9f9;
+}
+
+
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: rgb(2,51,48);
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+h2 {
+    color: rgb(2,51,48);
+  }
+
+
+  </style>
+</head>
+<body>
+
+
+
+  <img class="portada" src="https://i.ibb.co/twzSGhMc/image.png
+" alt="Portada"><img class="logo" src="https://i.ibb.co/5WMsQD3j/image.png
+" alt="Logo"><div class="titulo-flotante">KAIROS ARTE & VIDA
+</div><div class="folio-footer">
+      </div><div class="bloque"><h2>KAIROS ARTE & VIDA
+</h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">ANA PARDO COACH
+</p></div><div class="bloque"><p style="text-align:center;">Licenciada en Artes Escénicas, Universidad de Caldas, Manizales. Life Management Coach, Entrenador en Gerencia de Vida. Certificación Internacional en Coaching de Vida LMC. International Coaching Leadership ICL - INILID
+</p></div><details><summary>👍PRIMERA SECCION SUGERIA COMO LEAD MAGNET</summary><div class="contenido"><img src="https://i.ibb.co/k2spzcq1/01.png" style="width:90%;display:block;margin:10px auto;"><p><p style="text-align:left;font-weight:bold;">NEGRILLA</p></p><p>[ <p style="text-align:left;font-weight:bold;">Negrilla</p> ]</p><p><span style="font-style:italic;">Cursiva</span></p><p>[<span style="font-style:italic;">Cursiva</span>]</p><p><p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">Subtitulo violeta</p></p><p>[ ### Subtitulo ]</p><p>Texto normal</p><p>Esto es un parrafo normal. El 25 de junio de 2025 fue sancionada la Ley 2466, conocida como la nueva Reforma Laboral. Esta reforma modifica el Código Sustantivo del Trabajo con el objetivo de mejorar la estabilidad y calidad del empleo, garantizar condiciones más dignas para los trabajadores e impulsar la formalización laboral en Colombia.</p><p>Imagenes</p><p>Link de la imagen en png, gif, jpg</p><p>Videos</p><p>Link de video en youtube</p><p>Link con boton a una url</p><p>> @url:"Texto que saldrá en Boton";link a un destino ( web, video, imagen, pdf, etc)</p><p>Ejemplo</p><p><div style="width:100%;text-align:center;margin:12px 0;">
+      <a href="https://wa.link/vpccqu" target="_blank" style="
+        display:inline-block;
+        width:80%;
+        max-width:600px;
+        background:rgb(2,51,48);
+        color:white;
+        padding:14px 20px;
+        border-radius:10px;
+        text-align:center;
+        font-weight:bold;
+        font-size:1.1rem;
+        text-decoration:none;
+        box-shadow:0 4px 8px rgba(0,0,0,0.1);
+        transition:all 0.3s ease;
+      ">Da click AQUI para solicitar asesoria</a>
+    </div></p><p>Links para formar un Submenu , blog, etc</p><p>>
+    <div style="text-align:center; margin:10px 0;">
+      <button onclick="abrirEnlaceExternoModal('https://rumbling-lake-682.notion.site/QUIENES-SOMOS-1a4a5f50bb31804ba446f950bc55c2f1')" style="
+        width: 90%;
+        max-width: 400px;
+        padding: 14px 16px;
+        background: rgb(2,51,48);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+      ">📄 SERVICIOS</button>
+    </div></p><p>Ejemplo</p><p>
+    <div style="text-align:center; margin:10px 0;">
+      <button onclick="abrirEnlaceExternoModal('https://rumbling-lake-682.notion.site/QUIENES-SOMOS-1a4a5f50bb31804ba446f950bc55c2f1')" style="
+        width: 90%;
+        max-width: 400px;
+        padding: 14px 16px;
+        background: rgb(2,51,48);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+      ">📄 SERVICIOS</button>
+    </div></p></div></details><details><summary>💼OTRO BOTON</summary><div class="contenido"><img src="https://i.ibb.co/7tNHBzPj/image.png" style="width:90%;display:block;margin:10px auto;"><p>Esto es un parrafo normal. El 25 de junio de 2025 fue sancionada la Ley 2466, conocida como la nueva Reforma Laboral. Esta reforma modifica el Código Sustantivo del Trabajo con el objetivo de mejorar la estabilidad y calidad del empleo, garantizar condiciones más dignas para los trabajadores e impulsar la formalización laboral en Colombia.</p></div></details><details><summary>💼TOMA ACCION AHORA</summary><div class="contenido"><img src="https://i.ibb.co/7tNHBzPj/image.png" style="width:90%;display:block;margin:10px auto;"><p><p style="text-align:left;font-weight:bold;">¿Listo para tomar el control de tu problema?</p></p><p>Contáctanos hoy mismo para comenzar tu estudio pensional personalizado.</p><p><div style="width:100%;text-align:center;margin:12px 0;">
+      <a href="https://wa.link/vpccqu" target="_blank" style="
+        display:inline-block;
+        width:80%;
+        max-width:600px;
+        background:rgb(2,51,48);
+        color:white;
+        padding:14px 20px;
+        border-radius:10px;
+        text-align:center;
+        font-weight:bold;
+        font-size:1.1rem;
+        text-decoration:none;
+        box-shadow:0 4px 8px rgba(0,0,0,0.1);
+        transition:all 0.3s ease;
+      ">Da click AQUI para solicitar asesoria</a>
+    </div></p><p>- Haz clic YA en el boton de Whatsapp</p><p>- Llamanos tambien</p><p>- Comparte esta tarjeta Digital con tus familiares o amigos para que no se lleven sorpresas al pensionarse</p></div></details>
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria"><img src="https://i.ibb.co/k2spzcq1/01.png" alt="Imagen"><img src="https://i.ibb.co/TMMJkqXd/02.png" alt="Imagen"><img src="https://i.ibb.co/7xN72XMB/03.png" alt="Imagen"><img src="https://i.ibb.co/5gfV71hF/04.png" alt="Imagen"><img src="https://i.ibb.co/VcbjHPpw/05.png" alt="Imagen"><img src="https://i.ibb.co/W4stRxxG/06.png" alt="Imagen"><img src="https://i.ibb.co/VRB4v4t/07.png" alt="Imagen"></div>
+      </div>
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
+        <div class="galeria"><iframe width="300" height="180" src="https://www.youtube.com/embed/kgDHhkNQkaU?si=xDFy32dnsMrwX3T3" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+    <div class="bloque">
+      <div class="mapa" style="text-align:center; position:relative;">
+        <iframe src="https://www.google.com/maps?output=embed&q=San%20Felix%2C%20Salamina%2C%20Caldas%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div style="margin-top:10px;">
+          <a href="https://www.google.com/maps?q=San%20Felix%2C%20Salamina%2C%20Caldas%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" target="_blank"
+             style="display:inline-block; background:rgb(2,51,48); color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
+             📌 Ver en Google Maps
+          </a>
+        </div>
+      </div>
+    </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Corregiento de San Felix, Casa Kairos</div><div>📍Salamina, Caldas</div><div><a href="mailto:anapardocoach@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: anapardocoach@gmail.com</a></div><div><a href="tel:+573215903652" style="color:#007bff;text-decoration:underline;">📲 Celular: +573215903652</a></div></div></div><div class="redes-line"><a href="https://facebook.com/profile.php?id=100073709299184" target="_blank"><img src="https://i.ibb.co/6JJ5FZ1S/IFbook.png" alt="facebook" title="Facebook"></a><a href="https://www.instagram.com/anapardo_arteyvida_coach" target="_blank"><img src="https://i.ibb.co/chCqtLkw/IInstagram.png" alt="instagram" title="Instagram"></a></div>
+    <div class="bloque" style="text-align:center;">
+      <div class="qr">
+        <h3 style="font-weight: 500; margin-bottom: 10px;">Escanea para acceder</h3>
+        <div style="display:inline-block; position:relative;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fanapardo001.html" 
+               id="codigoQRGenerado" 
+               alt="Código QR" 
+               style="width: 180px; height: 180px; border-radius: 12px;">
+          <img src="https://i.ibb.co/5WMsQD3j/image.png
+" 
+               alt="Logo Cliente" 
+               style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
+        </div>
+        <div>
+          <button onclick="descargarQR()" style="margin-top: 6px; font-size: 0.8rem; color: #555; background: none; border: none; cursor: pointer;">⬇️ Descargar QR</button>
+        </div>
+      </div>
+    </div>
+  <div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div>
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353?text=Hola,%20quiero%20mi%20Tarjeta%20Digital%20FolioPro,%20mi%20nombre%20es..." 
+       target="_blank" 
+       style="color:#022C2B; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+
+    <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
+      
+      <a href="https://wa.me/?text=Hola%2C%20te%20comparto%20informaci%C3%B3n%20el%20programa%20de%20Kairos%20Arte%20y%20Vida.!!!%20https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fanapardo001.html" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/Dg8NNkgz/image.png" alt="Compartir" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="https://wa.me/573215903652?text=Hola%2C%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/mCdSYYw2/image.png" alt="WhatsApp" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="tel:+573215903652" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/M5pc1WwG/image.png" alt="Llamar" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+    </div>
+  
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+
+<!-- Modal para documentos externos -->
+<div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; width:90%; height:90%; max-width:900px; position:relative;">
+    <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+
+
+  <script>
+    // Abre la primera sección automáticamente
+    // document.querySelector('details')?.setAttribute("open", "true");
+
+const secciones = document.querySelectorAll('details');
+secciones.forEach(d => {
+  d.removeAttribute('open');
+
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      secciones.forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+    
+
+// 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+  const fechaVenc = new Date("");
+  if (Date.now() > fechaVenc.getTime()) {
+    document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+      '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+      '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+      '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20' + "mi-tarjeta" + '.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+      ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+      '📱 Contactar por WhatsApp' +
+      '</a>' +
+    '</div>';
+  }
+
+
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+console.log("🧪 El script de contraseña se está ejecutando...");
+  const clave = "";
+  if (clave !== "") {
+    const mensaje = "🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:";
+    const claveIngresada = prompt(mensaje);
+    if (claveIngresada !== clave) {
+      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+    }
+  }
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+
+
+
+// 👇 Función para abrir documentos externos en modal
+function abrirDocumentoModal(url) {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = url;
+  modal.style.display = 'block';
+}
+function cerrarDocumentoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Funciones para abrir y cerrar documentos externos en modal
+function abrirEnlaceExternoModal(url) {
+  try {
+    const iframe = document.getElementById('iframeDocumento');
+    const modal = document.getElementById('modalDocumento');
+
+    iframe.src = url;
+    modal.style.display = 'block';
+
+    setTimeout(() => {
+      if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+        window.open(url, '_blank');
+        cerrarEnlaceExternoModal();
+      }
+    }, 3000);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+function cerrarEnlaceExternoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+  </script>
+</body>
+</html>
