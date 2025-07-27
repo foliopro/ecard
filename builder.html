@@ -408,6 +408,28 @@ texto = texto.replace(/@urld:\s*"([^"]+)"\s*;\s*(https?:\/\/[^\s]+)/g, (match, t
     </div>`;
 });
 
+  // 📌 Enlace protegido con contraseña
+  texto = texto.replace(/@urlp:\s*"([^"]+)"\s*;\s*([^;]+)\s*;\s*(https?:\/\/[^\s]+)/g, (match, textoBoton, clave, link) => {
+    const id = 'urlp_' + Math.random().toString(36).substring(2, 10);
+    return `
+    <div style="text-align:center; margin:12px 0;">
+      <button onclick="mostrarProtegido('${id}', '${clave}', '${link}')" style="
+        background: ${colorBoton};
+        color: white;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+        border: none;
+      ">🔐 ${textoBoton}</button>
+    </div>`;
+  });
+
+
+
+
   return texto;
 }
 
@@ -975,12 +997,6 @@ const fullHTML = `<!DOCTYPE html>
 
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
 
-
-
-
-
-
-
   <style>
 
     ${document.querySelector('style').textContent}
@@ -1007,9 +1023,6 @@ const fullHTML = `<!DOCTYPE html>
 body {
   padding-top: 80px;
 }
-
-
-
 
 
     body {
@@ -1081,6 +1094,21 @@ h2 {
     <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
   </div>
 </div>
+
+
+<!-- 🔐 Modal protegido con contraseña -->
+  <div id="modalProtegido" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:12px; text-align:center; max-width:400px; width:90%; box-shadow:0 4px 8px rgba(0,0,0,0.2); position:relative;">
+      <span onclick="document.getElementById('modalProtegido').style.display='none'" style="position:absolute; top:10px; right:20px; cursor:pointer;">❌</span>
+      <h3 style="margin-bottom:12px;">🔐 Ingresa la contraseña</h3>
+      <input type="password" id="claveProtegida" placeholder="Contraseña" style="padding:10px; width:80%; font-size:1rem; border:1px solid #ccc; border-radius:8px;">
+      <div id="mensajeError" style="color:red; font-size:0.9rem; margin-top:8px;"></div>
+      <button onclick="validarClaveProtegida()" style="margin-top:16px; padding:10px 20px; background:#1976d2; color:white; border:none; border-radius:8px; cursor:pointer;">Acceder</button>
+    </div>
+  </div>
+
+
+
 
 
 
@@ -1159,6 +1187,31 @@ function cerrarDocumentoModal() {
 
 
 
+// 🔐 Función para @urlp
+    let linkProtegido = '';
+    let claveEsperada = '';
+
+    function mostrarProtegido(id, clave, link) {
+      claveEsperada = clave;
+      linkProtegido = link;
+      document.getElementById('modalProtegido').style.display = 'flex';
+      document.getElementById('claveProtegida').value = '';
+      document.getElementById('mensajeError').textContent = '';
+    }
+
+    function validarClaveProtegida() {
+      const ingresada = document.getElementById('claveProtegida').value;
+      if (ingresada === claveEsperada) {
+        window.open(linkProtegido, '_blank');
+        document.getElementById('modalProtegido').style.display = 'none';
+      } else {
+        document.getElementById('mensajeError').textContent = '❌ Contraseña incorrecta';
+      }
+    }
+
+
+
+
 
     function descargarVCF() {
       const nombre = document.querySelector('h2')?.textContent || 'Contacto';
@@ -1186,18 +1239,6 @@ END:VCARD\`;
     // Exclusividad de secciones tipo details
 
     let scrollHabilitado = true;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Funciones para abrir y cerrar documentos externos en modal
@@ -1233,6 +1274,8 @@ function cerrarEnlaceExternoModal() {
 </html>`;
 
 
+
+// FIN FULLHTML
 
       const pre = document.getElementById('codigoGenerado');
 
@@ -1824,6 +1867,17 @@ function cerrarSesion() {
 </div>
 
 
+<!-- 🔐 MODAL PROTEGIDO -->
+<div id="modalProtegido" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:white; padding:20px; border-radius:12px; text-align:center; max-width:400px; width:90%; box-shadow:0 4px 8px rgba(0,0,0,0.2); position:relative;">
+    <span onclick="document.getElementById('modalProtegido').style.display='none'" style="position:absolute; top:10px; right:20px; cursor:pointer;">❌</span>
+    <h3 style="margin-bottom:12px;">🔐 Ingresa la contraseña</h3>
+    <input type="password" id="claveProtegida" placeholder="Contraseña" style="padding:10px; width:80%; font-size:1rem; border:1px solid #ccc; border-radius:8px;">
+    <div id="mensajeError" style="color:red; font-size:0.9rem; margin-top:8px;"></div>
+    <button onclick="validarClaveProtegida()" style="margin-top:16px; padding:10px 20px; background:#1976d2; color:white; border:none; border-radius:8px; cursor:pointer;">Acceder</button>
+  </div>
+</div>
+
 
 
 <script>
@@ -1932,6 +1986,33 @@ function mostrarModalBienvenida() {
 //  if (tituloFlotante && typeof colorBoton !== 'undefined') {
 //    tituloFlotante.style.background = colorBoton;
 //  }
+
+
+
+
+// Codigo complementopara la funcion urlp: link prtegido
+let linkProtegido = '';
+  let claveEsperada = '';
+
+  function mostrarProtegido(id, clave, link) {
+    claveEsperada = clave;
+    linkProtegido = link;
+    document.getElementById('modalProtegido').style.display = 'flex';
+    document.getElementById('claveProtegida').value = '';
+    document.getElementById('mensajeError').textContent = '';
+  }
+
+  function validarClaveProtegida() {
+    const ingresada = document.getElementById('claveProtegida').value;
+    if (ingresada === claveEsperada) {
+      window.open(linkProtegido, '_blank');
+      document.getElementById('modalProtegido').style.display = 'none';
+    } else {
+      document.getElementById('mensajeError').textContent = '❌ Contraseña incorrecta';
+    }
+  }
+
+
 
 
 
