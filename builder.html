@@ -345,8 +345,9 @@ function aplicarFormato(texto, colorBoton) {
   // Cursiva
   texto = texto.replace(/\*\*(.*?)\*\*/g, '<span style="font-style:italic;">$1</span>');
 
-  // Subtítulo violeta
-  texto = texto.replace(/^###\s*(.*)$/gm, '<p style="text-align:left;color:rgb(100,55,113);font-size:1.1rem;font-weight:bold;margin-top:12px;">$1</p>');
+  // Subtítulo
+
+texto = texto.replace(/^###\s*(.*)$/gm, '<h3 style="text-align:left; color:rgb(100,55,113); font-size:clamp(1.5rem, 4vw, 2rem); font-weight:700; margin-top:16px; margin-bottom:8px;">$1</h3>');
 
   // Texto centrado
   texto = texto.replace(/@@(.*?)@@/g, '<p style="text-align:center;">$1</p>');
@@ -552,8 +553,20 @@ if (datos.VENCIMIENTO && datos.VENCIMIENTO.trim() !== '') {
 // `;
 
     
-      if (datos.PORTADA) bodyHTML += `<img class="portada" src="${datos.PORTADA}" alt="Portada">`;
-      if (datos.LOGO) bodyHTML += `<img class="logo" src="${datos.LOGO}" alt="Logo">`;
+const portadaImg = datos.PORTADA && datos.PORTADA.trim() !== ''
+  ? datos.PORTADA
+  : 'https://i.ibb.co/JTJBXSz/image.png';
+bodyHTML += `<img class="portada" src="${portadaImg}" alt="Portada">`;
+
+
+
+const logoImg = datos.LOGO && datos.LOGO.trim() !== ''
+  ? datos.LOGO
+  : 'https://i.ibb.co/NvhvBvF/image.png';
+bodyHTML += `<img class="logo" src="${logoImg}" alt="Logo">`;
+
+
+
       if (datos.TITULO) bodyHTML += `<div class="titulo-flotante">${datos.TITULO}</div>`;
       bodyHTML += `<div class="folio-footer">
       </div>`;
