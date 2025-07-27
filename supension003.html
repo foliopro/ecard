@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+
+
+<meta property="og:title" content="SMARTLAWYER IA
+">
+<meta property="og:description" content="INTELIGENCIA ARTIFICIAL ESPECIALIZADA PARA ABOGADOS Y JURIDICOS
+">
+<meta property="og:image" content="https://foliopro.github.io/ecard/default.jpg">
+<meta property="og:url" content="https://foliopro.github.io/ecard/mi-tarjeta.html">
+<meta property="og:type" content="website">
+
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+
+  <style>
+
+    
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+.portada {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.logo {
+  width: 18%;
+  max-width: 140px;
+  min-width: 60px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: -50px auto 10px;
+  border: 4px solid #fff;
+  background: #fff;
+}
+
+//    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+
+
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent; /* ← será reemplazado por JavaScript */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgb(2,51,48); /* ← Ahora toma el color del usuario */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+    body {
+  background: #f9f9f9;
+}
+
+
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: rgb(2,51,48);
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+h2 {
+    color: rgb(2,51,48);
+  }
+
+
+  </style>
+</head>
+<body>
+
+
+
+  <img class="portada" src="https://i.ibb.co/JTJBXSz/image.png" alt="Portada"><img class="logo" src="https://i.ibb.co/NvhvBvF/image.png" alt="Logo"><div class="titulo-flotante">SMARTLAWYER IA
+</div><div class="folio-footer">
+      </div><div class="bloque"><h2>SMARTLAWYER IA
+</h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">INTELIGENCIA ARTIFICIAL ESPECIALIZADA PARA ABOGADOS Y JURIDICOS
+</p></div><div class="bloque"><p style="text-align:center;">SmartLawyer es tu equipo de agentes de inteligencia artificial especializados en derecho, diseñados para maximizar la productividad de cada abogado. Desde la búsqueda y análisis de jurisprudencia hasta la redacción de borradores y organización de tareas legales, nuestros dos agentes trabajan contigo 24/7, reduciendo tiempos operativos sin sacrificar precisión ni calidad. No reemplazan tu criterio jurídico: lo potencian, liberándote de lo repetitivo para que puedas enfocarte en lo estratégico. En un entorno legal que exige velocidad, exactitud y eficiencia, SmartLawyer es el copiloto inteligente que toda firma moderna necesita.
+
+</p></div><details><summary>🔹 ¿QUÉ ES LA INTELIGENCIA ARTIFICIAL (IA)?</summary><div class="contenido"><p>La Inteligencia Artificial permite que las máquinas realicen tareas que antes solo podía hacer una persona: comprender, analizar, decidir. En el campo jurídico, se convierte en una herramienta poderosa para apoyar al abogado moderno.</p><p>📌 ¿Qué puede hacer la IA en el ámbito legal?</p><p>- Analizar grandes volúmenes de jurisprudencia o doctrina</p><p>- Resumir sentencias o documentos complejos</p><p>- Identificar patrones en casos o contratos</p><p>- Ayudar a estructurar documentos legales</p><p>- Asistir en investigación normativa</p><p>⚖️ ¿Por qué importa para los abogados?</p><p>- Reduce tareas mecánicas</p><p>- Libera tiempo para lo estratégico</p><p>- Mejora la precisión con datos</p><p>- Aumenta la capacidad de respuesta ante clientes</p></div></details><details><summary>🔹 ¿QUÉ SON LOS PROMPTS?</summary><div class="contenido"><p>Los prompts son las instrucciones que se le dan a un sistema de IA (como ChatGPT) para que haga algo específico. Piensa en ellos como comandos inteligentes.</p><p>🧾 Ejemplos de prompts jurídicos:</p><p>-"Resume esta sentencia en lenguaje sencillo"</p><p>- "Dame los artículos clave sobre divorcio en el Código Civil argentino"</p><p>- "Crea una cláusula de confidencialidad para un contrato mercantil"</p><p>💡 Importante:</p><p>- Cuanto mejor esté escrito el prompt, mejor será el resultado.</p><p>- No es solo escribir bien: es pensar como la IA piensa.</p></div></details><details><summary>🔹 ¿CÓMO DEBEN SER LOS PROMPTS PARA OBTENER BUENOS RESULTADOS?</summary><div class="contenido"><p>Los prompts no son magia. Son instrucciones precisas. Si el mensaje es vago, el resultado será impreciso. Esto es un reto para muchos profesionales del derecho que no están familiarizados con este tipo de lenguaje técnico.</p><p>✅ Un buen prompt debe:</p><p>- Ser claro: sin ambigüedades</p><p>- Ser específico: con contexto legal</p><p>- Ser estructurado: paso a paso si es necesario</p><p>- Ser orientado a resultados: decir qué tipo de salida esperas (resumen, tabla, comparativa, etc.)</p><p>⚠️ Riesgo:</p><p>Muchos abogados pierden tiempo valioso ajustando prompts porque no tienen experiencia en esto… y ahí entra el valor del agente.</p></div></details><details><summary>🔹 ¿QUÉ SON LOS PROMPTS JURÍDICOS Y QUÉ PUEDEN RESOLVER?</summary><div class="contenido"><p>Un prompt jurídico es una instrucción especializada para que la IA ejecute una tarea legal concreta.</p><p>🛠 ¿Qué pueden hacer bien?</p><p>- Redactar documentos estándar</p><p>- Traducir normas complejas a lenguaje claro</p><p>- Comparar leyes de distintos países</p><p>- Estructurar informes jurídicos preliminares</p><p>🤔 ¿Qué no pueden hacer solos?</p><p>- Interpretar contexto específico sin explicación detallada</p><p>- Identificar matices estratégicos sin guía humana</p><p>- Protegerte de errores si el prompt está mal formulado</p></div></details><details><summary>🔹¿QUÉ ES UN AGENTE DE INTELIGENCIA ARTIFICIAL JURÍDICO?</summary><div class="contenido"><p>Un Agente de IA Jurídico es mucho más que un simple asistente o chatbot: es un sistema inteligente diseñado específicamente para ayudar a abogados en sus tareas legales sin necesidad de saber cómo comunicarse con la IA.</p><p>A diferencia de usar prompts manuales en una plataforma genérica, el agente está entrenado, especializado y listo para ejecutar tareas jurídicas concretas con precisión, velocidad y sin requerir instrucciones complejas.</p><p>⚙️ ¿Qué hace exactamente un agente jurídico?</p><p>- Ejecuta tareas repetitivas con lógica legal ya incorporada</p><p>- Conoce estructuras de documentos jurídicos</p><p>- Entiende flujos de trabajo comunes en despachos legales</p><p>- Interactúa con el usuario de forma intuitiva (no necesitas saber IA)</p><p>- Toma decisiones simples basadas en contexto legal</p><p>📌 Ejemplo:</p><p>En vez de escribir:</p><p>- “Resume esta sentencia de 18 páginas en 5 bullets clave, usando lenguaje sencillo y destacando el argumento principal del demandado”</p><p>(con suerte de que lo entienda bien)...</p><p>- 👉 Con un Agente IA Jurídico simplemente haces clic en:</p><p>“Resumen ejecutivo de sentencia”</p><p>Y lo hace con el formato esperado, sin que tengas que pensar cómo pedirlo.</p><p>🔍 ¿Por qué los agentes IA jurídicos están en alta demanda?</p><p>-Porque representan una evolución natural: automatizan el prompting inteligente. Son el puente entre el poder de la IA y el mundo jurídico, sin requerir que el abogado se convierta en ingeniero de IA.</p><p>🔥 Ventajas que están atrayendo a firmas legales:</p><p>- Sin curva de aprendizaje técnica</p><p>- Productividad inmediata desde el primer día</p><p>- Consistencia en resultados jurídicos</p><p>- Especialización por tipo de tarea y área de derecho</p><p>- Cero dependencia de redactar prompts manuales</p></div></details><details><summary>⚖️ LA GRAN DIFERENCIA: PROMPTS VS AGENTES IA JURÍDICOS</summary><div class="contenido"><p>Muchos abogados están tomando cursos de prompt engineering para poder usar IA... pero los agentes IA como SmartLawyer eliminan esa necesidad por completo. Esa es la ventaja competitiva brutal.</p><p>🚫 Con los prompts:</p><p>- Debes aprender cómo escribirlos</p><p>- No hay garantía de resultados consistentes</p><p>- Cada nueva tarea es empezar de cero</p><p>- Fallas frecuentes por mal planteamiento</p><p>✅ Con SmartLawyer:</p><p>- Ya viene con prompts jurídicos internos optimizados</p><p>- Todo está contextualizado y estructurado por flujo legal</p><p>- Solo debes decir “lo que quieres hacer”, no “cómo se lo debes pedir”.</p><p>- El Agente te Asesora solicitado la información y contextualizando</p><p>- Ganas tiempo mientras otros aún están aprendiendo cómo usar IA</p><p>🚀 Lo que puedes hacer con nuestros agentes:</p><p>- Delegar resúmenes de casos</p><p>- Automatizar revisión de contratos</p><p>- Recibir ayuda con investigaciones normativas</p><p>- Organizar tus tareas legales</p><p>- Ahorrar entre 2 y 4 horas diarias de trabajo operativo</p><p>🧠 ¿Por qué esto cambia las reglas del juego?</p><p>Mientras otros abogados estudian cómo hablarle a la IA, tú ya estás resolviendo casos con ella.</p><p>Este cambio democratiza el acceso al poder de la IA legal:</p><p>- No necesitas ser experto en tecnología</p><p>- No necesitas pagar cursos técnicos</p><p>- No necesitas “ingeniería de prompts”</p><p>- Solo necesitas tener un caso, un documento, o una tarea legal... y dejar que el agente actúe</p><p>***🏁 En resumen:</p><p>Los Agentes de IA Jurídicos como SmartLawyer representan el futuro del ejercicio legal eficiente: especialistas virtuales que entienden tus procesos, tus necesidades y tu lenguaje. No necesitas adaptarte tú a la IA; la IA ya se adaptó a ti.***</p></div></details><details><summary>AGENTE IA 1: ABOGADO</summary><div class="contenido"><p>Como Agente Advogado, actúo como un asistente legal estratégico, diseñado para brindar al abogado respuestas técnicas, análisis normativos sólidos y redacción de documentos jurídicos adaptados al caso concreto.</p><p>Cuando un abogado me consulta, lograré:</p><p>- Analizar detalladamente el caso: Identifico los puntos clave, la normativa aplicable (leyes, reglamentos, jurisprudencia) y evalúo las implicaciones legales del conflicto o consulta.</p><p>- Diseñar una estrategia jurídica clara: Planteo alternativas viables, evaluando riesgos y oportunidades, ya sea para iniciar un proceso, responder una demanda o negociar un acuerdo.</p><p>- Redactar documentos jurídicos listos para usar: Elab oro demandas, contratos, recursos, escritos de defensa o cláusulas contractuales, con lenguaje técnico y bien estructurado.</p><p>- Optimizar el tiempo del abogado: Entrego borradores fundamentados, con referencias legales, listos para revisión o presentación, lo que permite al abogado centrarse en la estrategia general o la gestión del cliente.</p><p>- Adaptarme a distintas jurisdicciones: Trabajo con normas nacionales o locales según el país y la región que el abogado indique.</p><p>✅ Beneficio para el abogado:</p><p>Acelero el trabajo técnico-legal, aportando claridad, precisión y eficiencia en la toma de decisiones y redacción jurídica.</p><p>
+    <div style="text-align:center; margin:12px 0;">
+      <button onclick="mostrarProtegido('urlp_5k1x3vqe', 'abcd123*', 'https://chatgpt.com/g/g-68458fd91ce481919382ed160ba2cae6-agente-advogado')" style="
+        background: rgb(2,51,48);
+        color: white;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+        border: none;
+      ">🔐 Da click AQUI para ACCEDER AL AGENTE ABOGADO</button>
+    </div></p></div></details><details><summary>AGENTE IA 2: AGENTE JURIDICO</summary><div class="contenido"><p>Como objetivo principal de Agente Jurídico, te ayudaré a Resolver consultas legales y Redactar documentos jurídicos ajustados a cada caso concreto, mediante el análisis normativo y las buenas prácticas legales.</p><p>🎯 Finalidades específicas:</p><p>- Interpretar normas jurídicas vigentes aplicables a la situación consultada.</p><p>- Evaluar riesgos legales y oportunidades para proteger derechos o prevenir conflictos.</p><p>- Redactar documentos jurídicos claros, técnicos y personalizados: contratos, demandas, contestaciones, pareceres, acuerdos, etc.</p><p>- Explicar términos legales complejos en un lenguaje técnico pero comprensible.</p><p>- Orientar sobre pasos jurídicos siguientes, incluyendo medidas preventivas o acciones legales.</p><p>Este objetivo se ejecuta en tres fases: recopilación inicial del caso, preguntas estratégicas, y entrega del análisis/documento con estructura jurídica clara, incluyendo cláusulas y próximos pasos recomendados.</p><p>
+    <div style="text-align:center; margin:12px 0;">
+      <button onclick="mostrarProtegido('urlp_n8rnbt73', 'abcd123*', 'https://chatgpt.com/g/g-68458f60a4148191af5253d7cb54ce30-agente-juridico')" style="
+        background: rgb(2,51,48);
+        color: white;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+        border: none;
+      ">🔐 Da click AQUI para ACCEDER AL AGENTE ABOGADO</button>
+    </div></p></div></details><details><summary>COMPARATIVO ENTRE AMBOS AGENTES</summary><div class="contenido"><img src="https://i.ibb.co/M5C8sQMB/image.png" style="width:90%;display:block;margin:10px auto;"></div></details><details><summary>***⚖️ ANÁLISIS JURÍDICO COMPARADO***</summary><div class="contenido"><p>Punto 1: Diferencia de enfoque</p><p>- El Agente Jurídico está diseñado como herramienta de redacción legal precisa y explicación normativa clara.</p><p>- El Agente Advogado tiene un enfoque más estratégico y procesal, ideal para litigios o negociaciones complejas.</p><p>Punto 2: Profundidad estratégica</p><p>- El Agente Advogado tiende a diseñar argumentación jurídica táctica.</p><p>- El Agente Jurídico se centra en claridad documental y cumplimiento legal, útil para contratos y pareceres.</p><p>Punto 3: Uso recomendado</p><p>- Usa el Agente Jurídico si tu objetivo es redactar documentos jurídicos técnicos (contratos, cláusulas, demandas claras, pareceres).</p><p>- Usa el Agente Advogado si buscas apoyo en estrategia jurídica procesal, defensa, negociación o maximización de derechos.</p><p>✅ Conclusión y Recomendación</p><p>¿Son complementarios?</p><p>Sí. El Agente Jurídico es más adecuado para documentación técnica y estructuración legal, mientras que el Agente Advogado sirve mejor para estrategia jurídica compleja y defensa de intereses.</p><p><p style="text-align:left;font-weight:bold;">¿Cuál usar según el caso?</p></p><p>- Para contratos, revisiones legales o pareceres técnicos: usa el Agente Jurídico.</p><p>- Para recursos, escritos de defensa o diseño argumentativo en litigios: opta por el Agente Advogado.</p></div></details>
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria"><img src="https://i.ibb.co/k2spzcq1/01.png" alt="Imagen"><img src="https://i.ibb.co/TMMJkqXd/02.png" alt="Imagen"><img src="https://i.ibb.co/7xN72XMB/03.png" alt="Imagen"><img src="https://i.ibb.co/5gfV71hF/04.png" alt="Imagen"><img src="https://i.ibb.co/VcbjHPpw/05.png" alt="Imagen"><img src="https://i.ibb.co/W4stRxxG/06.png" alt="Imagen"><img src="https://i.ibb.co/VRB4v4t/07.png" alt="Imagen"></div>
+      </div>
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
+        <div class="galeria"><iframe width="300" height="180" src="https://www.youtube.com/embed/kgDHhkNQkaU?si=xDFy32dnsMrwX3T3" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+    <div class="bloque">
+      <div class="mapa" style="text-align:center; position:relative;">
+        <iframe src="https://www.google.com/maps?output=embed&q=Cra%208%20%2318-60%2C%20Pereira%20%2C%20Risaralda%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div style="margin-top:10px;">
+          <a href="https://www.google.com/maps?q=Cra%208%20%2318-60%2C%20Pereira%20%2C%20Risaralda%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" target="_blank"
+             style="display:inline-block; background:rgb(2,51,48); color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
+             📌 Ver en Google Maps
+          </a>
+        </div>
+      </div>
+    </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Cra 8a No 18 60 Oficina 111</div><div>📍Pereira Risaralda</div><div><a href="mailto:supensionplus@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: supensionplus@gmail.com</a></div><div><a href="tel:+573117715353" style="color:#007bff;text-decoration:underline;">📲 Celular: +573117715353</a></div></div></div><div class="redes-line"><a href="https://www.facebook.com/supensionplus?locale=es_LA" target="_blank"><img src="https://i.ibb.co/6JJ5FZ1S/IFbook.png" alt="facebook" title="Facebook"></a><a href="https://www.instagram.com/supensionplus/" target="_blank"><img src="https://i.ibb.co/chCqtLkw/IInstagram.png" alt="instagram" title="Instagram"></a></div><div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div>
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353?text=Hola,%20quiero%20mi%20Tarjeta%20Digital%20FolioPro,%20mi%20nombre%20es..." 
+       target="_blank" 
+       style="color:#022C2B; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+
+    <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
+      
+      <a href="https://wa.me/?text=Hola%2C%20Necesitas%20ayuda%20juridica%3F%20Consulta%20aqui%20como%20podemos%20ayudartete!!!%20https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fabogado001.html" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/Dg8NNkgz/image.png" alt="Compartir" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="https://wa.me/5731117715353?text=Hola%2C%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/mCdSYYw2/image.png" alt="WhatsApp" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="tel:+573117715353" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/M5pc1WwG/image.png" alt="Llamar" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+    </div>
+  
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+
+<!-- Modal para documentos externos -->
+<div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; width:90%; height:90%; max-width:900px; position:relative;">
+    <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+
+<!-- 🔐 Modal protegido con contraseña -->
+  <div id="modalProtegido" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:12px; text-align:center; max-width:400px; width:90%; box-shadow:0 4px 8px rgba(0,0,0,0.2); position:relative;">
+      <span onclick="document.getElementById('modalProtegido').style.display='none'" style="position:absolute; top:10px; right:20px; cursor:pointer;">❌</span>
+      <h3 style="margin-bottom:12px;">🔐 Ingresa la contraseña</h3>
+      <input type="password" id="claveProtegida" placeholder="Contraseña" style="padding:10px; width:80%; font-size:1rem; border:1px solid #ccc; border-radius:8px;">
+      <div id="mensajeError" style="color:red; font-size:0.9rem; margin-top:8px;"></div>
+      <button onclick="validarClaveProtegida()" style="margin-top:16px; padding:10px 20px; background:#1976d2; color:white; border:none; border-radius:8px; cursor:pointer;">Acceder</button>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+    // Abre la primera sección automáticamente
+    // document.querySelector('details')?.setAttribute("open", "true");
+
+const secciones = document.querySelectorAll('details');
+secciones.forEach(d => {
+  d.removeAttribute('open');
+
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      secciones.forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+    
+
+// 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+  const fechaVenc = new Date("");
+  if (Date.now() > fechaVenc.getTime()) {
+    document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+      '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+      '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+      '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20' + "mi-tarjeta" + '.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+      ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+      '📱 Contactar por WhatsApp' +
+      '</a>' +
+    '</div>';
+  }
+
+
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+console.log("🧪 El script de contraseña se está ejecutando...");
+  const clave = "";
+  if (clave !== "") {
+    const mensaje = "🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:";
+    const claveIngresada = prompt(mensaje);
+    if (claveIngresada !== clave) {
+      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+    }
+  }
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+
+
+
+// 👇 Función para abrir documentos externos en modal
+function abrirDocumentoModal(url) {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = url;
+  modal.style.display = 'block';
+}
+function cerrarDocumentoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+
+// 🔐 Función para @urlp
+    let linkProtegido = '';
+    let claveEsperada = '';
+
+    function mostrarProtegido(id, clave, link) {
+      claveEsperada = clave;
+      linkProtegido = link;
+      document.getElementById('modalProtegido').style.display = 'flex';
+      document.getElementById('claveProtegida').value = '';
+      document.getElementById('mensajeError').textContent = '';
+    }
+
+    function validarClaveProtegida() {
+      const ingresada = document.getElementById('claveProtegida').value;
+      if (ingresada === claveEsperada) {
+        window.open(linkProtegido, '_blank');
+        document.getElementById('modalProtegido').style.display = 'none';
+      } else {
+        document.getElementById('mensajeError').textContent = '❌ Contraseña incorrecta';
+      }
+    }
+
+
+
+
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = true;
+
+
+// Funciones para abrir y cerrar documentos externos en modal
+function abrirEnlaceExternoModal(url) {
+  try {
+    const iframe = document.getElementById('iframeDocumento');
+    const modal = document.getElementById('modalDocumento');
+
+    iframe.src = url;
+    modal.style.display = 'block';
+
+    setTimeout(() => {
+      if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+        window.open(url, '_blank');
+        cerrarEnlaceExternoModal();
+      }
+    }, 3000);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+function cerrarEnlaceExternoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+  </script>
+</body>
+</html>
