@@ -429,25 +429,29 @@ texto = texto.replace(/@urld:\s*"([^"]+)"\s*;\s*(https?:\/\/[^\s]+)/g, (match, t
   });
 
 
-  // 📌 Enlace tipo botón a WhatsApp
-  texto = texto.replace(/@urlw:\s*"([^"]+)"\s*;\s*(\d{7,15})/g,
-    `<div style="width:100%;text-align:center;margin:12px 0;">
-      <a href="https://wa.me/$2" target="_blank" style="
-        display:inline-block;
-        width:80%;
-        max-width:600px;
-        background:${colorBoton};
-        color:white;
-        padding:14px 20px;
-        border-radius:10px;
-        text-align:center;
-        font-weight:bold;
-        font-size:1.1rem;
-        text-decoration:none;
-        box-shadow:0 4px 8px rgba(0,0,0,0.1);
-        transition:all 0.3s ease;
-      ">💬 $1</a>
-    </div>`);
+  // 📌 Enlace tipo botón a WhatsApp con mensaje personalizado
+  texto = texto.replace(/@urlw:\s*"([^"]+)"\s*;\s*"([^"]+)"\s*;\s*(\d{7,15})/g,
+    (match, textoBoton, mensaje, numero) => {
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+      return `<div style="width:100%;text-align:center;margin:12px 0;">
+        <a href="${url}" target="_blank" style="
+          display:inline-block;
+          width:80%;
+          max-width:600px;
+          background:${colorBoton};
+          color:white;
+          padding:14px 20px;
+          border-radius:10px;
+          text-align:center;
+          font-weight:bold;
+          font-size:1.1rem;
+          text-decoration:none;
+          box-shadow:0 4px 8px rgba(0,0,0,0.1);
+          transition:all 0.3s ease;
+        ">💬 ${textoBoton}</a>
+      </div>`;
+    }
+  );
 
 
 
