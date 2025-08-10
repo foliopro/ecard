@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+
+
+<meta property="og:title" content="ESTRATEGIA EMPRESARIAL INTELIGENTE
+">
+<meta property="og:description" content="IMPULSAMOS TU NEGOCIO CON PRECISION
+">
+<meta property="og:image" content="https://i.postimg.cc/Y9NSvXvN/image.png
+">
+<meta property="og:url" content="https://foliopro.github.io/ecard/mi-tarjeta.html">
+<meta property="og:type" content="website">
+
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+
+  <style>
+
+    
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+.portada {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.logo {
+  width: 18%;
+  max-width: 140px;
+  min-width: 60px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: -50px auto 10px;
+  border: 4px solid #fff;
+  background: #fff;
+}
+
+//    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+
+
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent; /* ← será reemplazado por JavaScript */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgb(2,51,48); /* ← Ahora toma el color del usuario */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+body {
+  padding-top: 80px;
+}
+
+
+    body {
+  background: #f9f9f9;
+}
+
+
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: rgb(2,51,48);
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+h2 {
+    color: rgb(2,51,48);
+  }
+
+
+  </style>
+</head>
+<body>
+
+
+
+  <img class="portada" src="https://i.postimg.cc/d0y3YQvx/image.png
+" alt="Portada"><img class="logo" src="https://i.postimg.cc/Y9NSvXvN/image.png
+" alt="Logo"><div class="titulo-flotante">ESTRATEGIA EMPRESARIAL INTELIGENTE
+</div><div class="folio-footer">
+      </div><div class="bloque"><h2>ESTRATEGIA EMPRESARIAL INTELIGENTE
+</h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">IMPULSAMOS TU NEGOCIO CON PRECISION
+</p></div><div class="bloque"><p style="text-align:center;"><b>Somos una firma especializada en diseñar y ejecutar planes estratégicos que impulsan el crecimiento empresarial.</b><br><br>
+En Estrategia Empresarial Inteligente combinamos visión administrativa, análisis financiero y creatividad comercial para garantizar que cada acción se traduzca en mayores ventas, mejor rentabilidad y posicionamiento de marca
+
+</p></div><details><summary>QUÉ ES UNA EMPRESA DE ÉXITO</summary><div class="contenido"><p>Mi compromiso con usted, es, además de llevarlo por el mundo de la administración de negocios, mostrarle cómo crear empresas de éxito, no cualquier organización.</p><p>Para esto, me he encontrado al señor Josh Kaufman, autor del libro “MBA personal”, quien ha definido lo que denomina los 5 factores de un negocio, de la siguiente forma.</p><p>“Un negocio es un proceso repetitivo que…</p><p>1. Crea y ofrece algo de valor…</p><p>2. Que los demás quieren o necesitan…</p><p>3. A un precio que están dispuestos a pagar…</p><p>4. De un modo que satisface las necesidades y expectativas del cliente…</p><p>5. De tal manera que el negocio reporte los beneficios suficientes para que los propietarios sigan adelante con la operación.</p><p>Si elimina alguno de estos cinco factores, se queda sin negocio”.</p><p>Espero que el señor Kaufman no se moleste, puesto que aplaudo, reconozco y recomiendo su obra, pero adicionaré y reordenaré un par de factores.</p><p>Una empresa de éxito es aquella que:</p><p>1. Crea y ofrece un producto o servicio de valor.</p><p>2. A una población o segmento de ella, que lo necesita.</p><p>3. Para atender una necesidad, resolver un problema, satisfacer un deseo o eliminar un dolor.</p><p>4. A un precio que están dispuestos a pagar.</p><p>5. Generando con ello  ingresos, suficientes para absorber la totalidad de los costos y gastos.</p><p>6. Obteniendo Flujos de Caja Libre que generan rentabilidad para los propietarios.</p><p>7. Lo cual los estimula a reinvertir en el negocio, para seguir operando.</p><p>Coincido además en que si eliminamos uno sólo de estos 7 factores, no existirá empresa.</p><p>Ahora bien. Debido a que velaré a lo largo de las 100 lecciones por el cumplimiento y conservación de estos 7 factores, es necesario describirlos de manera un poco más amplia, aunque en el desarrollo de las lecciones se hablará en extenso de cada uno de ellos llegado el momento.</p><p> Crea y ofrece un producto o servicio de Valor. Aunque en marketing se ha convenido universalmente que al hablar de producto, éste incluye los servicios, quise expresarlo así para no pasar inadvertido que los servicios en efecto existen, no sólo los productos manufacturados.</p><p>No obstante lo dicho, lo fundamental de este factor está en entender que el producto tiene la obligación de representar para el cliente un valor, pero no referido al precio, sino a la capacidad de atender la necesidad y, además, de permitirle vivir una experiencia positiva, a través de todo el proceso.</p><p>¿Cuál proceso? El que va desde el momento en el que a través de la promoción, hacemos que el cliente conozca el producto y la empresa; la manera cómo nos relacionamos con él; los canales a través de los cuales nos conectamos; los canales a través de los cuales le hacemos llegar el producto; la forma de pago; las posibles reclamaciones a que haya lugar y la etapa posterior a la venta.</p><p>Entendido esto, es claro que el Valor está constituido por un completo proceso que supone una relación o experiencia para las partes y no sólo el producto.</p><p> A una población o segmento que lo necesita. ¿Quiénes usarán el producto de Valor? Si esa población no existe, será muy complicado que la empresa que lo fabrique sea exitosa, porque será difícil que alguien esté dispuesto a pagar por él.</p><p>Sin embargo, no olvidemos que hay productos que “nadie necesitaba”, pero hoy están entre nosotros gozando de excelente salud, como es el caso de la telefonía celular.</p><p> Para atender una necesidad. La mejor garantía para que exista una población para el producto, consiste en que esa población realmente tenga una necesidad, un problema, un deseo o sienta un dolor que deba ser atendido por alguien, en este caso, la empresa en su conjunto.</p><p>Por esta razón, notará usted que me vuelvo reiterativo en afirmar que el nacimiento de todo negocio se produce en el marketing, a partir de la investigación o simple observación que descubre la existencia de la necesidad, el deseo, el problema o el dolor.</p><p> A un precio que están dispuestos a pagar. La población que tiene el dolor deberá estar dispuesta a pagar por el producto que elimina tal dolor y, en efecto lo estará, cuando encuentre que el Valor que le damos es igual o mayor al Valor que nos dará (el precio).</p><p>De la misma forma como el cliente percibe el Valor que representa el producto, estará dispuesto a realizar la transacción correspondiente: su Valor (pesos o dólares), a cambio del Valor del producto y todo el proceso inherente y ya explicado.</p><p> Generando ingresos. El precio del producto, multiplicado por la cantidad de ellos, nos dará los ingresos a partir de los cuales la empresa tendrá que absorber la totalidad de los costos y gastos que se producirán en la operación del negocio.</p><p> Obteniendo Flujos de Caja Libre. No es suficiente que una empresa genere utilidades para llegar a ser rentable. Es más: muchas empresas producen utilidades, pero no son rentables.</p><p>Y existe algo peor. Muchas personas, empresarios y no empresarios que confunden utilidad con rentabilidad. No es así, empezando porque la utilidad se expresa en valores absolutos, por ejemplo, 100 millones de pesos en un año; mientras que la rentabilidad se expresa en valores relativos, por ejemplo, 18,0% anual.</p><p>El Flujo de Caja Libre es la utilidad del periodo, pero sumando la depreciación del periodo y restando los valores necesarios para pagar los proveedores, reponer el inventario que se ha vendido durante el periodo y realizar las inversiones requeridas, por ejemplo, para aumentar la capacidad de la planta o reparar maquinaria y equipo.</p><p>Al resultado final se le llama FCL, que, dicho de manera popular, es el dinero del que “libremente” podría disponer el propietario.</p><p>El desconocimiento de este punto, ha sido motivo fundamental para que muchos empresarios “logren quebrar sus negocios”, al disponer de dineros que eran vitales para la continuidad de sus empresas.</p><p>En este caso ellos habrán confundido “utilidad”, con “dinero disponible”. No han tenido educación financiera y, en muchos casos, tampoco inteligencia financiera.</p><p> Lo cual estimula a reinvertir. Todo negocio en el que los propietarios advierten el cumplimiento de los 6 factores anteriores, empuja a sus propietarios a reinvertir y repetir el ciclo, porque esa repetición, cada vez que termina el ciclo, viene acompañado de mayor cantidad de Flujo de Caja Libre.</p></div></details><details><summary>¿CUÁL ES LA UTILIDAD QUE DEBERÍA DARLE SU NEGOCIO?</summary><div class="contenido"><p>Esta es una pregunta que con frecuencia me hacen algunos empresarios.</p><p>Depende… respondo. ¿De qué depende?</p><p>1.	Del Total de su Activo.</p><p>Supongamos que su Activo Total asciende a la suma de 100 millones de pesos.</p><p>Significa que usted entonces tiene “inmovilizada” esa cantidad de dinero en su negocio.</p><p>2.	Del cómo está financiado su Activo Total.</p><p>Ahora consideremos que usted financia su Activo con: Pasivo corriente por valor de 30 millones de pesos; Pasivo de largo plazo por valor de 45 millones de pesos y Patrimonio, por valor de 25 millones de pesos.</p><p>Recuerde.</p><p>Pasivo corriente es lo que debe, pero debe ser pagado máximo en 1 año, a partir de hoy.</p><p>Pasivo de largo plazo es lo que adeuda, pero se pagará en periodo mayor a 1 año.</p><p>Patrimonio, es su dinero invertido en su empresa.</p><p>Ahora podemos decir que la estructura financiera de su empresa es 30/45/25 ó de forma más general, 75/25. Esto es, 75,0% es deuda a terceros y 25,0% es suyo.</p><p>3.	Del costo financiero de cada una de sus fuentes de financiación.</p><p>Ahora consideremos que el costo financiero –el interés que paga por esas fuentes de financiación- es del 3,0% por su pasivo corriente; el 3,5% por su pasivo de largo plazo y usted “le exige” a su dinero una rentabilidad del 4,0% mensual.</p><p>Si multiplica (0,30 x 0,03) x (0,45 x 0,035) x (0,25 x 0,04) = 0,035.</p><p>¿Qué significa?</p><p>Que su empresa tiene un Costo de Capital Promedio Ponderado del 3,5% mensual y que por esa razón la primera utilidad que su negocio debe darle, tiene que ser –como mínimo- de 3,5 millones de pesos mensuales, sólo para pagar los intereses del dinero que está inmovilizado en su negocio.</p><p>Vale decir, si cada mes además de los intereses debe pagar abonos a esos capitales, obviamente la utilidad tendría que ser mayor.</p><p>Así, usted pagará 900 mil pesos por el pasivo de corto plazo; 1,575 millones de pesos por el pasivo de largo plazo y 1,0 millón de pesos por su patrimonio.</p><p>También significa que cuando su Activo aumenta, la Utilidad también debería hacerlo en la misma proporción, porque si no es así, su rentabilidad disminuiría.</p><p>¿Esta es la cuenta que usted hace cada mes en su empresa?</p></div></details><details><summary>¿CUÁL ES LA UTILIDAD QUE DEBERÍA DARLE SU NEGOCIO?</summary><div class="contenido"><p>Esta es una pregunta que con frecuencia me hacen algunos empresarios.</p><p>Depende… respondo. ¿De qué depende?</p><p>1.	Del Total de su Activo.</p><p>Supongamos que su Activo Total asciende a la suma de 100 millones de pesos.</p><p>Significa que usted entonces tiene “inmovilizada” esa cantidad de dinero en su negocio.</p><p>2.	Del cómo está financiado su Activo Total.</p><p>Ahora consideremos que usted financia su Activo con: Pasivo corriente por valor de 30 millones de pesos; Pasivo de largo plazo por valor de 45 millones de pesos y Patrimonio, por valor de 25 millones de pesos.</p><p>Recuerde.</p><p>Pasivo corriente es lo que debe, pero debe ser pagado máximo en 1 año, a partir de hoy.</p><p>Pasivo de largo plazo es lo que adeuda, pero se pagará en periodo mayor a 1 año.</p><p>Patrimonio, es su dinero invertido en su empresa.</p><p>Ahora podemos decir que la estructura financiera de su empresa es 30/45/25 ó de forma más general, 75/25. Esto es, 75,0% es deuda a terceros y 25,0% es suyo.</p><p>3.	Del costo financiero de cada una de sus fuentes de financiación.</p><p>Ahora consideremos que el costo financiero –el interés que paga por esas fuentes de financiación- es del 3,0% por su pasivo corriente; el 3,5% por su pasivo de largo plazo y usted “le exige” a su dinero una rentabilidad del 4,0% mensual.</p><p>Si multiplica (0,30 x 0,03) x (0,45 x 0,035) x (0,25 x 0,04) = 0,035.</p><p>¿Qué significa?</p><p>Que su empresa tiene un Costo de Capital Promedio Ponderado del 3,5% mensual y que por esa razón la primera utilidad que su negocio debe darle, tiene que ser –como mínimo- de 3,5 millones de pesos mensuales, sólo para pagar los intereses del dinero que está inmovilizado en su negocio.</p><p>Vale decir, si cada mes además de los intereses debe pagar abonos a esos capitales, obviamente la utilidad tendría que ser mayor.</p><p>Así, usted pagará 900 mil pesos por el pasivo de corto plazo; 1,575 millones de pesos por el pasivo de largo plazo y 1,0 millón de pesos por su patrimonio.</p><p>También significa que cuando su Activo aumenta, la Utilidad también debería hacerlo en la misma proporción, porque si no es así, su rentabilidad disminuiría.</p><p>¿Esta es la cuenta que usted hace cada mes en su empresa?</p></div></details><details><summary>CUANDO SU NEGOCIO SE VUELVE UN “BARRIL SIN FONDO”</summary><div class="contenido"><p>¿Alguna vez le ha ocurrido que su negocio pide dinero, usted lo consigue y su empresa sigue necesitando una y otra vez?</p><p>De acuerdo con mi experiencia esto podría ocurrirle por 2 razones.</p><p>La primera es porque usted ha elegido un sector del mercado en el que la operación no es rentable.</p><p>Es decir, usted ha destinado su dinero a un mercado en el que ya no es posible lograr utilidades y, en consecuencia, no luche más y no siga perdiendo dinero.</p><p>¿Cómo puede saberlo?</p><p>Tome las cifras de su negocio y haga los siguientes cálculos.</p><p>Ingresos de Operación. Son los provenientes de la venta de su producto.</p><p>Menos: Costo de venta. Es el costo del producto que usted vendió.</p><p>Igual: Utilidad Bruta. Es la diferencia entre los 2 anteriores rubros.</p><p>Menos: Gastos de Operación. Los componen los 2 siguientes.</p><p>Gastos de Administración. Representados por los gastos necesarios para la administración de su negocio: salarios, prestaciones, servicios, arriendo, papelería, aseo, vigilancia, mantenimiento, reparaciones, etc.</p><p>Gastos de Venta. Son los salarios, prestaciones y comisiones de sus vendedores; publicidad, papelería, promociones, descuentos, etc.</p><p>Utilidad Operacional. Es la diferencia entre la Utilidad Bruta y los Gastos de Operación.</p><p>Si la Utilidad Operacional es negativa durante varios periodos consecutivos, a pesar de sus esfuerzos, es el indicador de que usted ha invertido su dinero en una actividad que no le genera utilidades. Cierre o venda. Nada más qué hacer.</p><p>La segunda razón está relacionada con su Ciclo de Caja.</p><p>Su negocio puede ser rentable, pero tiene periodos de iliquidez.</p><p>Por ejemplo, supongamos una cafetería o un restaurante.</p><p>Hoy usted compra materias primas a crédito por valor de 5 millones de pesos, para pagar en 10 días.</p><p>Convertir tales materias primas en Producto Terminado y listo para la venta, le toma 5 días.</p><p>Sin embargo, no vende de inmediato, sino que esos productos se quedan en inventario de Producto Terminado durante 8 días en promedio.</p><p>Al final de esos 8 días, usted vende a crédito para recibir el dinero en 20 días.</p><p>Haga la siguiente cuenta.</p><p>Recibió las materias primas y tardó 5 días en ello. Luego esperó 8 días más para vender. Es decir, van 13 días.</p><p>Sin embargo, en el día 10 debió pagar los materiales que había comprado a crédito.</p><p>¿De dónde saca el dinero para ello, si aún no ha recibido el pago por su venta?</p><p>Ocurre que usted tiene un Ciclo de Caja negativo.</p><p>Deberá hacer lo posible, para que su Ciclo de Caja sea positivo. Es decir trabajar con EDO: El Dinero de Otro.</p></div></details><details><summary>¿POR QUÉ TE PAGAN?</summary><div class="contenido"><p>No te pagan por lo que eres.</p><p>Toda persona que hoy es famosa y cobra mucho dinero por prestar sus servicios, empezó siendo una total desconocida en el universo. En ese momento inicial no era nadie.</p><p>Cualquier nombre de mujer o de hombre que tomemos hoy, tuvo esos inicios: Bill Gates, Elon Musk, James Rodríguez,  Dan Kennedy, Chaquira, Stephen King, etc.</p><p>No te pagan por lo que haces.</p><p>Hemos visto artistas, artesanos, simples trabajadores que a primera vista se aprecia que tienen talentos especiales. Con esos talentos hacen –crean- verdaderas obras, maravillosas.</p><p>No obstante, luchan a diario por sobrevivir, porque lo que reciben en pago no es suficiente para tener una buena calidad de vida.</p><p>No te pagan por lo que das.</p><p>Aunque alguien entregue un producto o servicio de buena calidad, si no tiene un gran Valor, poco podrá cobrar.</p><p>Cualquiera podría dar mucho. Mucha cantidad, mucha calidad, mucho servicio. Pero si en lo que da –incluido el Valor- no recibirá gran pago. A lo mejor sobrevivirá.</p><p>Te pagan por lo que haces sentir.</p><p>Sin embargo, si alguien hace que en las personas se desaten las emociones, como la risa, la alegría, la paz, la tranquilidad, la armonía, el amor, etc., no hay duda de que recibirá un pago muy grande.</p><p>Grande no sólo respecto del precio que recibirá, sino de la cantidad de personas que estarán dispuestas a pagarle ese precio.</p><p>¿Le queda alguna duda respecto de la importancia de despertar emociones en sus prospectos y clientes?</p><p>Pero… muchas veces atendemos a nuestros clientes con sentimientos que van en contravía de las emociones que venden. Los atendemos con tristeza, con rabia, con sentimientos de culpa, con enojo, etc.</p></div></details><details><summary>EL ESFUERZO DE VENTAS</summary><div class="contenido"><p>Cada día es más notoria la ausencia de vendedores calificados para apoyar el trabajo de los empresarios. Ya sabemos: sin ventas no hay empresa.</p><p>Por estos días, por ejemplo, adelanto una capacitación virtual en el área de Marketing y ventas para 2 personas en los Estados Unidos, porque aunque tienen alguna experiencia en ventas, entienden que deben calificarse más.</p><p>Ayer –otro ejemplo- un empresario me pedía que le ayudara en el proceso de selección y formación de su equipo de ventas, porque “… ya estoy cansado de perder tiempo y dinero y no veo la mejoría en las ventas”, según me dijo.</p><p>Desde luego, tales formaciones deben realizarse con todo el rigor que las mismas exigen.</p><p>Sin embargo, hoy también quiero dejar claro que existe un concepto llamado El esfuerzo de ventas, que tiene que ser entendido por el empresario en general y sobre todo, por quienes operan en el área de Marketing y ventas.</p><p>El Esfuerzo de ventas es una relación entre la Gestión de Marketing y la Gestión de Ventas.</p><p>Esfuerzo de ventas = Gestión de Ventas / Gestión de Marketing</p><p>Por Gestión de Marketing entendemos todo el proceso realizado por una empresa para hacer que el producto o servicio sea conocido por el cliente potencial.</p><p>Este proceso incluye todas las actividades necesarias para llegar al cliente y debe ser masivo en los canales seleccionados y ser de alta calidad.</p><p>Por Gestión de ventas, entendemos todo el proceso ejecutado para realizar las ventas, tanto en cantidad como en calidad.</p><p>De esta forma, si por ejemplo, calificamos con 2 la Gestión de Marketing desarrollada y con 1 la Gestión de ventas, el Esfuerzo de ventas será 0,5.</p><p>Pero, ¿qué pasaría si la Gestión de Marketing fuese de 1 y la Gestión de ventas 2?</p><p>Respuesta, el Esfuerzo de ventas tendría que ser de 2, es decir, se requeriría mucho mayor esfuerzo en la Gestión de ventas para poder realizar las ventas requeridas en un negocio.</p><p>Preste atención a algo que también es posible derivar de la fórmula indicada.</p><p>A mayor Gestión de Marketing le corresponderá siempre un menor Esfuerzo de ventas, pero cuidado, porque también es cierto al contrario. Es decir, si su Gestión de Marketing es baja, su Esfuerzo de ventas tendrá que ser muy alto.</p><p>Terminemos con el siguiente ejemplo.</p><p>Si su negocio busca tener un Esfuerzo de ventas de sólo 0,25 de cuánto debería ser la Gestión de Marketing, para que su Gestión de ventas sea normal, esto es, 1?</p><p>Es claro, su Gestión de Marketing tendría que ser de 4,0.</p><p>¿Cuál es la lógica que yace en la fórmula?</p><p>Que cuando se realiza una muy buena Gestión de Marketing, el Esfuerzo de ventas es mínimo, es decir, no se requiere mucho para vender.</p><p>¿Puede calcular este indicador en su negocio?</p></div></details><details><summary>LA IA NO ES OPCIONAL EN SU NEGOCIO, ¡ES OBLIGATORIA!</summary><div class="contenido"><p>Desde hace 2 años, cuando apenas supimos de ella, la Inteligencia Artificial viene avanzando sin que nos demos cuenta, sin saber de sus impactos en todas las áreas de nuestras vidas. Si la revolución industrial modificó severamente la civilización, el desarrollo de la IA lo hará elevando esas transformaciones a la n potencia. No tenga duda.</p><p>No obstante, muy pocas personas lo perciben de esa forma, lo cual seguramente les acarreará costos en unos pocos años, que no serán capaces de pagar. Transformaciones que ya están ocurriendo hoy, y muchas otras, cambiarán nuestras vidas: la educación, la salud, el trabajo, la vivienda, el transporte, la economía, la diversión, etc.</p><p>En concreto, amigo empresario, a la IA no le importa si usted cree en ella o no. Llegará a su vida y a su negocio y cambiará todo. Si usted la sigue ignorando, ella lo arrasará sin piedad; asolará su vida.</p><p>Daré sólo algunos ejemplos. En la educación, si la IA ya hoy puede crear un Manual para la enseñanza de una asignatura cualquiera, ¿cuál será el nuevo papel del profesor, sabiendo que la IA tiene la teoría, puede desarrollar clases una a una, realizar ejemplos, elaborar diagramas, mapas mentales, tablas en Excel, presentaciones, etc.?</p><p>En la Dirección de una empresa, si la IA puede alimentar un Gerente con Inteligencia Artificial, con la historia de la empresa, el sector económico en el que se desempeña, el producto, las características del cliente, los costos y gastos, el precio, conceptos de marketing y ventas, estrategia, etc., ¿cómo tomar decisiones que no pasen por la evaluación de esa IA? La IA, representada por ese Gerente creado por ella misma, será un nuevo miembro de la Junta Directiva de su empresa. ¿Lo había imaginado?</p><p>En la salud, la IA tendrá toda la información acerca de su organismo; su historia clínica; las patologías que haya sufrido; las posibles enfermedades que le sobrevendrán. Entonces, ¿qué actividad desempeñará el médico general?</p><p>En el trabajo, la IA realizará miles de funciones y reemplazará con mayor eficacia, eficiencia y efectividad al trabajador, sobre todo en funciones que son repetitivas. Así las cosas, ¿qué deberá hacer el trabajador que se dedica a ese tipo de labores, cuando un bot lo reemplace?</p><p>En el transporte, la IA proveerá nuevas formas de transporte y, en muchos casos, sobre todo en el trabajo, hará innecesario el transporte hasta una oficina, ahorrando miles de horas que pueden ser dedicadas a otras actividades.</p><p>Considero que los anteriores ejemplos son suficientes para entender cómo nuestras vidas serán transformadas, no dentro de 10 años como antes se proyectaba, sino en unos 3 ó 4 años. Ese nuevo mundo está a la vuelta de la esquina.</p><p>Asomarse a ese próximo futuro, tan sólo con utilizar unas pocas aplicaciones de la IA, produce no solamente real asombro, sino miedo, al pensar en cómo cambiarán tantas cosas y la enorme velocidad con la que la IA lo puede realizar.</p><p>Le contaré algo que ya me ocurrió. Hace menos de una semana le propuse a la IA un ejercicio en el que ella debía suponer 2 Balances consecutivos de una empresa ficticia, con sus correspondientes Estados de Resultados, para que realizara una serie de análisis financieros. Hacerlo en una clase con un grupo de estudiantes me tomaba 2 horas. La IA tardó menos de 3 minutos en hacerlo, incluido el análisis, gráficos, tablas y una presentación en Power Point.</p><p><p style="text-align:left;font-weight:bold;">Mis conclusiones al respecto:</p></p><p>1. Nos subimos ya mismo al avión de la IA o, en menos de 1 año, nuestros actuales conocimientos de nada nos servirán: hace menos de 1 semana se mostró en público la versión N. 5 de la IA.</p><p>2. Los que mayor riesgo corren hoy son los adolescentes y jóvenes, porque no saben lo que les espera, salvo que los ayudemos a entenderlo. Se trata de la llegada de una nueva educación.</p><p>3. La IA no es una máquina para que responda preguntas, por difíciles que sean. Se trata de una verdadera inteligencia que es capaz de construir diferentes cosas para el hombre, guiada por el mismo con instrucciones que la hagan “pensar” y resolver problemas para los cuales no tenemos aún respuestas o son muy difíciles de obtener.</p></div></details>
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria"><img src="https://i.ibb.co/k2spzcq1/01.png" alt="Imagen"><img src="https://i.ibb.co/TMMJkqXd/02.png" alt="Imagen"><img src="https://i.ibb.co/7xN72XMB/03.png" alt="Imagen"><img src="https://i.ibb.co/5gfV71hF/04.png" alt="Imagen"><img src="https://i.ibb.co/VcbjHPpw/05.png" alt="Imagen"><img src="https://i.ibb.co/W4stRxxG/06.png" alt="Imagen"><img src="https://i.ibb.co/VRB4v4t/07.png" alt="Imagen"></div>
+      </div>
+    <div class="bloque">
+      <div class="mapa" style="text-align:center; position:relative;">
+        <iframe src="https://www.google.com/maps?output=embed&q=Cra%208%20%2318-60%2C%20Pereira%20%2C%20Risaralda%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div style="margin-top:10px;">
+          <a href="https://www.google.com/maps?q=Cra%208%20%2318-60%2C%20Pereira%20%2C%20Risaralda%0A%2F%2F%20Formato%20Cra.%208%20%2318-60%2C%20Ciuad%2C%20Departamente" target="_blank"
+             style="display:inline-block; background:rgb(2,51,48); color:white; padding:10px 16px; border-radius:8px; font-weight:bold; text-decoration:none; font-size:1rem;">
+             📌 Ver en Google Maps
+          </a>
+        </div>
+      </div>
+    </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Cra 8a No 18 60 Oficina 111</div><div>📍Pereira Risaralda</div><div><a href="mailto:hercarper@gmail.com" style="color:#007bff;text-decoration:underline;">✉️ Email: hercarper@gmail.com</a></div><div><a href="tel:+573016885914" style="color:#007bff;text-decoration:underline;">📲 Celular: +573016885914</a></div></div></div>
+    <div class="bloque" style="text-align:center;">
+      <div class="qr">
+        <h3 style="font-weight: 500; margin-bottom: 10px;">Escanea para acceder</h3>
+        <div style="display:inline-block; position:relative;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fhernanc001.html" 
+               id="codigoQRGenerado" 
+               alt="Código QR" 
+               style="width: 180px; height: 180px; border-radius: 12px;">
+          <img src="https://i.postimg.cc/Y9NSvXvN/image.png
+" 
+               alt="Logo Cliente" 
+               style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
+        </div>
+        <div>
+          <button onclick="descargarQR()" style="margin-top: 6px; font-size: 0.8rem; color: #555; background: none; border: none; cursor: pointer;">⬇️ Descargar QR</button>
+        </div>
+      </div>
+    </div>
+  <div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div>
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353?text=Hola,%20quiero%20mi%20Tarjeta%20Digital%20FolioPro,%20mi%20nombre%20es..." 
+       target="_blank" 
+       style="color:#022C2B; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+
+    <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
+      
+      <a href="https://wa.me/?text=Hola%2C%20Necesitas%20ayuda%20empresarial%3F%20Te%20comparto%20este%20link!!%20https%3A%2F%2Ffoliopro.github.io%2Fecard%2Fhernanc001.html" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/Dg8NNkgz/image.png" alt="Compartir" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="https://wa.me/573016885914?text=Hola%2C%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/mCdSYYw2/image.png" alt="WhatsApp" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="tel:+573016885914" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/M5pc1WwG/image.png" alt="Llamar" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+    </div>
+  
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+
+<!-- Modal para documentos externos -->
+<div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; width:90%; height:90%; max-width:900px; position:relative;">
+    <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+
+<!-- 🔐 Modal protegido con contraseña -->
+  <div id="modalProtegido" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; border-radius:12px; text-align:center; max-width:400px; width:90%; box-shadow:0 4px 8px rgba(0,0,0,0.2); position:relative;">
+      <span onclick="document.getElementById('modalProtegido').style.display='none'" style="position:absolute; top:10px; right:20px; cursor:pointer;">❌</span>
+      <h3 style="margin-bottom:12px;">🔐 Ingresa la contraseña</h3>
+      <input type="password" id="claveProtegida" placeholder="Contraseña" style="padding:10px; width:80%; font-size:1rem; border:1px solid #ccc; border-radius:8px;">
+      <div id="mensajeError" style="color:red; font-size:0.9rem; margin-top:8px;"></div>
+      <button onclick="validarClaveProtegida()" style="margin-top:16px; padding:10px 20px; background:#1976d2; color:white; border:none; border-radius:8px; cursor:pointer;">Acceder</button>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+    // Abre la primera sección automáticamente
+    // document.querySelector('details')?.setAttribute("open", "true");
+
+const secciones = document.querySelectorAll('details');
+secciones.forEach(d => {
+  d.removeAttribute('open');
+
+  d.addEventListener('toggle', function () {
+    if (this.open) {
+      secciones.forEach(o => { if (o !== this) o.removeAttribute('open'); });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+    
+
+// 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+  const fechaVenc = new Date("");
+  if (Date.now() > fechaVenc.getTime()) {
+    document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+      '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+      '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+      '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20' + "mi-tarjeta" + '.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+      ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+      '📱 Contactar por WhatsApp' +
+      '</a>' +
+    '</div>';
+  }
+
+
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+console.log("🧪 El script de contraseña se está ejecutando...");
+  const clave = "";
+  if (clave !== "") {
+    const mensaje = "🔒 Esta tarjeta está protegida.\nIngresa la contraseña para continuar:";
+    const claveIngresada = prompt(mensaje);
+    if (claveIngresada !== clave) {
+      document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+    }
+  }
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+
+
+
+// 👇 Función para abrir documentos externos en modal
+function abrirDocumentoModal(url) {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = url;
+  modal.style.display = 'block';
+}
+function cerrarDocumentoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+
+// 🔐 Función para @urlp
+    let linkProtegido = '';
+    let claveEsperada = '';
+
+    function mostrarProtegido(id, clave, link) {
+      claveEsperada = clave;
+      linkProtegido = link;
+      document.getElementById('modalProtegido').style.display = 'flex';
+      document.getElementById('claveProtegida').value = '';
+      document.getElementById('mensajeError').textContent = '';
+    }
+
+    function validarClaveProtegida() {
+      const ingresada = document.getElementById('claveProtegida').value;
+      if (ingresada === claveEsperada) {
+        window.open(linkProtegido, '_blank');
+        document.getElementById('modalProtegido').style.display = 'none';
+      } else {
+        document.getElementById('mensajeError').textContent = '❌ Contraseña incorrecta';
+      }
+    }
+
+
+
+
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = true;
+
+
+// Funciones para abrir y cerrar documentos externos en modal
+function abrirEnlaceExternoModal(url) {
+  try {
+    const iframe = document.getElementById('iframeDocumento');
+    const modal = document.getElementById('modalDocumento');
+
+    iframe.src = url;
+    modal.style.display = 'block';
+
+    setTimeout(() => {
+      if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+        window.open(url, '_blank');
+        cerrarEnlaceExternoModal();
+      }
+    }, 3000);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+function cerrarEnlaceExternoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+  </script>
+</body>
+</html>
