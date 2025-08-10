@@ -632,6 +632,11 @@ if (datos.SECCIONES) {
     const titulo = lineas[0]?.trim() || '';
     const cuerpo = lineas.slice(1).map(l => l.trim()).filter(Boolean);
 
+// 🚫 Si es sección oculta (&hide:), no la mostramos
+  if (titulo.toLowerCase().startsWith('&hide:')) {
+    return; // saltar a la siguiente sección
+  }
+
     // 💡 Si solo hay un {goto}, tratamos esta sección como menú externo
     const esMenu = cuerpo.length === 1 && /{goto}:\s*(\w[\w\-]*)/.test(cuerpo[0]);
 
@@ -845,7 +850,7 @@ if (datos.LINK_QR) {
                id="codigoQRGenerado" 
                alt="Código QR" 
                style="width: 180px; height: 180px; border-radius: 12px;">
-          <img src="${datos.LOGO || 'https://i.ibb.co/hFB5PxDS/Logo-cuadrado.png'}" 
+          <img src="${datos.LOGO || 'https://i.ibb.co/NvhvBvF/image.png'}" 
                alt="Logo Cliente" 
                style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
         </div>
