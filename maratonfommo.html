@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FolioPro - Mi Portafolio Digital</title>
+<meta property="og:title" content="MARATON DEL EXITO
+">
+<meta property="og:description" content="La fuerza Imparable de las Ventas !!!
+">
+<meta property="og:image" content="https://i.ibb.co/SXb3QZbx/logo.jpg
+">
+<meta property="og:url" content="https://foliopro.github.io/ecard/ejemplo.html">
+<meta property="og:type" content="website">
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+
+
+
+
+
+
+
+  <style>
+
+    
+    body { font-family: 'Inter', sans-serif; background: #f4f8ff; margin: 0 auto; padding: 20px; max-width: 800px; font-size: clamp(1.2rem, 4vw, 1.6rem); line-height: 1.4; }
+    textarea { width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+    
+button {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #0056b3;
+}
+
+.portada {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.logo {
+  width: 18%;
+  max-width: 140px;
+  min-width: 60px;
+  height: auto;
+  border-radius: 50%;
+  display: block;
+  margin: -50px auto 10px;
+  border: 4px solid #fff;
+  background: #fff;
+}
+
+//    .logo { width: 15%; max-width: 120px; min-width: 60px; height: auto; border-radius: 50%; display: block; margin: -50px auto 10px; border: 4px solid #fff; background: #fff; }
+
+    h2, h3, .descripcion, .ubicacion-line, .redes-line { text-align: center; }
+    
+    h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a90e2; margin: 8px 0; }
+    h3 { font-size: clamp(1.2rem, 4vw, 1.5rem); color: #555; margin: 6px 0; font-weight: 400; }
+    .descripcion { font-size: clamp(1.1rem, 4vw, 1.4rem); color: #333; font-weight: 400; margin: 6px 0; }
+
+    details { margin: 4px 0; border-radius: 6px; overflow: hidden; }
+    details summary { background: #007bff; color: #fff; padding: 15px; font-size: clamp(1.2rem, 3.5vw, 1.6rem); cursor: pointer; font-weight: 600; }
+
+
+.fake-summary {
+  background: #643771; /* asegúrate que sea el color por defecto o usa variable JS */
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px;
+  cursor: pointer;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem); /* exacto al summary */
+  border-radius: 6px;
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+details summary {
+  background: ${colorBoton};
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+
+
+    .contenido {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      margin-top: 5px;
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+    }
+
+    
+    .contacto, .qr, .firma, .descargar { text-align: center; margin: 20px 0; }
+    .redes-line { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .redes-line img { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+    .redes-line img:hover { transform: scale(1.1); }
+    pre { background: #eee; padding: 15px; border-radius: 6px; white-space: pre-wrap; font-size: 1rem; display: none; height: auto; max-height: 10em; overflow: auto; }
+
+    .bloque {
+  background: white;
+  border: 1px solid #ddd; /* Borde sutil visible en fondos blancos */
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  max-width: 95%;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+.bloque:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ccc; /* Sutil cambio al pasar el mouse */
+}
+
+
+details[open] .contenido {
+  animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.galeria {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 12px;
+  padding: 10px;
+}
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  object-fit: contain;
+  scroll-snap-align: center;
+}
+
+.galeria iframe {
+  flex: 0 0 auto;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
+  scroll-snap-align: center;
+}
+
+.galeria::-webkit-scrollbar {
+  height: 8px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(145deg, #0d6efd, #0a58ca);
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px; /* redondeado solo abajo */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+body {
+  padding-top: 80px;
+}
+
+
+  .folio-footer {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 998;
+}
+.folio-footer a {
+  color: #001f4d; /* Azul oscuro visible */
+  text-decoration: none;
+  font-weight: 600;
+  font-style: italic;
+  transition: color 0.3s;
+}
+.folio-footer a:hover {
+  color: white;
+}
+
+
+.redes-line a img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%; /* forma circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  object-fit: cover;
+}
+
+.redes-line a img:hover {
+  transform: translateY(-3px) scale(1.05); /* efecto al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra más intensa al hover */
+}
+
+
+    
+  
+document.getElementById
+.titulo-flotante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #643771; /* ← Ahora toma el color del usuario */
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
+  font-weight: bold;
+  padding: 14px 30px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+body {
+  padding-top: 80px;
+}
+
+
+
+
+
+    body {
+  background: #f4f8ff;
+}
+
+
+details {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+details summary {
+  background: #643771;
+  color: white;
+  text-align: left; /* 👈 Lo cambiamos a left */
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  list-style: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+}
+
+
+details summary:hover {
+  filter: brightness(1.15);
+}
+
+details[open] summary {
+  filter: brightness(0.9); /* Oscurece ligeramente al estar abierto */
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+
+  </style>
+</head>
+<body>
+  
+  <div style="text-align:center; font-size:0.9rem; background:#e0f0ff; padding:8px 12px; border-radius:8px; margin-bottom:12px;">
+    <a href="https://wa.me/573117715353" target="_blank" style="color:#007bff; text-decoration:none; font-weight:500;">
+      🚀 FolioPro – Tu marca y tu historia en un Portafolio Digital
+    </a>
+  </div>
+<img class="portada" src="https://www.negociodigital.com/wp-content/uploads/2020/03/business-team-celebrating-a-good-job-in-the-office-Y3VZMNL-1-1200x800.jpg
+" alt="Portada"><img class="logo" src="https://i.ibb.co/SXb3QZbx/logo.jpg
+" alt="Logo"><div class="titulo-flotante">MARATON DEL EXITO
+</div><div class="folio-footer">
+      <a href="https://wa.me/573117715353" target="_blank" title="Escríbenos a FolioPro">
+        🚀 By FolioPro
+      </a>
+      </div><div class="bloque"><h2>MARATON DEL EXITO
+</h2></div><div class="bloque"><p class='descripcion' style="font-weight:600; text-align:center;">La fuerza Imparable de las Ventas !!!
+</p></div><div class="bloque"><p style="text-align:center;">🌟 Solo los líderes audaces dominan el mercado.
+
+En un mundo cambiante, la visión, la estrategia y la innovación no son opcionales: son la clave del éxito.
+Maratón del Éxito es más que un evento: es una experiencia transformadora diseñada para empresarios, ejecutivos y emprendedores que quieren marcar la diferencia.
+Durante una jornada de alto impacto, descubrirás cómo aplicar IA, marketing de última generación, servicio al cliente de clase mundial y nuevas estrategias de ventas para llevar tu negocio al siguiente nivel.
+Este no es un evento para todos. Es para los que lideran el cambio.
+🚀 Las plazas son limitadas. No te quedes fuera.
+</p></div><details><summary>JUSTIFICACION</summary><div class="contenido"><img src="https://negociosyempresa.com/wp-content/uploads/2016/11/mujer-brazos-cruzados-equipo-de-trabajo-brazos-levantados.jpg" style="width:90%;display:block;margin:10px auto;"><p>En un entorno comercial donde el cambio es la única constante, las empresas y líderes que sobreviven no son los más grandes, sino los más ágiles, conectados y estratégicos. Hoy más que nunca, vender no es simplemente ofrecer un producto: es generar valor, anticiparse al mercado, integrar tecnología, liderar con visión y crear experiencias memorables.</p><p>La Maratón del Éxito nace como una experiencia transformadora, diseñada para brindar herramientas concretas y una visión de futuro a quienes desean dejar de reaccionar al mercado… y empezar a liderarlo.</p></div></details><details><summary>PARA QUIEN ES ESTE EVENTO</summary><div class="contenido"><img src="https://www.laprensagrafica.com/__export/1506356566048/sites/prensagrafica/img/2017/09/25/cxmo_ser_un_emprendedor_exitoso.jpg_423682103.jpg" style="width:90%;display:block;margin:10px auto;"><p>Este evento no es para todos.</p><p>Es para aquellos que están listos para dejar atrás la mediocridad, romper con lo obsoleto y entrar en la era de la venta estratégica, el liderazgo auténtico y la innovación aplicada.</p><p>Está dirigido a:</p><p>- Empresarios y fundadores que quieren escalar con visión.</p><p>- Ejecutivos comerciales que buscan liderar con datos y resultados.</p><p>- Emprendedores que desean vender más, mejor y con sentido.</p><p>- Gerentes de marketing, ventas y servicio que no aceptan estancarse.</p><p>- Equipos comerciales que necesitan nuevas herramientas para impactar.</p><p>Este evento es para los que eligen avanzar. No para los que se conforman.</p></div></details><details><summary>CONFERENCIA 1:MARKETING DIGITAL: ACCION PARA MEJORES VENTAS</summary><div class="contenido"><img src="https://www.dialapplet.com/wp-content/uploads/2023/12/ia-en-ventas-call-center.jpg" style="width:90%;display:block;margin:10px auto;"><p>La era digital no espera a nadie. Los consumidores se mueven rápido, cambian de canal y toman decisiones informadas en segundos. En esta conferencia descubrirás cómo dejar de perseguir clientes y empezar a atraerlos con estrategias digitales efectivas, actuales y medibles.</p><p>Aprenderás cómo activar campañas que conectan, cómo adaptar tu propuesta a cada canal y cómo usar los datos para tomar decisiones que venden.</p><p><span style="font-style:italic;">¿Por qué este tema es importante?</span></p><p>Porque la visibilidad ya no se gana con anuncios genéricos</p><p>Porque los canales digitales son los nuevos campos de batalla comerciales</p><p>Porque quien domina la estrategia digital, domina al cliente moderno</p><p><span style="font-style:italic;">Aprenderás a:</span></p><p>✅ Crear campañas multicanal orientadas a resultados</p><p>✅ Usar contenido y automatización para escalar tus ventas</p><p>✅ Medir, optimizar y repetir lo que funciona</p></div></details><details><summary>CONFERENCIA 2: INTELIGENCIA ARTIFICIALEN EL MARAVILLOSO MUNDO DE LAS VENTAS</summary><div class="contenido"><img src="https://cdn.shopify.com/s/files/1/0229/0839/articles/clients.jpg" style="width:90%;display:block;margin:10px auto;"><p>La Inteligencia Artificial ha llegado para quedarse… y multiplicar tus ventas si sabes usarla. En esta conferencia descubrirás herramientas concretas para convertir datos en decisiones, automatizar procesos de prospección, personalizar tus mensajes y potenciar a tu equipo comercial sin reemplazarlo.</p><p><span style="font-style:italic;">¿Por qué este tema es importante?</span></p><p>- Porque el que entiende la IA, se adelanta al mercado</p><p>- Porque la eficiencia no es una opción, es supervivencia</p><p>- Porque el vendedor moderno es un híbrido entre intuición y tecnología</p><p><span style="font-style:italic;">Aprenderás a:</span></p><p>✅ Implementar herramientas de IA en tu proceso de ventas</p><p>✅ Identificar patrones de comportamiento de clientes</p><p>✅ Predecir y aumentar conversiones con datos reales</p></div></details><details><summary>CONFERENCIA 3: SERVICIO AL CLIENTE POSMODERNO</summary><div class="contenido"><img src="https://img.interempresas.net/fotos/2720361.png" style="width:90%;display:block;margin:10px auto;"><p>Los clientes de hoy no quieren solo ser atendidos: quieren sentirse comprendidos, valorados y sorprendidos. Esta conferencia rompe los esquemas tradicionales de servicio y te enseña cómo crear experiencias memorables que fidelizan, diferencian y multiplican tus recomendaciones.</p><p><span style="font-style:italic;">¿Por qué este tema es importante?</span></p><p>- Porque el servicio es tu mayor ventaja competitiva en mercados saturados</p><p>- Porque un cliente bien atendido no solo compra, recomienda</p><p>- Porque lo emocional vende más que lo racional</p><p><span style="font-style:italic;">Aprenderás a:</span></p><p>✅ Diseñar experiencias WOW en cada punto de contacto</p><p>✅ Convertir errores en oportunidades de fidelización</p><p>✅ Transformar tu equipo en embajadores de marca</p></div></details><details><summary>CONFERENCIA 4: CÓMO VENDER SIN VENDER</summary><div class="contenido"><img src="https://bold.com.ec/wp-content/uploads/2021/06/arquetipos-caracteristicas-vendedor-exitoso.jpg" style="width:90%;display:block;margin:10px auto;"><p>La venta tradicional está agotada. Esta conferencia te mostrará cómo las estrategias de persuasión ética, storytelling y conexión auténtica superan al discurso agresivo. Aquí aprenderás el arte de influir sin presionar, de guiar sin forzar, de vender sin que el cliente sienta que le están vendiendo.</p><p><span style="font-style:italic;">¿Por qué este tema es importante?</span></p><p>- Porque los clientes huyen de los vendedores, pero siguen a los líderes</p><p>- Porque vender es conectar, no empujar</p><p>- Porque el nuevo cliente quiere elegir, no ser convencido</p><p><span style="font-style:italic;">Aprenderás a:</span></p><p>✅ Conectar con el cliente desde su necesidad, no desde tu meta</p><p>✅ Usar narrativas que movilizan decisiones</p><p>✅ Elevar tu tasa de cierre con estrategias invisibles pero poderosas</p></div></details><details><summary>CONFERENCIA 5: ORATORIA DE PRIMER NIVEL PARA VENDER MUCHO MAS</summary><div class="contenido"><img src="https://www.ventasdealtooctanaje.com/wp-content/uploads/2023/06/motivar-al-equipo-de-ventas.jpg" style="width:90%;display:block;margin:10px auto;"><p>Tu voz, tu presencia, tu seguridad… todo eso vende. Esta conferencia es un entrenamiento práctico para convertir tu comunicación en una herramienta comercial imbatible. No se trata de hablar bonito, sino de hablar con propósito, con estructura y con resultados.</p><p><span style="font-style:italic;">¿Por qué este tema es importante?</span></p><p>- Porque cada presentación es una venta</p><p>- Porque comunicar bien te posiciona como autoridad</p><p>- Porque lo que dices y cómo lo dices influye en el cierre</p><p><span style="font-style:italic;">Aprenderás a:</span></p><p>✅ Diseñar discursos comerciales que impactan</p><p>✅ Comunicar con poder, claridad y autenticidad</p><p>✅ Usar la voz, el cuerpo y la emoción como herramientas de venta</p></div></details><details><summary>HAZ QUE EL FUTURO DE TUS VENTAS EMPIECE HOY</summary><div class="contenido"><img src="https://www.hubspot.com/hubfs/media/fuerzaventas.jpeg" style="width:90%;display:block;margin:10px auto;"><p><span style="font-style:italic;">Este es el momento de tomar una decisión:</span></p><p>¿Seguir vendiendo como siempre o convertirte en la fuerza que lidera las ventas del futuro?</p><p><span style="font-style:italic;">La Maratón del Éxito no es un evento más: ES EL EVENTO.</span></p><p>Una jornada intensa, transformadora y exclusiva para quienes no se conforman con lo mismo.</p><p>🎟️ Cupos limitados. Reserva tu lugar hoy.</p><p>No te quedes fuera de la experiencia que marcará un antes y un después en tu visión comercial.</p><p>👇</p><p><span style="font-style:italic;">[Reserva tu entrada ahora]</span></p></div></details><details><summary>INFORMACION DEL EVENTO</summary><div class="contenido"><img src="https://www.hubspot.com/hubfs/media/fuerzaventas.jpeg" style="width:90%;display:block;margin:10px auto;"><p><span style="font-style:italic;">Fecha:</span></p><p>Sabado 27 de septiembre de 2025</p><p><span style="font-style:italic;">Lugar:</span></p><p>Auditorio Rodrigo Rivera de la Universidad Libre de Pereira, Seccional Belmonte</p><p><span style="font-style:italic;">Horario:</span></p><p>8:am a 5:00pm</p><p><span style="font-style:italic;">INCLUYE:</span></p><p>- Almuerzo</p><p>- Breaks</p><p>- Agua</p><p>- Coffe</p><p>- Certificación</p><p>- Memorias igitales para cada uno de los asistentes</p><p>- Souvenirs</p><p>Pausas Activas entre cada conferencia</p><p><span style="font-style:italic;">INVERSION DEL EVENTO:</span></p><p>Ticket $225.000= por Persona Asistente</p></div></details>
+      <div class="bloque">
+        <h3 style="text-align:center;">📷 Galería de Imágenes</h3>
+        <p style="text-align:center;">Haz clic en una imagen para ver la descripción</p>
+        <div class="galeria"><img src="https://www.overlap.net/co/wp-content/uploads/sites/5/2024/06/Como-Liderar-un-Equipo-de-Ventas-Exitoso.png" alt="Imagen"><img src="https://stockagile.com/wp-content/uploads/2022/07/iStock-1092645806.jpg" alt="Imagen"><img src="https://www.triario.co/hubfs/blog-files/Blog%20-%20Estrategias%20de%20contenido/destacada.png" alt="Imagen"></div>
+      </div>
+      <div class="bloque">
+        <h3 style="text-align:center;">🎥 Galería de Videos</h3>
+        <p style="text-align:center;">Desliza a la derecha o izquierda para ver todos los videos</p>
+        <div class="galeria"><iframe width="300" height="180" src="https://www.youtube.com/embed/p4X_YCHjgSA" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/aWY1xdPkt6s" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/26qztvKNcyA" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/fVJWGwWI5TY" frameborder="0" allowfullscreen></iframe><iframe width="300" height="180" src="https://www.youtube.com/embed/zuQtpa8RspY" frameborder="0" allowfullscreen></iframe></div>
+      </div>
+          <div class="bloque">
+            <div class="mapa" style="text-align:center;">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d53491.77239339044!2d-75.71727717621333!3d4.804407779145724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sco!4v1749078205965!5m2!1ses-419!2sco
+" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div><div class="bloque"><div class="contacto ubicacion-line"><div>📍Eje Cafetero de Colombia</div><div>📍Pereira, Armenia, Manizales</div><div><a href="mailto:Todospodemos2013@hotmail.es" style="color:#007bff;text-decoration:underline;">✉️ Email: Todospodemos2013@hotmail.es</a></div></div></div><div class="redes-line"><a href="https://www.facebook.com/CompaniaCidems" target="_blank"><img src="https://i.ibb.co/6JJ5FZ1S/IFbook.png" alt="facebook" title="Facebook"></a><a href="https://www.instagram.com/compania_cidems/" target="_blank"><img src="https://i.ibb.co/chCqtLkw/IInstagram.png" alt="instagram" title="Instagram"></a><a href="https://www.youtube.com/@cidemscompania2798" target="_blank"><img src="https://i.ibb.co/VYxJpn7X/IYoutube.png" alt="youtube" title="Youtube"></a><a href="https://wa.me/573145679454" target="_blank"><img src="https://i.ibb.co/bgnHxP1y/IWapp.png" alt="whatsapp" title="Whatsapp"></a></div>
+    <div class="bloque" style="text-align:center;">
+      <div class="qr">
+        <h3 style="font-weight: 500; margin-bottom: 10px;">Escanea para acceder</h3>
+        <div style="display:inline-block; position:relative;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fi.ibb.co%2F9Hg00FGB%2Fqrmaratonexito.png" 
+               id="codigoQRGenerado" 
+               alt="Código QR" 
+               style="width: 180px; height: 180px; border-radius: 12px;">
+          <img src="https://i.ibb.co/hFB5PxDS/Logo-cuadrado.png" 
+               alt="Logo" 
+               style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:8px; background:white;">
+        </div>
+        <div>
+          <button onclick="descargarQR()" style="margin-top: 6px; font-size: 0.8rem; color: #555; background: none; border: none; cursor: pointer;">⬇️ Descargar QR</button>
+        </div>
+      </div>
+    </div>
+  <div class="descargar">
+        <button onclick="descargarVCF()">📥 Descargar Contacto</button>
+      </div><div class="firma"><p>Desarrollado por <a href='https://wa.me/573117715353'>SupensionPlus</a></p></div>
+    <div id="botonFlotante" style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999;">
+      
+
+      <a href="https://wa.me/573117715335?text=Hola%2C%20como%20podemos%20ayudarte" target="_blank" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/mCdSYYw2/image.png" alt="WhatsApp" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+
+      <a href="tel:+573117715353" style="display:inline-block; width:60px; height:60px;">
+        <img src="https://i.ibb.co/M5pc1WwG/image.png" alt="Llamar" style="width:100%; height:100%; object-fit:cover; border-radius:50%; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+      </a>
+    </div>
+  
+
+  <div class="modal" id="modalImagen" onclick="cerrarDescripcion()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+    <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:400px; position:relative; text-align:center;">
+      <span class="cerrar" onclick="cerrarDescripcion()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+      <div id="descripcionImagen" style="margin-top:20px; font-size:1.1rem;"></div>
+    </div>
+  </div>
+
+
+<!-- Modal para documentos externos -->
+<div class="modal" id="modalDocumento" onclick="cerrarEnlaceExternoModal()" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 9999;">
+  <div class="modal-contenido" onclick="event.stopPropagation()" style="background:#fff; margin:5% auto; padding:20px; border-radius:10px; width:90%; height:90%; max-width:900px; position:relative;">
+    <span class="cerrar" onclick="cerrarEnlaceExternoModal()" style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:1.5rem;">❌</span>
+    <iframe id="iframeDocumento" src="" style="width:100%; height:100%; border:none;"></iframe>
+  </div>
+</div>
+
+
+
+  <script>
+    // Abre la primera sección automáticamente
+    document.querySelector('details')?.setAttribute("open", "true");
+
+// 🔒 BLOQUEO SI LA TARJETA YA ESTÁ VENCIDA
+  const fechaVenc = new Date("");
+  if (Date.now() > fechaVenc.getTime()) {
+    document.body.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:#fefefe; text-align:center; padding:20px;">' +
+      '<h2 style="color:#c62828; font-size:1.6rem;">⛔ Esta tarjeta ha vencido</h2>' +
+      '<p style="margin-top:10px;">Si eres el creador, contacta con soporte para renovarla.</p>' +
+      '<a href="https://wa.me/573117715353?text=Hola,%20mi%20tarjeta%20' + "mi-tarjeta" + '.html%20está%20vencida.%20Quiero%20renovar%20la%20licencia.%20Mi%20nombre%20es..."' +
+      ' target="_blank" style="margin-top:20px; padding:12px 20px; background:#25d366; color:white; border:none; border-radius:8px; text-decoration:none; font-size:1.1rem;">' +
+      '📱 Contactar por WhatsApp' +
+      '</a>' +
+    '</div>';
+  }
+
+
+// 🔐 BLOQUEO POR CONTRASEÑA (en fullHTML)
+const claveTarjeta = "";
+if (claveTarjeta !== "") {
+  const claveIngresada = prompt("🔒 Esta tarjeta está protegida.
+Ingresa la contraseña para continuar:");
+  if (claveIngresada !== claveTarjeta) {
+    document.body.innerHTML = '<div style="text-align:center; padding:40px;"><h2>❌ Contraseña incorrecta</h2><p>No tienes acceso a esta tarjeta.</p></div>';
+  }
+}
+
+
+
+    function mostrarDescripcion(texto) {
+      const modal = document.getElementById('modalImagen');
+      const descBox = document.getElementById('descripcionImagen');
+      descBox.innerHTML = decodeURIComponent(texto);
+      modal.style.display = 'block';
+    }
+
+    function cerrarDescripcion() {
+      document.getElementById('modalImagen').style.display = 'none';
+    }
+
+
+
+
+// 👇 Función para abrir documentos externos en modal
+function abrirDocumentoModal(url) {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = url;
+  modal.style.display = 'block';
+}
+function cerrarDocumentoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+
+
+    function descargarVCF() {
+      const nombre = document.querySelector('h2')?.textContent || 'Contacto';
+      const descripcion = document.querySelector('.descripcion')?.textContent || '';
+      const telMatch = document.querySelector('.ubicacion-line')?.textContent.match(/\+?\d{7,}/);
+      const tel = telMatch ? telMatch[0] : '';
+      const emailMatch = document.querySelector('.ubicacion-line')?.textContent.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const email = emailMatch ? emailMatch[0] : '';
+
+      const vcf = `BEGIN:VCARD
+VERSION:3.0
+FN:${nombre}
+ORG:${descripcion}
+TEL:${tel}
+EMAIL:${email}
+END:VCARD`;
+
+      const blob = new Blob([vcf], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'contacto.vcf';
+      link.click();
+    }
+
+    // Exclusividad de secciones tipo details
+
+    let scrollHabilitado = false;
+
+
+document.querySelectorAll('details').forEach(d => {
+  d.addEventListener('toggle', function () {
+    if (this.open && scrollHabilitado) {
+      document.querySelectorAll('details').forEach(o => {
+        if (o !== this) o.removeAttribute('open');
+      });
+      setTimeout(() => {
+        this.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  });
+});
+
+
+// Funciones para abrir y cerrar documentos externos en modal
+function abrirEnlaceExternoModal(url) {
+  try {
+    const iframe = document.getElementById('iframeDocumento');
+    const modal = document.getElementById('modalDocumento');
+
+    iframe.src = url;
+    modal.style.display = 'block';
+
+    setTimeout(() => {
+      if (!iframe.contentWindow || iframe.contentDocument.body.innerHTML.trim() === '') {
+        window.open(url, '_blank');
+        cerrarEnlaceExternoModal();
+      }
+    }, 3000);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+function cerrarEnlaceExternoModal() {
+  const modal = document.getElementById('modalDocumento');
+  const iframe = document.getElementById('iframeDocumento');
+  iframe.src = '';
+  modal.style.display = 'none';
+}
+
+
+  </script>
+
+
+<!-- FOMO: pega esto antes de </body> -->
+<style>.fomo-notif{position:fixed; left:14px; right:auto; bottom:14px; max-width:360px; width:calc(100% - 28px); z-index:2147483000; display:flex; gap:10px; align-items:center; padding:12px; border-radius:14px; border:1px solid #152348; background:rgba(10,19,40,.92); color:#e7eefc; backdrop-filter:blur(6px); box-shadow:0 8px 20px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03); transform:translateY(16px); opacity:0; animation:fomo-pop .35s ease forwards; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Arial}
+.fomo-hide{animation:fomo-fade .25s ease forwards}
+.fomo-pfp{width:42px;height:42px;border-radius:999px;background:#0f214e;display:grid;place-items:center;font-weight:800;color:#a7c5ff;border:1px solid #213a71;overflow:hidden}
+.fomo-pfp img{width:100%;height:100%;object-fit:cover;display:block}
+.fomo-l1{font-weight:800}.fomo-l2{font-size:13px;color:#cfe0ff}.fomo-meta{font-size:12px;color:#9bb8ff}
+@keyframes fomo-pop{to{transform:translateY(0);opacity:1}}@keyframes fomo-fade{to{transform:translateY(10px);opacity:0}}</style>
+<script>
+(function(){try{
+  var cfg={"producto":"Maraton el Exito","moneda":"$","precio":"250000","mostrarPrecio":true,"mostrarLugar":true,"mostrarCargo":true,"pos":"bl","avatarModo":"iniciales","avatarUrl":"","intervalo":6,"duracion":4,"total":10,"nombres":["Juan Carlos Mejía","Ana María Gómez","Luis Fernando Torres","María Camila Rojas","Carlos Andrés Restrepo","Daniela Salazar","Jorge Iván Cardona","Laura Valentina Ospina","Andrés Felipe Giraldo","Catalina Ramírez","Sebastián Quintero","Paola Andrea Vélez","Diego Alejandro Patiño","Juliana López","Mauricio Castaño","Natalia Herrera","Felipe Arbeláez","Karen Sofía Montoya","Óscar Mauricio Valencia","Valentina Sánchez"],"cargos":["Gerente Comercial","Emprendedora","Jefe de Área","Directora de Marketing","Vendedor","Coordinadora de Ventas","Emprendedor","Ejecutiva de Cuentas","Gerente Comercial","Ejecutiva de Cuentas","Analista de Datos (IA)","Coordinadora de Ventas","Consultor Comercial","Gerente General","Vendedor","Gerente Comercial","Ejecutivo de Cuentas","Vendedora","Jefe de Área","Emprendedora"],"lugares":["Pereira /Colombia","Dosquebradas /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Dosquebradas /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Pereira /Colombia","Dosquebradas /Colombia","Pereira /Colombia","Armenia /Colombia"],"useNamePhotos":true,"photos":{"Ana Torres":"https://picsum.photos/seed/ana/96/96"}};
+  function rand(a){return a[Math.floor(Math.random()*a.length)]}
+  function cap(s){return s? s.charAt(0).toUpperCase()+s.slice(1):s}
+  function initials(n){if(!n)return'U';var p=n.trim().split(' ');var i=(p[0]?p[0][0]:'')+(p[1]?p[1][0]:'');return (i||'U').toUpperCase().slice(0,2)}
+  function rmin(){return Math.floor(Math.random()*17)+3}
+  function one(){
+    var n=rand(cfg.nombres||['Cliente']);
+    var cargo=(cfg.mostrarCargo&&(cfg.cargos||[]).length)?rand(cfg.cargos):null;
+    var lugar=(cfg.mostrarLugar&&(cfg.lugares||[]).length)?rand(cfg.lugares):null;
+    var tipo=rand(['viendo','comprando','compro_hace','registro','carrito','resena']);
+    var l1=n+(cargo?' — '+cargo:''); var l2=''; var meta=[];
+    if(tipo==='viendo') l2='está viendo '+cfg.producto+'.';
+    if(tipo==='comprando'){ l2='está comprando '+cfg.producto+' ahora mismo.'; if(cfg.mostrarPrecio&&cfg.precio) meta.push(cfg.moneda+Number(cfg.precio).toLocaleString()); }
+    if(tipo==='compro_hace'){ l2='compró '+cfg.producto+' hace '+rmin()+' min.'; if(cfg.mostrarPrecio&&cfg.precio) meta.push(cfg.moneda+Number(cfg.precio).toLocaleString()); }
+    if(tipo==='registro') l2='se registró para saber más sobre '+cfg.producto+'.';
+    if(tipo==='carrito'){ l2='agregó '+cfg.producto+' al carrito.'; if(cfg.mostrarPrecio&&cfg.precio) meta.push(cfg.moneda+Number(cfg.precio).toLocaleString()); }
+    if(tipo==='resena'){ var s=['★★★★☆','★★★★★','★★★☆☆'][Math.floor(Math.random()*3)]; l2='dejó una reseña '+s+' sobre '+cfg.producto+'.'; }
+    if(lugar) meta.push('desde '+lugar);
+    var avatar=(cfg.useNamePhotos&&cfg.photos&&cfg.photos[n])?cfg.photos[n]:((cfg.avatarModo==='imagen'&&cfg.avatarUrl)?cfg.avatarUrl:'');
+    var d=document.createElement('div'); d.className='fomo-notif'; if(cfg.pos==='br'){d.style.left='auto'; d.style.right='14px';}
+    d.innerHTML='<div class="fomo-pfp">'+(avatar?'<img src="'+avatar+'" alt="avatar">':initials(n))+'</div><div><div class="fomo-l1">'+cap(l1)+'</div><div class="fomo-l2">'+cap(l2)+'</div>'+(meta.length?'<div class="fomo-meta">'+meta.join(' • ')+'</div>':'')+'</div>';
+    document.body.appendChild(d); setTimeout(function(){ d.classList.add('fomo-hide'); setTimeout(function(){ d.remove(); },250); }, (cfg.duracion||4)*1000);
+  }
+  // inyecta CSS si no existe
+  var sid='fomo-style-embed'; if(!document.getElementById(sid)){ var st=document.createElement('style'); st.id=sid; st.textContent=".fomo-notif{position:fixed; left:14px; right:auto; bottom:14px; max-width:360px; width:calc(100% - 28px); z-index:2147483000; display:flex; gap:10px; align-items:center; padding:12px; border-radius:14px; border:1px solid #152348; background:rgba(10,19,40,.92); color:#e7eefc; backdrop-filter:blur(6px); box-shadow:0 8px 20px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03); transform:translateY(16px); opacity:0; animation:fomo-pop .35s ease forwards; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Arial}\n.fomo-hide{animation:fomo-fade .25s ease forwards}\n.fomo-pfp{width:42px;height:42px;border-radius:999px;background:#0f214e;display:grid;place-items:center;font-weight:800;color:#a7c5ff;border:1px solid #213a71;overflow:hidden}\n.fomo-pfp img{width:100%;height:100%;object-fit:cover;display:block}\n.fomo-l1{font-weight:800}.fomo-l2{font-size:13px;color:#cfe0ff}.fomo-meta{font-size:12px;color:#9bb8ff}\n@keyframes fomo-pop{to{transform:translateY(0);opacity:1}}@keyframes fomo-fade{to{transform:translateY(10px);opacity:0}}"; document.head.appendChild(st); }
+  // ciclo
+  one(); var left=(cfg.total||8)-1; var int=setInterval(function(){ if(left<=0){clearInterval(int);return;} one(); left--; }, Math.max(2,cfg.intervalo||6)*1000);
+}catch(e){console.error('FOMO embed error',e);} })();
+</script>
+
+
+
+</body>
+</html>
